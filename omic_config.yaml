@@ -4,15 +4,16 @@
 
 # GTF file for the genome build you would like to use
 gtf_file:
-  /home/groups/CEDAR/estabroj/indexes/Mus_musculus/UCSC/mm10/Annotation/Archives/archive-2015-07-17-14-33-26/Genes/genes.gtf
+  /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.gtf
 # Bed file for rseqc function read_distribution
 bed_file:
-  /home/groups/CEDAR/estabroj/beta4/data/mm10_MGC_gene.bed
+  /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
 # Pre-built STAR index
 star_index:
-  /home/groups/CEDAR/estabroj/indexes/Mus_musculus/UCSC/mm10/Sequence/Star2Index
+  /home/groups/CEDAR/anno/indices/star/hg38
+# Genome annotations file used for biotype analysis/QC
 filter_anno:
-  /home/groups/CEDAR/anno/biomaRt/hg38.Ens_90.biomaRt.geneAnno.Rdata
+  /home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata
 
 ####################################################################
 # Tool-specific files that will not change from project-to-project
@@ -21,40 +22,38 @@ filter_anno:
 # Fasta file including Illumina adapters to be trimmed out via bbduk
 bb_adapter:
   ./data/adapters.fa
-# Pre-built genome indexes for various organisms which we will screen against to look for contamination
+# Pre-built genome indexes for various organisms which we will screen against to 
+# look for contamination
 conf:
   /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf
 # Paths to various tools which are used in this pipeline
 star_tool:
   /home/groups/CEDAR/tools/STAR/tags/2.5.3a/bin/Linux_x86_64/STAR
 
-##########################################
-# Important project-specific paths/files
-##########################################
-
-# Metadata needed for differential expression analysis
-omic_meta_data:
-# tab delimited file
-  /path/to/metadata.txt
-
 ##############################################################################################
 # Project-specific specifications you will need to make prior to submission of the pipeline
 ##############################################################################################
 
-# Biotypes you would like to include in your gene counts table
-# Example: protein_coding,lincRNA,sRNA,rRNA,snRNA,snoRNA
-biotypes:
-  protein_coding
 # Unique project identifier which will be concatenated onto your counts table file name.
 project_id:
-  {project-id}
-# Genome assembly used for GO analysis, format must be as below, with the genome assembly first, and the version of ensembl second, separated by a period (Unless there is only one ensembl version, then just write assembly).
+  project-id
+# Genome assembly used for GO analysis.
+# Format must be as below, with the genome assembly first, and the version of ensembl second, separated by a period
+# (Unless there is only one ensembl version, then just write assembly)
 assembly:
-  mm10
-# remove mito genes (1/0)
+  hg38.94
+# Metadata needed for differential expression analysis
+omic_meta_data:
+# tab delimited file
+  /path/to/metadata.txt
+# Biotypes you would like to include in your gene counts table 
+# Examples: protein_coding, lincRNA, sRNA, rRNA, snRNA, snoRNA, etc.
+biotypes:
+  protein_coding
+# Remove mito genes (no = 0; yes = 1)
 mito:
   1
-# option to print GO term tree (0/1)
+# option to print GO term tree (no = 0; yes = 1)
 printTree:
   1
 # fold change cutoff (not log2 transformed) for GO analysis and volcano pot
@@ -65,15 +64,18 @@ adjp:
   0.01
 seq_layout:
   PE
-# The column name of the characteristic you would like to do DE on. Example: Diagnosis, genotype, etc. This must be a column in your omic_meta_data.
+# The column name of the characteristic you would like to do DE on
+# Examples: Diagnosis, genotype, condition, etc.) 
+# This must be a column in your omic_meta_data.
 linear_model:
-  #Column name in meta data file to generate contrasts by
   Condition
-# The column name in which your sampleIDs are defined in omic_meta_data. These should match the sampleIDs in your fastq files.
+# The column name in which your sampleIDs are defined in omic_meta_data (i.e., column 1)
+# These should match the sampleIDs in your fastq files.
 sample_id:
-  #Column name listing unique sample ids to be used. This needs to be the first column in the meta data file
   SampleID
-# The column names in your omic_meta_data file which you would like to annotate your heatmaps by. This is used as a QC to look for batch effects. Enter columns which could potentially introduce a batch effect in your data.
+# The column names in your omic_meta_data file which you would like to annotate your heatmaps by. 
+# This is used as a QC to look for batch effects. 
+# Enter columns which could potentially introduce a batch effect in your data.
 meta_columns_to_plot:
   Time: Time
   Condition: Condition
@@ -82,13 +84,15 @@ pca:
   labels:
     #Column name in meta data file to generate group files and comparisons
     - Condition
+    - Time
+    - Lane
 # Contrasts which you would like to run differential expression on.
 # For example if you want to look at wild type (wt) vs. mutant (mut), you would specify mut-vs-wt
 # It is important that when listing your types here, you write your baseline SECOND
 diffexp:
   # contrasts to generate group files and perform comparisons
   contrasts:
-    baseline-vs-contrast:
+    contrast-vs-baseline:
       - contrast
       - baseline
   # This option is specified if you would like to run DESeq2 on a subset of your samples (> pairwise comparison)
@@ -98,8 +102,8 @@ diffexp:
     - baseline
 # If you would like to colour your QC plots by an RColorBrewer palette, list that palette under the rcolorbrewer parameter, otherwise, write "NA"
 # If you would like to colour your QC plots by specific colours, please list them under the discrete category, with one colour for each bullet point
-## The discrete colours will be assigned to your Conditions (ie. linear_model) in the order that they show up in your metadata table, when it is ordered alphabetically by sample ID
-## There must be the same number of colours listed as there are Conditions
+# The discrete colours will be assigned to your Conditions (ie. linear_model) in the order that they show up in your metadata table, when it is ordered alphabetically by sample ID
+# There must be the same number of colours listed as there are Conditions
 # If no options are specified, the default ggplot2 colours are used
 colors:
   rcolorbrewer:
