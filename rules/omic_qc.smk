@@ -55,6 +55,16 @@ rule read_distribution:
     shell:
         "read_distribution.py -i {input} -r {params.bed} > {output}"
 
+
+rule compile_rd:
+    input:
+        expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.txt", sample=SAMPLES)
+    output:
+        "results/tables/read_coverage.txt"
+    script:
+        "../scripts/get_rd.py"
+        
+
 rule read_GC:
     input:
         "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
@@ -67,3 +77,14 @@ rule read_GC:
     shell:
         "read_GC.py -i {input} -o rseqc/read_GC/{wildcards.sample}/{wildcards.sample}"
 
+
+rule test:
+    input:
+        rDist = "results/tables/read_coverage.txt"
+        counts = "data/{project_id}_counts.txt".format(project_id=config["project_id"])
+    params:
+        samples = config["omic_meta_data"],
+        anno = config["filter_anno"],
+    output:
+        combo_plot = "results/diffexp/group/counts_biotype_geneAttr.pdf"
+        biotype_table = "results/diffexp/group/biotype_dist.txt

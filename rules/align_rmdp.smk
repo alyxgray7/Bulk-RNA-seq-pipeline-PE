@@ -121,6 +121,7 @@ rule compile_star_counts:
     script:
         "../scripts/compile_star_counts.py"
 
+
 rule filter_counts:
     input:
         countsFile="data/{project_id}_counts.txt".format(project_id=config["project_id"])

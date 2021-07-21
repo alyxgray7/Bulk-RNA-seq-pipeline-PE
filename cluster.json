@@ -114,6 +114,14 @@
         "c" : 1,
         "mem":10000
     },
+    "compile_rd" :
+    {
+	"J" : "compile_rd",
+	"e" : "logs/compile_rd/compile_rd_%j.err",
+	"o" : "logs/compile_rd/compile_rd_%j.out",
+	"c" : 1,
+	"mem":10000
+    },
     "read_GC" :
     {
         "J" : "read_GC",
