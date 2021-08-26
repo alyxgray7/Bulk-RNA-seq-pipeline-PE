@@ -63,7 +63,7 @@ rule compile_rd:
         "results/tables/read_coverage.txt"
     script:
         "../scripts/get_rd.py"
-        
+
 
 rule read_GC:
     input:
@@ -78,13 +78,16 @@ rule read_GC:
         "read_GC.py -i {input} -o rseqc/read_GC/{wildcards.sample}/{wildcards.sample}"
 
 
-rule test:
+rule geneBody_coverage:
     input:
-        rDist = "results/tables/read_coverage.txt"
-        counts = "data/{project_id}_counts.txt".format(project_id=config["project_id"])
+        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
     params:
-        samples = config["omic_meta_data"],
-        anno = config["filter_anno"],
+        bed=config['bed_file']
     output:
-        combo_plot = "results/diffexp/group/counts_biotype_geneAttr.pdf"
-        biotype_table = "results/diffexp/group/biotype_dist.txt
+        "rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf",
+        "rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.r",
+        "rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.txt"
+    conda:
+        "../envs/rseqc.yaml"
+    shell:
+        "geneBody_coverage.py -r {params.bed} -i {input} -o rseqc/geneBody_coverage/{wildcards.sample}/{wildcards.sample}"

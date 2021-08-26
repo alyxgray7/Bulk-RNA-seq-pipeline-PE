@@ -27,6 +27,7 @@ insertion_and_clipping_prof_ext = ['r','R1.pdf','R2.pdf','xls']
 inner_distance_ext = ['_freq.txt','_plot.pdf','_plot.r','.txt']
 read_dist_ext = ['txt']
 read_gc_ext = ['.xls','_plot.r','_plot.pdf']
+plotNames = ['biotypes', 'mappings', 'readSummary']
 
 
 with open('cluster.json') as json_file:
@@ -77,6 +78,7 @@ for sample in SAMPLES:
 rule all:
     input:
         expand("results/tables/{project_id}_STAR_mapping_statistics.txt", project_id = config['project_id']),
+        expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai", sample = SAMPLES),
         expand("samples/fastqc/{sample}/{sample}_{fastq_ext}_t.good_fastqc.zip", sample = SAMPLES, fastq_ext = fastq_ext),
         expand("samples/fastqscreen/{sample}/{sample}_{fastq_ext}_t.good_screen.{fastqscreen_ext}", sample=SAMPLES, fastq_ext=fastq_ext, fastqscreen_ext=fastqscreen_ext),
         expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
@@ -85,6 +87,8 @@ rule all:
         expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.{ext}", sample = SAMPLES, ext = read_dist_ext),
         "results/tables/read_coverage.txt",
         expand("rseqc/read_GC/{sample}/{sample}.GC{ext}", sample = SAMPLES, ext = read_gc_ext),
+        expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
+        expand("results/readQC_plots/{plot}.pdf", plot = plotNames),
         expand("results/diffexp/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
         "results/diffexp/group/LRT_pca.pdf",
         "results/diffexp/group/MDS_table.txt",

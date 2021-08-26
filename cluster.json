@@ -82,6 +82,14 @@
         "c" : 1,
         "mem":10000
     },
+    "readQC" :
+    {
+        "J" : "readQC",
+        "e" : "logs/readQC/readQC_%j.err",
+        "o" : "logs/readQC/readQC_%j.out",
+        "c" : 1,
+        "mem" : 1000
+    },
     "insertion_profile" :
     { 
         "J" : "insertion_profile",
@@ -116,17 +124,25 @@
     },
     "compile_rd" :
     {
-	"J" : "compile_rd",
-	"e" : "logs/compile_rd/compile_rd_%j.err",
-	"o" : "logs/compile_rd/compile_rd_%j.out",
-	"c" : 1,
-	"mem":10000
+        "J" : "compile_rd",
+        "e" : "logs/compile_rd/compile_rd_%j.err",
+        "o" : "logs/compile_rd/compile_rd_%j.out",
+        "c" : 1,
+        "mem":10000
     },
     "read_GC" :
     {
         "J" : "read_GC",
         "e" : "logs/{rule}/{wildcards.sample}_%j.err",
         "o" : "logs/{rule}/{wildcards.sample}_%j.out",
+        "c" : 1,
+        "mem":10000
+    },
+    "geneBody_coverage" :
+    {
+        "J" : "geneBody_coverage",
+        "e" : "logs/geneBody_coverage/geneBody_coverage_%j.err",
+        "o" : "logs/geneBody_coverage/geneBody_coverage_%j.out",
         "c" : 1,
         "mem":10000
     },
