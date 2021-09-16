@@ -89,6 +89,7 @@ rule STAR:
                 --sjdbGTFtagExonParentGene gene_name \
                 --outSAMtype BAM SortedByCoordinate \
                 --readFilesCommand zcat \
+                --outReadsUnmapped Fastx \
                 --twopassMode Basic
                 """)
 
