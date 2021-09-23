@@ -229,5 +229,21 @@
         "o" : "logs/run_glimma_mds/run_glimma_mds%j.out",
         "c" : 1,
         "mem" : 1000
+    },
+    "convertFQ2FA" :
+    {
+        "J" : "convertFQ2FA",
+        "e" : "logs/convertFQ2FA/convertFQ2FA_%j.err",
+        "o" : "logs/convertFQ2FA/convertFQ2FA_%j.out",
+        "c" : 1,
+        "mem" : 5000
+    },
+    "countUniqUnmappedSeqs" :
+    {
+        "J" : "countUniqUnmappedSeqs",
+        "e" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.err",
+        "o" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.out",
+        "c" : 1,
+        "mem" : 5000
     }
 }

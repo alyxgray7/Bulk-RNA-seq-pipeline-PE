@@ -99,7 +99,10 @@ rule all:
         expand("results/diffexp/pairwise/permutationTest/Histogram.{contrast}.Permutation.Test.pdf", contrast = config["diffexp"]["contrasts"]),
         expand(["results/diffexp/glimma-plots/{contrast}.ma_plot.html", "results/diffexp/glimma-plots/{contrast}.volcano_plot.html"],contrast = config["diffexp"]["contrasts"]),
         "results/diffexp/glimma-plots/{project_id}.mds_plot.html".format(project_id=project_id),
+        expand("samples/star/{sample}_bam/{sample}_unmapped.fa", sample = SAMPLES),
+        expand("data/unmappedSeqs/{sample}_overRepseqCount.txt", sample = SAMPLES),
 
 include: "rules/align_rmdp.smk"
 include: "rules/omic_qc.smk"
 include: "rules/deseq.smk"
+include: "rules/unmapped.smk"

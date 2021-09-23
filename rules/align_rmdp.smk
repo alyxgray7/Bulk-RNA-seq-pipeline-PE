@@ -73,7 +73,9 @@ rule STAR:
     output:
         "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
         "samples/star/{sample}_bam/ReadsPerGene.out.tab",
-        "samples/star/{sample}_bam/Log.final.out"
+        "samples/star/{sample}_bam/Log.final.out",
+        "samples/star/{sample}_bam/Unmapped.out.mate1",
+        "samples/star/{sample}_bam/Unmapped.out.mate2"
     threads: 12
     params:
         gtf=config["gtf_file"]
