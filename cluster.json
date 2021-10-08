@@ -88,7 +88,7 @@
         "e" : "logs/readQC/readQC_%j.err",
         "o" : "logs/readQC/readQC_%j.out",
         "c" : 1,
-        "mem" : 1000
+        "mem" : 10000
     },
     "insertion_profile" :
     { 
@@ -144,7 +144,7 @@
         "e" : "logs/geneBody_coverage/geneBody_coverage_%j.err",
         "o" : "logs/geneBody_coverage/geneBody_coverage_%j.out",
         "c" : 1,
-        "mem":10000
+        "mem":50000
     },
     "deseq2_init" :
     {

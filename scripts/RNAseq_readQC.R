@@ -13,6 +13,10 @@ help <- function(){
           - file extension {outdir}/{outname}_mappings.pdf
   3) ggplot2 figure displaying the distribution of reads mapping to the top 6 biotypes by sample.
           - file extension {outdir}/{outname}_biotypes.pdf
+  4) Pairwise (sample-sample) raw count correlation plot
+          - file extension {outdir}/{outname}_pairCorrplot.png
+  5) Sample correlation heatmap with heirarchical clustering, annotated by the metadata
+          - file extension {outdir}/{outname}_corrHeatmap.png
       ")
   cat("\n")
   cat("Usage : \n")
@@ -31,6 +35,9 @@ help <- function(){
       \n")
   cat("--outdir       : Path to the directory to save the figures in.           [ required ]
       \n")
+  cat("--corType      : Type of correlation test to run.                        [ required ]
+                        Options are Pearson, Spearman, or both
+      \n")
   cat("\n")
   q()
 }
@@ -44,12 +51,13 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   readDistFile <- sub('--readDistFile=', '', args[grep('--readDistFile=', args)])
   contrast     <- sub('--contrast=', '', args[grep('--contrast=', args)])
   outDir       <- sub('--outdir=', '', args[grep('--outdir=', args)])
+  corType      <- sub("--corType=", "", args[grep("--corType=", args)])
 }
 
 # create outdir as needed
 if(!(file.exists( outDir ))) {
-    print(paste("mkdir:", outDir))
-    dir.create(outDir, FALSE, TRUE)  
+  print(paste("mkdir:", outDir))
+  dir.create(outDir, FALSE, TRUE)  
 }
 
 ## Check input files in logs/.out file
@@ -59,20 +67,10 @@ io <- list(
   countsFile = countsFile,
   readDistFile = readDistFile,
   contrast = contrast,
-  outDir = outDir
+  outDir = outDir,
+  corType = corType
 )
 io
-
-# Debugging
-#io <- list(
-#  annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
-#  metaFile = "data/PP_metadata_keep_FINAL_updated.txt",
-#  countsFile = "data/PP_cohort_Run3_counts.txt",
-#  readDistFile = "results/tables/read_coverage.txt",
-#  contrast = "Status",
-#  outDir = "results/readQC_plots"
-#)
-#io
 
 ### Load libraries
 library(ggplot2)
@@ -82,37 +80,46 @@ library(dplyr)
 library(RColorBrewer)
 library(reshape2)
 library(scales)
+library(corrplot)
+library(pheatmap) 
+library(Hmisc)
 
 ### Load and organize data
-# Read in annotation data
+# annotation data
 load(io$annoFile, verbose = TRUE)
 
-# Read in meta data; organize sampleIDs so the order is the same
+# Read in meta data; reformat for the columns we're interested in plotting
 md  <- read.table(io$metaFile, stringsAsFactors = FALSE, sep = "\t", header = TRUE)
-md  <- md[order(md[, io$contrast], md[, "SampleID"]) , ]
-ord <- md$SampleID
+rownames(md) <- md[,1]
+# organize sampleIDs so the order is the same
+md <- md[order(md[, io$contrast], rownames(md)), ]
+ord <- rownames(md)
+
 
 # Read in and reorder unfiltered counts table
 raw <- read.table(io$countsFile, sep = "\t", header = TRUE, row.names = 1)
-raw <- raw[, colnames(raw) %in% md$SampleID]
+raw <- raw[, colnames(raw) %in% rownames(md)]
 raw <- raw[, ord]
+# Remove uninformative columns
+raw <- raw[which(rowSums(raw) >= 1), ]
 
 # Read in and reorder read_coverage.txt
 rDist <- read.table(io$readDistFile, header = TRUE, sep = "\t", row.names = 1)
-rDist <- rDist[rownames(rDist) %in% md$SampleID, ]
+rDist <- rDist[rownames(rDist) %in% rownames(md), ]
 rDist <- rDist[ord, ]
 
 ### Plot sumCounts
 sumCounts.df          <- as.data.frame(apply(raw, 2, sum))
 names(sumCounts.df)   <- "sumCounts"
 sumCounts.df$SampleID <- rownames(sumCounts.df)
-iv                    <- match(rownames(sumCounts.df), md$SampleID)
+iv                    <- match(rownames(sumCounts.df), rownames(md))
 sumCounts.df$contrast <- md[iv, io$contrast]
-stopifnot(rownames(sumCounts.df) == md[iv,"SampleID"])
+stopifnot(rownames(sumCounts.df) == rownames(md)[iv])
 
-sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, 
-                                levels = paste(sumCounts.df[order(sumCounts.df$contrast, -sumCounts.df$sumCounts),"SampleID"])) # keeps the correct numerical order for ggplot
-sumCounts.df$contrast <- md[, io$contrast]
+sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, levels = sumCounts.df$SampleID)
+# sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, 
+#                                 levels = paste(sumCounts.df[order(sumCounts.df$contrast, -sumCounts.df$sumCounts),"SampleID"])) # keeps the correct numerical order for ggplot
+sumCounts.df$contrast <- md[iv, io$contrast]
 ord <- levels(sumCounts.df$SampleID)
 
 # Barplot of read sumCounts for each sample
@@ -120,18 +127,20 @@ totalReads.plot <- ggplot(
     sumCounts.df, 
     aes(x = SampleID, y = sumCounts, fill = contrast)) +
     geom_col(color="black") +
-    ylab("Number of input reads") +
+    ylab("Total gene counts") +
     xlab("Sample") +
     scale_fill_brewer(palette = "Paired") +
     scale_y_continuous(labels = scientific) +
     theme_bw()+
-    theme(axis.text.x = element_text(angle = 90, size = 6),
+    theme(axis.text.x = element_text(angle = 90, size = 8),
         axis.text.y = element_text(size = 10),
         axis.title.y = element_text(size = 10),
         axis.title.x = element_text(size = 10),
         legend.title = element_blank(),
         legend.text = element_text(size = 10),
         axis.line = element_line(colour = "black"))
+totalReads.plot
+ggsave(filename = paste(io$outDir, "totalReads_barplot.png", sep = "/"), device = "png")
 
 # Violin plot of read sumCounts
 totalReads.boxplot <- ggplot(
@@ -140,17 +149,19 @@ totalReads.boxplot <- ggplot(
     geom_violin(trim = FALSE) +
     geom_boxplot(color = "black", width = 0.1, fill = "white") +
     xlab("Contrast") +
-    ylab("Numer of input reads") +
+    ylab("Total gene counts") +
     scale_fill_brewer(palette = "Paired") +
     scale_y_continuous(labels = scientific) +
     theme_bw()+
-    theme(axis.text.x = element_text(angle = 90, size = 10),
+    theme(axis.text.x = element_text(angle = 90, size = 8),
           axis.text.y = element_text(size = 10),
           axis.title.y = element_text(size = 10),
           axis.title.x = element_text(size = 10),
           legend.title = element_blank(),
           legend.text = element_text(size = 10),
           axis.line = element_line(colour = "black"))
+totalReads.boxplot
+ggsave(filename = paste(io$outDir, "totalReads_boxplot.png", sep = "/"), device = "png")
 
 ### Plot mitochondrial fraction
 # Check how gene names are annotated in counts
@@ -179,17 +190,20 @@ mtReads.plot <- ggplot(
     sumCounts.df, 
     aes(x = SampleID, y = fracMT, fill = contrast)) +
     geom_col(color="black") +
-    ylab("Percent mitochondrial reads") +
+    ylab("Percent mitochondrial counts") +
     xlab("Sample") +
     scale_fill_brewer(palette = "Paired") +
-    theme_bw()+
-    theme(axis.text.x = element_text(angle = 90, size = 6),
+    scale_y_continuous(labels = scales::percent) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, size = 8),
           axis.text.y = element_text(size = 10),
           axis.title.y = element_text(size = 10),
           axis.title.x = element_text(size = 10),
           legend.title = element_blank(),
           legend.text = element_text(size = 10),
           axis.line = element_line(colour = "black"))
+mtReads.plot
+ggsave(filename = paste(io$outDir, "mtReads_barplot.png", sep = "/"), device = "png")
 
 # Violinplot of mito read fraction
 mtReads.boxplot <- ggplot(
@@ -198,33 +212,32 @@ mtReads.boxplot <- ggplot(
     geom_violin(trim = FALSE) +
     geom_boxplot(color = "black", width = 0.1, fill = "white") +
     xlab("Contrast") +
-    ylab("Percent mitochondrial reads") +
+    ylab("Percent mitochondrial counts") +
     scale_fill_brewer(palette = "Paired") +
-    theme_bw()+
-    theme(axis.text.x = element_text(angle = 90, size = 10),
+    scale_y_continuous(labels = scales::percent) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, size = 8),
           axis.text.y = element_text(size = 10),
           axis.title.y = element_text(size = 10),
           axis.title.x = element_text(size = 10),
           legend.title = element_blank(),
           legend.text = element_text(size = 10),
           axis.line = element_line(colour = "black"))
+mtReads.boxplot
+ggsave(filename = paste(io$outDir, "mtReads_boxplot.png", sep = "/"), device = "png")
 
+### Save summary plots
+# total read plots
+ggarrange(totalReads.plot, totalReads.boxplot, ncol = 2, nrow = 1, 
+          common.legend = TRUE, legend = "bottom")
+ggsave(filename = paste(io$outDir, "totalReads_arranged.png", sep = "/"), device = "png")
+# mt read plots
+ggarrange(mtReads.plot, mtReads.boxplot, ncol = 2, nrow = 1, 
+          common.legend = TRUE, legend = "bottom")
+ggsave(filename = paste(io$outDir, "mtReads_arranged.png", sep = "/"), device = "png")
 
-# Save summary plot
-pdf(paste(io$outDir, "readSummary.pdf", sep = "/"), onefile = FALSE)
-ggarrange(totalReads.plot, totalReads.boxplot,
-          mtReads.plot, mtReads.boxplot,
-          ncol = 2, nrow = 2, labels = "AUTO", common.legend = TRUE, legend = "right")
-dev.off()
-
-png(paste(io$outDir, "readSummary.png", sep = "/"), 1000, 1000)
-ggarrange(totalReads.plot, totalReads.boxplot,
-          mtReads.plot, mtReads.boxplot,
-          ncol = 2, nrow = 2, labels = "AUTO", common.legend = TRUE)
-dev.off()
 
 ### Plot biotypes
-
 # Get gene names from counts matrix
 if( !annoType == "ensembl_gene_id") {
   fD <- as.data.frame(rownames(raw))
@@ -283,13 +296,12 @@ geneTable$contrast <- md[, io$contrast][m]
 levels(geneTable$variable) <- levels(sumCounts.df$SampleID)
 
 # Plot biotype bar
-pdf(paste(io$outDir, "biotypes.pdf", sep = "/"), width=7, height=5)
 biotype.plot <- ggplot(geneTable, aes(x=variable, y=Frac, fill=biotype)) +
   geom_bar(stat="identity") +
   ylab("Fraction of each biotype") +
   xlab("Sample") +
   scale_fill_brewer( palette = "YlGnBu" ) +
-  theme(axis.text.x=element_text(angle = 90, size = 5),
+  theme(axis.text.x=element_text(angle = 90, size = 8),
         axis.text.y=element_text(size=10),
         axis.title.y=element_text(size=10),
         axis.title.x=element_text(size=10),
@@ -300,7 +312,7 @@ biotype.plot <- ggplot(geneTable, aes(x=variable, y=Frac, fill=biotype)) +
         panel.background = element_blank(), 
         axis.line = element_line(colour = "black"))
 biotype.plot
-dev.off()
+ggsave(filename = paste(io$outDir, "biotype_barplot.png", sep = "/"), device = "png")
 
 ### Plot gene attributes
 rDist.dt          <- data.table(rDist, keep.rownames = "sampleID")
@@ -312,8 +324,6 @@ rDist.melted <- melt(rDist.dt)
 rDist.melted$variable <- relevel(rDist.melted$variable, ref = "Intergenic")
 #rDist.melted$sampleID <- factor(rDist.melted$sampleID, levels = rDist.melted$sampleID)
 
-
-pdf(paste(io$outDir, "mappings.pdf", sep = "/"),width=7, height=5)
 mappings.plot <- ggplot(
   rDist.melted, 
   aes(x = sampleID, y = value, fill = factor(variable, levels = c("Intergenic", "Intron", "Exon")))) +
@@ -321,7 +331,7 @@ mappings.plot <- ggplot(
   ylab("Fraction of each gene attribute") +
   xlab("Sample") +
   scale_fill_brewer( palette = "Purples" ) +
-  theme(axis.text.x = element_text(angle = 90, size = 5),
+  theme(axis.text.x = element_text(angle = 90, size = 8),
         axis.text.y = element_text(size = 10),
         axis.title.y = element_text(size = 10),
         axis.title.x = element_text(size = 10),
@@ -332,5 +342,211 @@ mappings.plot <- ggplot(
         panel.background = element_blank(), 
         axis.line = element_line(colour = "black"))
 mappings.plot
-dev.off()
+ggsave(filename = paste(io$outDir, "geneAttributes_barplot.png", sep = "/"), device = "png")
+
+### Sample-sample correlations
+# Function to save pheatmap
+save_pheatmap_png <- function(x, filename) {
+  stopifnot(!missing(x))
+  stopifnot(!missing(filename))
+  png(filename, 1000, 1000)
+  grid::grid.newpage()
+  grid::grid.draw(x$gtable)
+  dev.off()
+}
+
+# get metadata columns for heatmap ***** DEBUG ON EXACLOUD *****
+annoMD <- md
+#plot_cols <- snakemake@config[['meta_columns_to_plot']]
+#plot_cols <- c("RINum", "RINcat", "StudyID")
+#plot_cols <- c("Alias")
+plot_cols <- c()
+samples <- annoMD[,1]
+cols2keep <- c(io$contrast, plot_cols)
+# Check dimensions needed for formatting
+if (length(cols2keep) >= 2) {
+  print("plotting 2+ sample annotations")
+  annoMD <- annoMD[, colnames(annoMD) %in% cols2keep]
+  annoMD <- annoMD[order(annoMD[, io$contrast], rownames(annoMD)), ]
+  ord <- rownames(annoMD)
+} else {
+  print("plotting 1 sample annotation")
+  annoMD <- annoMD[, colnames(annoMD) %in% cols2keep]
+  annoMD <- as.data.frame(annoMD, row.names = samples)
+  colnames(annoMD) <- cols2keep
+}
+
+# Set the correlation test type
+type <- tolower(io$corType)
+if (type == "pearson" || type == "spearman") {
+  print(paste("Running a", type, "correlation test", sep = " "))
+  
+  # Run correlation test and save output
+  cor.res <- rcorr(as.matrix(raw), type = type)
+  filename <- paste(type, "corrResults.rds", sep = "_")
+  saveRDS(cor.res, file = paste(io$outDir, filename, sep= "/"))
+  
+  # Unordered corrplot
+  filename <- paste(type, "unorderedCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "color", addCoef.col = "darkgrey", 
+           title = paste("Unordered correlation heatmap", io$corType, sep = ": "), 
+           outline = TRUE, number.cex = 1.25,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Clustered corrplot
+  filename <- paste(type, "hclustCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "square", order = "hclust",
+           title = paste("Hierarchical clustering correlation heatmap", io$corType, sep = ": "),
+           number.cex = 1.25, outline = TRUE,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Annotated pheatmap
+  filename <- paste(type, "annoPheatmap.png", sep = "_")
+  plot <- pheatmap(cor.res$r, 
+                   main = paste("Clustered sample correlation heatmap", io$corType, sep = ": "),
+                   cluster_rows = TRUE, cluster_cols = TRUE, clustering_method = "ward.D",
+                   annotation_col = annoMD, annotation_row = annoMD,
+                   fontsize = 12, fontsize_row = 10, fontsize_col = 10, show_rownames = TRUE,
+                   labels_row = as.character(rownames(cor.res$r)),
+                   labels_col = as.character(colnames(cor.res$r)),
+                   color = colorRampPalette(c("navy", "white", "red"))(50)
+  )
+  save_pheatmap_png(plot, paste(io$outDir, filename, sep = "/"))
+
+  # Pairwise counts
+  sampleNum <- dim(raw)[2]
+  samples <- colnames(raw)
+  filename <- paste(type, "pairwiseCorrplot.png", sep = "_")
+  png(paste(io$outDir, filename, sep = "/"), height = (sampleNum*200), width = (sampleNum*200))
+  par(mfrow=c(sampleNum, sampleNum))
+  for (i in 1:sampleNum) {
+    for (j in 1:sampleNum) {
+      plot(log10(raw[,i]), log10(raw[,j]),
+           xlab=paste("log10(", paste(samples[i]), ")", sep = ""),
+           ylab=paste("log10(", paste(samples[j]), ")", sep = ""),
+           col="#1C0DFF15", pch=20, cex.lab = 1.5)
+      legend("topleft", legend = round(cor(raw[,i], raw[,j], method = type), 4), cex=1.4)
+    }
+  }
+  dev.off()
+}
+
+if (type == "both") {
+  print("Running both Pearson and Spearman correlation tests")
+  
+  ## Run Pearson correlation
+  type <- "pearson"
+  cor.res <- rcorr(as.matrix(raw), type = type)
+  filename <- paste(type, "corrResults.rds", sep = "_")
+  saveRDS(cor.res, file = paste(io$outDir, filename, sep= "/"))
+  
+  # Unordered corrplot
+  filename <- paste(type, "unorderedCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "color", addCoef.col = "darkgrey", 
+           title = paste("Unordered correlation heatmap", "Pearson", sep = ": "), 
+           outline = TRUE, number.cex = 1.25,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Clustered corrplot
+  filename <- paste(type, "hclustCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "square", order = "hclust",
+           title = paste("Hierarchical clustering correlation heatmap", "Pearson", sep = ": "),
+           number.cex = 1.25, outline = TRUE,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Annotated pheatmap
+  filename <- paste(type, "annoCorrplot.png", sep = "_")
+  plot <- pheatmap(cor.res$r, 
+           main = paste("Clustered correlation heatmap", "Pearson", sep = ": "),
+           cluster_rows = TRUE, cluster_cols = TRUE, clustering_method = "ward.D",
+           annotation_col = annoMD, annotation_row = annoMD, 
+           fontsize = 12, fontsize_row = 10, fontsize_col = 10, show_rownames = TRUE,
+           labels_row = as.character(rownames(cor.res$r)),
+           labels_col = as.character(colnames(cor.res$r)),
+           color = colorRampPalette(c("navy", "white", "red"))(50)
+  )
+  save_pheatmap_png(plot, paste(io$outDir, filename, sep = "/"))
+  
+  # Pairwise counts
+  sampleNum <- dim(raw)[2]
+  samples <- colnames(raw)
+  filename <- paste(type, "pairwiseCorrplot.png", sep = "_")
+  png(paste(io$outDir, filename, sep = "/"), height = (sampleNum*200), width = (sampleNum*200))
+  par(mfrow=c(sampleNum, sampleNum))
+  for (i in 1:sampleNum) {
+    for (j in 1:sampleNum) {
+      plot(log10(raw[,i]), log10(raw[,j]),
+           xlab=paste("log10(", paste(samples[i]), ")", sep = ""),
+           ylab=paste("log10(", paste(samples[j]), ")", sep = ""),
+           col="#1C0DFF15", pch=20, cex.lab = 1.5)
+      legend("topleft", legend = round(cor(raw[,i], raw[,j], method = type), 4), cex=1.4)
+    }
+  }
+  dev.off()
+  print("Finished testing with Pearson")
+  
+  ## Run Spearman correlation
+  type <- "spearman"
+  cor.res <- rcorr(as.matrix(raw), type = type)
+  filename <- paste(type, "corrResults.rds", sep = "_")
+  saveRDS(cor.res, file = paste(io$outDir, filename, sep= "/"))
+
+  # Unordered corrplot
+  filename <- paste(type, "unorderedCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "color", addCoef.col = "darkgrey", 
+           title = paste("Unordered correlation heatmap", "Spearman", sep = ": "), 
+           outline = TRUE, number.cex = 1.25,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Clustered corrplot
+  filename <- paste(type, "hclustCorrplot.png", sep = "_")
+  png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
+  corrplot(cor.res$r, method = "square", order = "hclust",
+           title = paste("Hierarchical clustering correlation heatmap", "Spearman", sep = ": "),
+           number.cex = 1.25, outline = TRUE,
+           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+  dev.off()
+  
+  # Annotated pheatmap
+  filename <- paste(type, "annoCorrplot.png", sep = "_")
+  plot <- pheatmap(cor.res$r, 
+           main = paste("Clustered correlation heatmap", "Spearman", sep = ": "),
+           cluster_rows = TRUE, cluster_cols = TRUE, clustering_method = "ward.D",
+           annotation_col = annoMD, annotation_row = annoMD,
+           fontsize = 12, fontsize_row = 10, fontsize_col = 10, show_rownames = TRUE,
+           labels_row = as.character(rownames(cor.res$r)),
+           labels_col = as.character(colnames(cor.res$r)),
+           color = colorRampPalette(c("navy", "white", "red"))(50)
+  )
+  save_pheatmap_png(plot, paste(io$outDir, filename, sep = "/"))
+
+  # Pairwise counts
+  sampleNum <- dim(raw)[2]
+  samples <- colnames(raw)
+  filename <- paste(type, "pairwiseCorrplot.png", sep = "_")
+  png(paste(io$outDir, filename, sep = "/"), 
+      height = (sampleNum*200), width = (sampleNum*200))
+  par(mfrow=c(sampleNum, sampleNum))
+  for (i in 1:sampleNum) {
+    for (j in 1:sampleNum) {
+      plot(log10(raw[,i]), log10(raw[,j]),
+           xlab=paste("log10(", paste(samples[i]), ")", sep = ""),
+           ylab=paste("log10(", paste(samples[j]), ")", sep = ""),
+           col="#1C0DFF15", pch=20, cex.lab = 1.5)
+      legend("topleft", legend = round(cor(raw[,i], raw[,j], method = type), 4), cex=1.4)
+    }
+  }
+  dev.off()
+  print("Finished testing with Spearman")
+}
 
