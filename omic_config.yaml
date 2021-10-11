@@ -100,6 +100,10 @@ diffexp:
     - contrast1
     - contrast2
     - baseline
+# Correlation test type to use for plotting sample-sample correlations.
+# Options are Pearson, Spearman, or both.
+correlation_test:
+  both
 # If you would like to colour your QC plots by an RColorBrewer palette, list that palette under the rcolorbrewer parameter, otherwise, write "NA"
 # If you would like to colour your QC plots by specific colours, please list them under the discrete category, with one colour for each bullet point
 # The discrete colours will be assigned to your Conditions (ie. linear_model) in the order that they show up in your metadata table, when it is ordered alphabetically by sample ID
