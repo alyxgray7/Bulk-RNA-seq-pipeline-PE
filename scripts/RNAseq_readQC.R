@@ -33,6 +33,9 @@ help <- function(){
                         this is the characteristic you would like to do DE on.
                         Example: diagnosis, geotype, etc. (used to color the plots by.)
       \n")
+  cat("--plotCols     : Column names in metadata file to annotate clustering;   [ required ]
+                        specified by config['meta_columns_to_plot']
+      \n")
   cat("--outdir       : Path to the directory to save the figures in.           [ required ]
       \n")
   cat("--corType      : Type of correlation test to run.                        [ required ]
@@ -41,7 +44,7 @@ help <- function(){
   cat("\n")
   q()
 }
-## Save values of each argument
+# Save values of each argument
 if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   help()
 } else {
@@ -50,23 +53,27 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   countsFile   <- sub('--countsFile=', '', args[grep('--countsFile=', args)])
   readDistFile <- sub('--readDistFile=', '', args[grep('--readDistFile=', args)])
   contrast     <- sub('--contrast=', '', args[grep('--contrast=', args)])
+  plotCols     <- sub('--plotCols=', '', args[grep('--plotCols=', args)])
   outDir       <- sub('--outdir=', '', args[grep('--outdir=', args)])
-  corType      <- sub("--corType=", "", args[grep("--corType=", args)])
+  corType      <- sub('--corType=', '', args[grep('--corType=', args)])
 }
+# make plotCols argument R-readable
+plotCols <- c(strsplit(plotCols, split = ",", fixed = TRUE)[[1]])
 
-# create outdir as needed
+### Create outdir as needed
 if(!(file.exists( outDir ))) {
   print(paste("mkdir:", outDir))
   dir.create(outDir, FALSE, TRUE)  
 }
 
-## Check input files in logs/.out file
+### Check input files in logs/.out file
 io <- list(
   annoFile = annoFile,
   metaFile = metaFile,
   countsFile = countsFile,
   readDistFile = readDistFile,
   contrast = contrast,
+  plotCols = plotCols,
   outDir = outDir,
   corType = corType
 )
@@ -88,7 +95,7 @@ library(Hmisc)
 # annotation data
 load(io$annoFile, verbose = TRUE)
 
-# Read in meta data; reformat for the columns we're interested in plotting
+# Meta data; reformat for the columns we're interested in plotting
 md  <- read.table(io$metaFile, stringsAsFactors = FALSE, sep = "\t", header = TRUE)
 rownames(md) <- md[,1]
 # organize sampleIDs so the order is the same
@@ -205,7 +212,7 @@ mtReads.plot <- ggplot(
 mtReads.plot
 ggsave(filename = paste(io$outDir, "mtReads_barplot.png", sep = "/"), device = "png")
 
-# Violinplot of mito read fraction
+# Violin plot of mito read fraction
 mtReads.boxplot <- ggplot(
     sumCounts.df,
     aes(x = contrast, y = fracMT, fill = contrast)) +
@@ -357,13 +364,8 @@ save_pheatmap_png <- function(x, filename) {
 
 # get metadata columns for heatmap ***** DEBUG ON EXACLOUD *****
 annoMD <- md
-plot_cols <- snakemake@config[['meta_columns_to_plot']]
-plot_cols <- names(plot_cols)
-#plot_cols <- c("RINum", "RINcat", "StudyID")
-#plot_cols <- c("Alias")
-#plot_cols <- c()
 samples <- annoMD[,1]
-cols2keep <- c(io$contrast, plot_cols)
+cols2keep <- c(io$contrast, io$plotCols)
 # Check dimensions needed for formatting
 if (length(cols2keep) >= 2) {
   print("plotting 2+ sample annotations")

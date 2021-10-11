@@ -27,7 +27,7 @@ insertion_and_clipping_prof_ext = ['r','R1.pdf','R2.pdf','xls']
 inner_distance_ext = ['_freq.txt','_plot.pdf','_plot.r','.txt']
 read_dist_ext = ['txt']
 read_gc_ext = ['.xls','_plot.r','_plot.pdf']
-plotNames = ['biotypes', 'mappings', 'readSummary']
+plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
 
 
 with open('cluster.json') as json_file:
@@ -55,10 +55,15 @@ def message(mes):
     sys.stderr.write("|--- " + mes + "\n")
 
 
-def format_plot_columns():
+# def format_plot_columns():
+#     factors = config['meta_columns_to_plot'].keys()
+#     reformat_factors = '"' + '","'.join(factors) + '"'
+#     return 'c({})'.format(reformat_factors)
+
+def format_plot_columns(wildcards=None):
     factors = config['meta_columns_to_plot'].keys()
-    reformat_factors = '"' + '","'.join(factors) + '"'
-    return 'c({})'.format(reformat_factors)
+    reformat_factors = ",".join(factors)
+    return '"{}"'.format(reformat_factors)
 
 
 def get_deseq2_threads(wildcards=None):
@@ -88,7 +93,7 @@ rule all:
         "results/tables/read_coverage.txt",
         expand("rseqc/read_GC/{sample}/{sample}.GC{ext}", sample = SAMPLES, ext = read_gc_ext),
         expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
-        expand("results/readQC_plots/{plot}.pdf", plot = plotNames),
+        expand("results/readQC/{plot}.png", plot = plotNames),
         expand("results/diffexp/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
         "results/diffexp/group/LRT_pca.pdf",
         "results/diffexp/group/MDS_table.txt",

@@ -143,14 +143,25 @@ rule readQC:
         countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
         readDistFile = "results/tables/read_coverage.txt"
     output:
-        readSummaryPlot = "results/readQC_plots/readSummary.pdf",
-        mappingPlot = "results/readQC_plots/mappings.pdf",
-        biotypePlot = "results/readQC_plots/biotypes.pdf"
+        readSummaryPlot = "results/readQC/totalReads_arranged.png",
+        mappingPlot = "results/readQC/geneAttributes_barplot.png",
+        biotypePlot = "results/readQC/biotype_barplot.png"
     params:
         annoFile = config['filter_anno'],
         metaFile = config['omic_meta_data'],
-        contrast = config['linear_model']
+        contrast = config['linear_model'],
+        corType = config['correlation_test'],
+        plotCols = format_plot_columns
     conda:
         "../envs/readQC.yaml"
     shell:
-        """Rscript scripts/RNAseq_readQC.R --countsFile={input.countsFile} --readDistFile={input.readDistFile} --annoFile={params.annoFile} --metaFile={params.metaFile} --contrast={params.contrast} --outdir=results/readQC_plots"""
+        """Rscript scripts/RNAseq_readQC.R \
+        --countsFile={input.countsFile} \
+        --readDistFile={input.readDistFile} \
+        --annoFile={params.annoFile} \
+        --metaFile={params.metaFile} \
+        --plotCols={params.plotCols} \
+        --contrast={params.contrast} \
+        --corType={params.corType} \
+        --outdir=results/readQC_plots"""
+
