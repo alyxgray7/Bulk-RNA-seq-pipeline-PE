@@ -357,10 +357,11 @@ save_pheatmap_png <- function(x, filename) {
 
 # get metadata columns for heatmap ***** DEBUG ON EXACLOUD *****
 annoMD <- md
-#plot_cols <- snakemake@config[['meta_columns_to_plot']]
+plot_cols <- snakemake@config[['meta_columns_to_plot']]
+plot_cols <- names(plot_cols)
 #plot_cols <- c("RINum", "RINcat", "StudyID")
 #plot_cols <- c("Alias")
-plot_cols <- c()
+#plot_cols <- c()
 samples <- annoMD[,1]
 cols2keep <- c(io$contrast, plot_cols)
 # Check dimensions needed for formatting
