@@ -4,13 +4,13 @@
 
 # GTF file for the genome build you would like to use
 gtf_file:
-  /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.gtf
+  /home/groups/CEDAR/anno/gtf/hg38_ens94_ERCC.gtf
 # Bed file for rseqc function read_distribution
 bed_file:
   /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
 # Pre-built STAR index
 star_index:
-  /home/groups/CEDAR/anno/indices/star/hg38
+  /home/groups/CEDAR/anno/indices/star/hg38_ERCC
 # Genome annotations file used for biotype analysis/QC
 filter_anno:
   /home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata
@@ -36,7 +36,7 @@ star_tool:
 
 # Unique project identifier which will be concatenated onto your counts table file name.
 project_id:
-  project-id
+  project_id
 # Genome assembly used for GO analysis.
 # Format must be as below, with the genome assembly first, and the version of ensembl second, separated by a period
 # (Unless there is only one ensembl version, then just write assembly)
@@ -45,7 +45,10 @@ assembly:
 # Metadata needed for differential expression analysis
 omic_meta_data:
 # tab delimited file
-  /path/to/metadata.txt
+  /path/to/metadata.tsv
+# desired expression threshold for estimating sequencing saturation (in FPKM)
+expression_threshold:
+  5
 # Biotypes you would like to include in your gene counts table 
 # Examples: protein_coding, lincRNA, sRNA, rRNA, snRNA, snoRNA, etc.
 biotypes:
@@ -77,9 +80,9 @@ sample_id:
 # This is used as a QC to look for batch effects. 
 # Enter columns which could potentially introduce a batch effect in your data.
 meta_columns_to_plot:
-  Time: Time
-  Condition: Condition
   Lane: Lane
+  Condition: Condition
+  Time: Time
 pca:
   labels:
     #Column name in meta data file to generate group files and comparisons

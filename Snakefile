@@ -27,7 +27,10 @@ insertion_and_clipping_prof_ext = ['r','R1.pdf','R2.pdf','xls']
 inner_distance_ext = ['_freq.txt','_plot.pdf','_plot.r','.txt']
 read_dist_ext = ['txt']
 read_gc_ext = ['.xls','_plot.r','_plot.pdf']
-plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
+#plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
+readQC_plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
+estSat_plotNames = ['barplot_nFeatures_bySample','facet_saturationCurve_bySample', 'facet_saturationCurve_byContrast','violin_nFeatureDistribution_byContrast', 'violin_saturationVariance_byContrast']
+estSat_tableNames = ['counts_fpkm', 'estSaturation_results', 'summaryStatistics']
 
 
 with open('cluster.json') as json_file:
@@ -106,6 +109,9 @@ rule all:
         "results/diffexp/glimma-plots/{project_id}.mds_plot.html".format(project_id=project_id),
         expand("samples/star/{sample}_bam/{sample}_unmapped.fa", sample = SAMPLES),
         expand("data/unmappedSeqs/{sample}_overRepseqCount.txt", sample = SAMPLES),
+        "data/geneLengths.tsv",
+        expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
+        expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
 
 include: "rules/align_rmdp.smk"
 include: "rules/omic_qc.smk"

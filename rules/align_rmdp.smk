@@ -73,9 +73,9 @@ rule STAR:
     output:
         "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
         "samples/star/{sample}_bam/ReadsPerGene.out.tab",
-        "samples/star/{sample}_bam/Log.final.out",
         "samples/star/{sample}_bam/Unmapped.out.mate1",
-        "samples/star/{sample}_bam/Unmapped.out.mate2"
+        "samples/star/{sample}_bam/Unmapped.out.mate2",
+        "samples/star/{sample}_bam/Log.final.out"
     threads: 12
     params:
         gtf=config["gtf_file"]
@@ -104,6 +104,7 @@ rule index:
         "../envs/samtools_env.yaml"
     shell:
         """samtools index {input} {output}"""
+
 
 rule star_statistics:
     input:
@@ -143,25 +144,86 @@ rule readQC:
         countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
         readDistFile = "results/tables/read_coverage.txt"
     output:
-        readSummaryPlot = "results/readQC/totalReads_arranged.png",
-        mappingPlot = "results/readQC/geneAttributes_barplot.png",
-        biotypePlot = "results/readQC/biotype_barplot.png"
+        readSummaryPlot = "results/readQC_plots/readSummary.pdf",
+        mappingPlot = "results/readQC_plots/mappings.pdf",
+        biotypePlot = "results/readQC_plots/biotypes.pdf"
     params:
         annoFile = config['filter_anno'],
         metaFile = config['omic_meta_data'],
-        contrast = config['linear_model'],
-        corType = config['correlation_test'],
-        plotCols = format_plot_columns
+        contrast = config['linear_model']
     conda:
         "../envs/readQC.yaml"
     shell:
-        """Rscript scripts/RNAseq_readQC.R \
-        --countsFile={input.countsFile} \
-        --readDistFile={input.readDistFile} \
-        --annoFile={params.annoFile} \
-        --metaFile={params.metaFile} \
-        --plotCols={params.plotCols} \
-        --contrast={params.contrast} \
-        --corType={params.corType} \
-        --outdir=results/readQC_plots"""
+        """Rscript scripts/RNAseq_readQC.R --countsFile={input.countsFile} --readDistFile={input.readDistFile} --annoFile={params.annoFile} --metaFile={params.metaFile} --contrast={params.contrast} --outdir=results/readQC_plots"""
 
+
+rule cpm_tracks:
+    input:
+        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+    output:
+        wig = "samples/bigwig/{sample}_cpm.bw"
+    conda:
+        "../envs/deeptools.yaml"
+    shell:
+        "bamCoverage -p 4 --normalizeUsing CPM -bs 1 -b {input.bam} -o {output.wig}"
+
+
+rule fwd_tracks:
+    input:
+        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+    output:
+       wig = "samples/bigwig/{sample}_fwd.bw"
+    conda:
+        "../envs/deeptools.yaml"
+    shell:
+        "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b {input.bam} -o {output.wig}"
+
+
+rule rev_tracks:
+    input:
+        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+    output:
+        wig = "samples/bigwig/{sample}_rev.bw"
+    conda:
+        "../envs/deeptools.yaml"
+    shell:
+        "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand reverse -bs 1 -b {input.bam} -o {output.wig}"
+
+
+rule make_geneLengthTable:
+    output:
+        "data/geneLengths.tsv"
+    params:
+        gtf = config["gtf_file"],
+        anno = config["filter_anno"]
+    conda:
+        "../envs/estSaturation.yaml"
+    shell:
+        """Rscript scripts/make_geneLengthTable.R --gtfFile={params.gtf} --annoFile={params.anno} --outDir='data'"""
+
+
+rule estSaturation:
+    input:
+        countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
+        geneLengthsFile = "data/geneLengths.tsv"
+    output:
+        barplot = "results/estSaturation/barplot_nFeatures_bySample.png",
+        facet1 = "results/estSaturation/facet_saturationCurve_byContrast.png",
+        facet2 = "results/estSaturation/facet_saturationCurve_bySample.png",
+        violin1 = "results/estSaturation/violin_nFeatureDistribution_byContrast.png",
+        violin2 = "results/estSaturation/violin_saturationVariance_byContrast.png",
+        satCurves = "results/estSaturation/saturationCurve_bySample.png",
+        fpkm = "results/estSaturation/counts_fpkm.tsv",
+        estSat = "results/estSaturation/estSaturation_results.tsv",
+        summary = "results/estSaturation/summaryStatistics.tsv"
+    params:
+        md = config['omic_meta_data'],
+        minCount = config['expression_threshold'],
+        contrast = config['linear_model']
+    conda:
+        "../envs/estSaturation.yaml"
+    shell:
+        """Rscript scripts/estSaturation.R --countsFile={input.countsFile} --geneLengthsFile={input.geneLengthsFile} --mdFile={params.md} --outDir=results/estSaturation --minCount={params.minCount} --contrast={params.contrast}"""

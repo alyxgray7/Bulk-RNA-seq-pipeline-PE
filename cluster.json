@@ -88,7 +88,7 @@
         "e" : "logs/readQC/readQC_%j.err",
         "o" : "logs/readQC/readQC_%j.out",
         "c" : 1,
-        "mem" : 10000
+        "mem" : 1000
     },
     "insertion_profile" :
     { 
@@ -144,7 +144,7 @@
         "e" : "logs/geneBody_coverage/geneBody_coverage_%j.err",
         "o" : "logs/geneBody_coverage/geneBody_coverage_%j.out",
         "c" : 1,
-        "mem":50000
+        "mem":10000
     },
     "deseq2_init" :
     {
@@ -232,17 +232,81 @@
     },
     "convertFQ2FA" :
     {
-        "J" : "convertFQ2FA",
-        "e" : "logs/convertFQ2FA/convertFQ2FA_%j.err",
-        "o" : "logs/convertFQ2FA/convertFQ2FA_%j.out",
-        "c" : 1,
-        "mem" : 5000
+	"J" : "convertFQ2FA",
+	"e" : "logs/convertFQ2FA/convertFQ2FA_%j.err",
+	"o" : "logs/convertFQ2FA/convertFQ2FA_%j.out",
+	"c" : 1,
+	"mem" : 5000
     },
     "countUniqUnmappedSeqs" :
     {
-        "J" : "countUniqUnmappedSeqs",
-        "e" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.err",
-        "o" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.out",
+	"J" : "countUniqUnmappedSeqs",
+	"e" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.err",
+	"o" : "logs/countUniqUnmappedSeqs/countUniqUnmappedSeqs_%j.out",
+	"c" : 1,
+	"mem" : 50000
+    },
+    "convertFQ2uBAM" :
+    {
+        "J" : "convertFQ2uBAM",
+        "e" : "logs/convertFQ2uBAM/convertFQ2uBAM_%j.err",
+        "o" : "logs/convertFQ2uBAM/convertFQ2uBAM_%j.out",
+        "c" : 1,
+        "mem" : 45000
+    },
+    "unmapped_GC" :
+    {
+        "J" : "unmapped_GC",
+        "e" : "logs/unmapped_GC/unmapped_GC_%j.err",
+        "o" : "logs/unmapped_GC/unmapped_GC_%j.out",
+        "c" : 1,
+        "mem" : 10000
+    },
+    "junction_saturation" :
+    {
+        "J" : "junction_saturation",
+        "e" : "logs/junction_saturation/junction_saturation_%j.err",
+        "o" : "logs/junction_saturation/junction_saturation_%j.out",
+        "c" : 1,
+        "mem" : 5000
+    },
+    "cpm_tracks" :
+    {
+        "J" : "cpm_tracks",
+        "e" : "logs/cpm_tracks/%j.err",
+        "o" : "logs/cpm_tracks/%j.out",
+        "c" : 4,
+        "mem" : 25000
+    },
+    "fwd_tracks" :
+    {
+        "J" : "fwd_tracks",
+        "e" : "logs/fwd_tracks/%j.err",
+        "o" : "logs/fwd_tracks/%j.out",
+        "c" : 4,
+        "mem": 25000
+    },
+    "rev_tracks" :
+    {
+        "J" : "rev_tracks",
+        "e" : "logs/rev_tracks/%j.err",
+        "o" : "logs/rev_tracks/%j.out",
+        "c" : 4,
+        "mem" : 25000
+    },
+    "make_geneLengthTable" :
+    {
+        "J" : "make_geneLengthTable",
+        "e" : "logs/make_geneLengthTable/%j.err",
+        "o" : "logs/make_geneLengthTable/%j.out",
+        "c" : 1,
+        "mem" : 1000
+    },
+    "estSaturation" :
+    {
+        "J" : "estSaturation",
+        "e" : "logs/estSaturation/%j.err",
+        "o" : "logs/estSaturation/%j.out",
         "c" : 1,
         "mem" : 5000
     }
