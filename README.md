@@ -31,22 +31,16 @@ Clone this repository into your working directory.
 
 ```
 $ cd /path/to/working/directory
-$ git clone https://github.com/ohsu-cedar-comp-hub/Bulk-RNA-seq-pipeline-PE.git
+$ git clone https://github.com/alyxgray7/Bulk-RNA-seq-pipeline-PE.git
 ```
 
-Go into the new directory -- this is now your working directory (wdir). 
+Go into the new directory -- this is now your working directory ($wDir). 
 
 ```
 $ cd Bulk-RNA-seq-pipeline-PE
 ```
 
-Create a `samples/raw` directory.
-
-```
-$ mkdir -p samples/raw
-```
-
-Symbolically link the fastq files of your samples to the `wdir/samples/raw` directory using a bash script loop in your terminal. NOTE: you may need to change the file names to something meaningful to you.
+Symbolically link the fastq files of your samples to the `$wDir/samples/raw` directory using a bash script loop in your terminal. NOTE: you may need to change the file names to something meaningful to you.
 
 ```
 ls -1 /path/to/data/archive/*.fastq.gz | while read fastq ; do ln -s $fastq samples/raw ; done
@@ -100,7 +94,7 @@ Alignment
     * Trimming and filtering of paired-end reads is performed using the trimming tool `bbduk`. For more information visit: https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/
     * Output files are located as `samples/bbduk/{sample}/{sample}_R*_t.good.fastq.gz`
 2) Quality Analysis
-    * Trimmed and filtered reads are assessed for quality using `AfterQC`, `FastQC` and `FastQScreen`. Output summaries are compiled into an interactive report by `MultiQC` at `./multiqc/{project_id}_QC.html`.
+    * Trimmed and filtered reads are assessed for quality using `AfterQC`, `FastQC` and `FastQScreen`. Output summaries are compiled into an interactive report by `MultiQC` at `./multiqc/{project_id}_QC.html` (coming soon).
 3) Alignment
     * Trimmed and filtered reads are aligned to the specified reference assembly using `STAR`
         * We included a two pass mode flag in order to increase the number of aligned reads
