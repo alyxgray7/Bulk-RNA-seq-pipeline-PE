@@ -1,0 +1,7 @@
+SampleID	Sample	Buffer_type	Buffer_in_RNA	ERCC	Novogene_sampleID	Lane
+X1	X1	HT_buffer	N	N	S0	1
+X2	X2	HT_buffer	Y	N	S0	1
+X3a	X3	HT_buffer+Lysis_solution	Y	N	S150	3
+X3b	X3	HT_buffer+Lysis_solution	Y	Mix1	S151	3
+X3c	X3	HT_buffer+Lysis_solution	Y	Mix2	S152	3
+X4	X4	RNA_Elution_buffer	N	N	S0	1

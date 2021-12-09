@@ -1,0 +1,12 @@
+# Ignore these directories
+.snakemake/
+multiqc/
+rseqc/
+logs/*
+rseqc/
+
+# Ignore these files
+log.txt
+*.pdf
+scripts/.Rhistory
+
