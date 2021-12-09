@@ -27,21 +27,6 @@ We welcome contributors! For your pull requests, please include the following:
 Use
 ======================
 
-Locate raw files. If desired, you can move them to the archive for storage.
-
-```
-$ cd /path/to/raw/data
-$ ls -lah
-```
-
-Transfer raw data to archive for storage. Use an md5sum check to verify that no files were corrupted during the transfer.
-
-```
-$ mv /path/to/raw/data /path/to/archive
-$ cd /path/to/archive
-$ md5sum –c md5sum.txt > md5sum_out.txt
-```
-
 Clone this repository into your working directory.
 
 ```
@@ -55,11 +40,9 @@ Go into the new directory -- this is now your working directory (wdir).
 $ cd Bulk-RNA-seq-pipeline-PE
 ```
 
-Create a `logs` directory, `data` directory, and a `samples/raw` directory.
+Create a `samples/raw` directory.
 
 ```
-$ mkdir logs
-$ mkdir data
 $ mkdir -p samples/raw
 ```
 
@@ -68,17 +51,6 @@ Symbolically link the fastq files of your samples to the `wdir/samples/raw` dire
 ```
 ls -1 /path/to/data/archive/*.fastq.gz | while read fastq ; do ln -s $fastq samples/raw ; done
 ```
-
-<!-- ### Old
-```
-$ ls -1 /path/to/data/LIB*R1*fastq | while read fastq; do
-    R1=$( basename $fastq | cut -d _ -f 2 | awk '{print $1"_R1.fq"}' )
-    R2=$( basename $fastq | cut -d _ -f 2 | awk '{print $1"_R2.fq"}' )
-    echo $R1 : $R2
-    ln -s $fastq ./$R1
-    ln -s ${fastq%R1_001.fastq}R2_001.fastq ./$R2
-done
-``` -->
 
 Upload your metadata file to the `data` directory, with the correct formatting:
 * Columns should read:
@@ -92,17 +64,18 @@ Edit `omic_config.yaml` based on the project specifics.
 * Project details and specifications
     * `project_id`, `assembly`
 * Parameters to select
-    * `biotypes`, `mito`, `printTree`, `FC`, `adjp`, `seq_layout`
+    * `biotypes`, `mito`, `printTree`, `FC`, `adjp`, `seq_layout`, `correlation_test`, `expression_threshold`
 * `DESeq2` details
-    * `linear_model`, `sample_ID`
+    * `linear_model`, `sample_ID`, `LRT`
     * Base these off your metadata.tsv: `meta_columns_to_plot`, `pca` (labels)
     * Add appropriate contrasts based on your samples under `diffexp`
 * Optional details
-    * `LRT`, `colors`
+    * `colors`
 
 Do a dry-run of snakemake to ensure proper execution before submitting it to the cluster (in your wdir).
 
 ```
+$ conda activate <your_snakemake_environment>
 $ snakemake -np --verbose
 ```
 
@@ -127,18 +100,21 @@ Alignment
     * Trimming and filtering of paired-end reads is performed using the trimming tool `bbduk`. For more information visit: https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbduk-guide/
     * Output files are located as `samples/bbduk/{sample}/{sample}_R*_t.good.fastq.gz`
 2) Quality Analysis
-    * Trimmed and filtered reads are assessed for quality using `fastqc` and `fastqscreen`. Output summaries are located as:
-        * `fastqc`  -->  `samples/fastqc/{sample}/{sample}_R*_t.good_fastqc.html`
-        * `fastqscreen`  -->  `samples/fastqscreen/{sample}/{sample}_R*_t.good_screen.html`
+    * Trimmed and filtered reads are assessed for quality using `AfterQC`, `FastQC` and `FastQScreen`. Output summaries are compiled into an interactive report by `MultiQC` at `./multiqc/{project_id}_QC.html`.
 3) Alignment
     * Trimmed and filtered reads are aligned to the specified reference assembly using `STAR`
         * We included a two pass mode flag in order to increase the number of aligned reads
+        * Unmapped reads are also saved within their respective directories
         * Output files are placed in `samples/star/{sample}_bam/` and include:
-            * `Aligned.sortedByCoord.out.bam` (output by `samtools` index)
+            * `Aligned.sortedByCoord.out.bam`
             * `ReadsPerGene.out.tab`
             * `Log.final.out`
     * We extracted the statistics from the `STAR` run and placed them in a table, summarizing the results across all samples from the `Log.final.out` output of STAR
         * Output is `results/tables/{project_id}_STAR_mapping_statistics.txt`
+    * Any unmapped reads are saved as a FASTQ for each read pair. We also compiled these together into a single FASTA file.
+        * R1 FASTQ: `samples/star/{sample}_bam/Unmapped.out.mate1`
+        * R2 FASTQ: `samples/star/{sample}_bam/Unmapped.out.mate2`
+        * Sample FASTA: `samples/star/{sample}_bam/{sample}_unmapped.fa`
 4) Gene counts matrix
     * The gene counts are extracted and compiled into one matrix for each sample from the `STAR` counts
     * The raw, pre-filtered output is located as `data/{project_id}_counts.txt`
@@ -153,15 +129,17 @@ Additional Quality Analysis / Quality Check
         * Clipping Profile
         * Read distribution
         * Read GC
+        * Genebody coverage
     * For more information on these, visit: http://dldcc-web.brc.bcm.edu/lilab/liguow/CGI/rseqc/_build/html/index.html#usage-information
     * Output directory: `rseqc/`
-2) Read distribution QA/QC
-    * The outputs of `RSEQC` read distribution is compiled for each sample into one file located at `results/tables/read_coverage.txt`
-    * Gene attribute fractions are plotted and found ***HERE*** 
-3) Biotype distribution QA/QC
-    * The percent biotype distributions for each sample are mapped to the anno file sourced in the `omic_config.yaml`
-    * Output plot is located at **HERE**
-4) Estimate sequencing saturation (maybe)
+2) Additional read quality metrics are stored in `results/readQC` and include:
+    * Gene attribute fractions
+    * RNA biotype distributions
+    * Pairwise sample correlations
+3) Sequencing saturation is estimated using `RNAseQC`. Results can be found in `results/estSaturation` and include: 
+    * FPKM counts table & summary statistics
+    * Sample feature quantifications
+    * Sequencing saturation curves
 
 Differential Expression Analysis (`DESeq2`)
 ======================
@@ -198,7 +176,7 @@ Differential Expression Analysis (`DESeq2`)
 Differential Expression Analysis (DESeq2)
 ======================
 1) Initializing the DESeq2 object
-    * Here, we run `DESeq2` on the genecounts table, which generates an RDS object and rlog
+    * Here, we run `DESeq2` on the genecounts table, which generates an RDS object and rlog counts
         * This includes the DE analysis across all samples
         * Output is located in the `results/diffexp/` 
     * From the dds object generated, we extract the normalized counts and generate a table with the results

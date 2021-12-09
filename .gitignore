@@ -3,7 +3,6 @@
 multiqc/
 rseqc/
 logs/*
-rseqc/
 
 # Ignore these files
 log.txt
