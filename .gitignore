@@ -5,6 +5,7 @@ rseqc/
 logs/*
 
 # Ignore these files
+dryrun_*.txt
 log.txt
 *.pdf
 scripts/.Rhistory
