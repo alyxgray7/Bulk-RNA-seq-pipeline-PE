@@ -1,0 +1,783 @@
+Building DAG of jobs...
+Job counts:
+	count	jobs
+	10	STAR
+	10	afterqc_filter
+	1	all
+	1	compile_rd
+	10	convertFQ2FA
+	10	countUniqUnmappedSeqs
+	10	fastqc
+	10	fastqscreen
+	10	index
+	10	read_distribution
+	1	star_statistics
+	10	trim_bbduk
+	93
+
+[Tue Dec 14 12:58:03 2021]
+Job 7: --- Trimming.
+Reason: Missing output files: samples/bbduk/A1_Case/A1_Case_R1_t.fastq.gz, samples/bbduk/A1_Case/A1_Case_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A1_Case_R1.fastq.gz in2=samples/raw/A1_Case_R2.fastq.gz out1=samples/bbduk/A1_Case/A1_Case_R1_t.fastq.gz out2=samples/bbduk/A1_Case/A1_Case_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 13: --- Trimming.
+Reason: Missing output files: samples/bbduk/A3_Control/A3_Control_R1_t.fastq.gz, samples/bbduk/A3_Control/A3_Control_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A3_Control_R1.fastq.gz in2=samples/raw/A3_Control_R2.fastq.gz out1=samples/bbduk/A3_Control/A3_Control_R1_t.fastq.gz out2=samples/bbduk/A3_Control/A3_Control_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 31: --- Trimming.
+Reason: Missing output files: samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R2_t.fastq.gz, samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R1_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A9_ScreenNegative_R1.fastq.gz in2=samples/raw/A9_ScreenNegative_R2.fastq.gz out1=samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R1_t.fastq.gz out2=samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 16: --- Trimming.
+Reason: Missing output files: samples/bbduk/A4_Control/A4_Control_R1_t.fastq.gz, samples/bbduk/A4_Control/A4_Control_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A4_Control_R1.fastq.gz in2=samples/raw/A4_Control_R2.fastq.gz out1=samples/bbduk/A4_Control/A4_Control_R1_t.fastq.gz out2=samples/bbduk/A4_Control/A4_Control_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 22: --- Trimming.
+Reason: Missing output files: samples/bbduk/A6_Healthy/A6_Healthy_R2_t.fastq.gz, samples/bbduk/A6_Healthy/A6_Healthy_R1_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A6_Healthy_R1.fastq.gz in2=samples/raw/A6_Healthy_R2.fastq.gz out1=samples/bbduk/A6_Healthy/A6_Healthy_R1_t.fastq.gz out2=samples/bbduk/A6_Healthy/A6_Healthy_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 28: --- Trimming.
+Reason: Missing output files: samples/bbduk/A8_InSitu/A8_InSitu_R2_t.fastq.gz, samples/bbduk/A8_InSitu/A8_InSitu_R1_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A8_InSitu_R1.fastq.gz in2=samples/raw/A8_InSitu_R2.fastq.gz out1=samples/bbduk/A8_InSitu/A8_InSitu_R1_t.fastq.gz out2=samples/bbduk/A8_InSitu/A8_InSitu_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 10: --- Trimming.
+Reason: Missing output files: samples/bbduk/A2_Case/A2_Case_R1_t.fastq.gz, samples/bbduk/A2_Case/A2_Case_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A2_Case_R1.fastq.gz in2=samples/raw/A2_Case_R2.fastq.gz out1=samples/bbduk/A2_Case/A2_Case_R1_t.fastq.gz out2=samples/bbduk/A2_Case/A2_Case_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 4: --- Trimming.
+Reason: Missing output files: samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R1_t.fastq.gz, samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A10_ScreenNegative_R1.fastq.gz in2=samples/raw/A10_ScreenNegative_R2.fastq.gz out1=samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R1_t.fastq.gz out2=samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 19: --- Trimming.
+Reason: Missing output files: samples/bbduk/A5_Healthy/A5_Healthy_R1_t.fastq.gz, samples/bbduk/A5_Healthy/A5_Healthy_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A5_Healthy_R1.fastq.gz in2=samples/raw/A5_Healthy_R2.fastq.gz out1=samples/bbduk/A5_Healthy/A5_Healthy_R1_t.fastq.gz out2=samples/bbduk/A5_Healthy/A5_Healthy_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 25: --- Trimming.
+Reason: Missing output files: samples/bbduk/A7_InSitu/A7_InSitu_R1_t.fastq.gz, samples/bbduk/A7_InSitu/A7_InSitu_R2_t.fastq.gz
+
+bbduk.sh -Xmx1g in1=samples/raw/A7_InSitu_R1.fastq.gz in2=samples/raw/A7_InSitu_R2.fastq.gz out1=samples/bbduk/A7_InSitu/A7_InSitu_R1_t.fastq.gz out2=samples/bbduk/A7_InSitu/A7_InSitu_R2_t.fastq.gz minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref=./data/adapters.fa hdist=1
+
+[Tue Dec 14 12:58:03 2021]
+Job 30: ---AfterQC
+Reason: Missing output files: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R2_t.fastq.gz, samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R1_t.fastq.gz
+
+after.py -1 samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R1_t.fastq.gz -2 samples/bbduk/A9_ScreenNegative/A9_ScreenNegative_R2_t.fastq.gz --report_output_folder=samples/bbduk/A9_ScreenNegative/QC/ -g samples/bbduk/A9_ScreenNegative/good/ -b samples/bbduk/A9_ScreenNegative/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 15: ---AfterQC
+Reason: Missing output files: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A4_Control/A4_Control_R1_t.fastq.gz, samples/bbduk/A4_Control/A4_Control_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A4_Control/A4_Control_R1_t.fastq.gz -2 samples/bbduk/A4_Control/A4_Control_R2_t.fastq.gz --report_output_folder=samples/bbduk/A4_Control/QC/ -g samples/bbduk/A4_Control/good/ -b samples/bbduk/A4_Control/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 9: ---AfterQC
+Reason: Missing output files: samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A2_Case/A2_Case_R1_t.fastq.gz, samples/bbduk/A2_Case/A2_Case_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A2_Case/A2_Case_R1_t.fastq.gz -2 samples/bbduk/A2_Case/A2_Case_R2_t.fastq.gz --report_output_folder=samples/bbduk/A2_Case/QC/ -g samples/bbduk/A2_Case/good/ -b samples/bbduk/A2_Case/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 3: ---AfterQC
+Reason: Missing output files: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R1_t.fastq.gz, samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R1_t.fastq.gz -2 samples/bbduk/A10_ScreenNegative/A10_ScreenNegative_R2_t.fastq.gz --report_output_folder=samples/bbduk/A10_ScreenNegative/QC/ -g samples/bbduk/A10_ScreenNegative/good/ -b samples/bbduk/A10_ScreenNegative/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 18: ---AfterQC
+Reason: Missing output files: samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz; Input files updated by another job: samples/bbduk/A5_Healthy/A5_Healthy_R1_t.fastq.gz, samples/bbduk/A5_Healthy/A5_Healthy_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A5_Healthy/A5_Healthy_R1_t.fastq.gz -2 samples/bbduk/A5_Healthy/A5_Healthy_R2_t.fastq.gz --report_output_folder=samples/bbduk/A5_Healthy/QC/ -g samples/bbduk/A5_Healthy/good/ -b samples/bbduk/A5_Healthy/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 24: ---AfterQC
+Reason: Missing output files: samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz; Input files updated by another job: samples/bbduk/A7_InSitu/A7_InSitu_R1_t.fastq.gz, samples/bbduk/A7_InSitu/A7_InSitu_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A7_InSitu/A7_InSitu_R1_t.fastq.gz -2 samples/bbduk/A7_InSitu/A7_InSitu_R2_t.fastq.gz --report_output_folder=samples/bbduk/A7_InSitu/QC/ -g samples/bbduk/A7_InSitu/good/ -b samples/bbduk/A7_InSitu/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 12: ---AfterQC
+Reason: Missing output files: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A3_Control/A3_Control_R1_t.fastq.gz, samples/bbduk/A3_Control/A3_Control_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A3_Control/A3_Control_R1_t.fastq.gz -2 samples/bbduk/A3_Control/A3_Control_R2_t.fastq.gz --report_output_folder=samples/bbduk/A3_Control/QC/ -g samples/bbduk/A3_Control/good/ -b samples/bbduk/A3_Control/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 6: ---AfterQC
+Reason: Missing output files: samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz; Input files updated by another job: samples/bbduk/A1_Case/A1_Case_R1_t.fastq.gz, samples/bbduk/A1_Case/A1_Case_R2_t.fastq.gz
+
+after.py -1 samples/bbduk/A1_Case/A1_Case_R1_t.fastq.gz -2 samples/bbduk/A1_Case/A1_Case_R2_t.fastq.gz --report_output_folder=samples/bbduk/A1_Case/QC/ -g samples/bbduk/A1_Case/good/ -b samples/bbduk/A1_Case/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 21: ---AfterQC
+Reason: Missing output files: samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz; Input files updated by another job: samples/bbduk/A6_Healthy/A6_Healthy_R2_t.fastq.gz, samples/bbduk/A6_Healthy/A6_Healthy_R1_t.fastq.gz
+
+after.py -1 samples/bbduk/A6_Healthy/A6_Healthy_R1_t.fastq.gz -2 samples/bbduk/A6_Healthy/A6_Healthy_R2_t.fastq.gz --report_output_folder=samples/bbduk/A6_Healthy/QC/ -g samples/bbduk/A6_Healthy/good/ -b samples/bbduk/A6_Healthy/bad/
+
+[Tue Dec 14 12:58:03 2021]
+Job 27: ---AfterQC
+Reason: Missing output files: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz; Input files updated by another job: samples/bbduk/A8_InSitu/A8_InSitu_R2_t.fastq.gz, samples/bbduk/A8_InSitu/A8_InSitu_R1_t.fastq.gz
+
+after.py -1 samples/bbduk/A8_InSitu/A8_InSitu_R1_t.fastq.gz -2 samples/bbduk/A8_InSitu/A8_InSitu_R2_t.fastq.gz --report_output_folder=samples/bbduk/A8_InSitu/QC/ -g samples/bbduk/A8_InSitu/good/ -b samples/bbduk/A8_InSitu/bad/
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+    output: samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.txt
+    jobid: 61
+    reason: Input files updated by another job: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+    wildcards: sample=A9_ScreenNegative
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A9_ScreenNegative samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 46: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A4_Control --extract  -f fastq samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz
+    output: samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.txt, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.txt
+    jobid: 54
+    reason: Input files updated by another job: samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz
+    wildcards: sample=A2_Case
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A2_Case samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz
+    output: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/A1_Case_bam/ReadsPerGene.out.tab, samples/star/A1_Case_bam/Unmapped.out.mate1, samples/star/A1_Case_bam/Unmapped.out.mate2, samples/star/A1_Case_bam/Log.final.out
+    jobid: 5
+    reason: Missing output files: samples/star/A1_Case_bam/Unmapped.out.mate2, samples/star/A1_Case_bam/Unmapped.out.mate1; Input files updated by another job: samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz
+    wildcards: sample=A1_Case
+
+[Tue Dec 14 12:58:03 2021]
+Job 43: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A1_Case --extract  -f fastq samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz
+    output: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/A6_Healthy_bam/ReadsPerGene.out.tab, samples/star/A6_Healthy_bam/Unmapped.out.mate1, samples/star/A6_Healthy_bam/Unmapped.out.mate2, samples/star/A6_Healthy_bam/Log.final.out
+    jobid: 20
+    reason: Missing output files: samples/star/A6_Healthy_bam/Unmapped.out.mate1, samples/star/A6_Healthy_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz
+    wildcards: sample=A6_Healthy
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz
+    output: samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.html, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.png, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.html, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.png, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.txt
+    jobid: 58
+    reason: Input files updated by another job: samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz
+    wildcards: sample=A6_Healthy
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A6_Healthy samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 50: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A8_InSitu --extract  -f fastq samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+    output: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/A10_ScreenNegative_bam/ReadsPerGene.out.tab, samples/star/A10_ScreenNegative_bam/Unmapped.out.mate1, samples/star/A10_ScreenNegative_bam/Unmapped.out.mate2, samples/star/A10_ScreenNegative_bam/Log.final.out
+    jobid: 2
+    reason: Missing output files: samples/star/A10_ScreenNegative_bam/Unmapped.out.mate1, samples/star/A10_ScreenNegative_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+    wildcards: sample=A10_ScreenNegative
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz
+    output: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/A5_Healthy_bam/ReadsPerGene.out.tab, samples/star/A5_Healthy_bam/Unmapped.out.mate1, samples/star/A5_Healthy_bam/Unmapped.out.mate2, samples/star/A5_Healthy_bam/Log.final.out
+    jobid: 17
+    reason: Missing output files: samples/star/A5_Healthy_bam/Unmapped.out.mate1, samples/star/A5_Healthy_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz
+    wildcards: sample=A5_Healthy
+
+[Tue Dec 14 12:58:03 2021]
+Job 47: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A5_Healthy --extract  -f fastq samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+    output: samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.png, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.txt, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.png, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.txt
+    jobid: 55
+    reason: Input files updated by another job: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+    wildcards: sample=A3_Control
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A3_Control samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz
+    output: samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.html, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.png, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.txt, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.html, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.png, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.txt
+    jobid: 59
+    reason: Input files updated by another job: samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz
+    wildcards: sample=A7_InSitu
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A7_InSitu samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+    output: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/A4_Control_bam/ReadsPerGene.out.tab, samples/star/A4_Control_bam/Unmapped.out.mate1, samples/star/A4_Control_bam/Unmapped.out.mate2, samples/star/A4_Control_bam/Log.final.out
+    jobid: 14
+    reason: Missing output files: samples/star/A4_Control_bam/Unmapped.out.mate1, samples/star/A4_Control_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+    wildcards: sample=A4_Control
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+    output: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/A9_ScreenNegative_bam/ReadsPerGene.out.tab, samples/star/A9_ScreenNegative_bam/Unmapped.out.mate1, samples/star/A9_ScreenNegative_bam/Unmapped.out.mate2, samples/star/A9_ScreenNegative_bam/Log.final.out
+    jobid: 29
+    reason: Missing output files: samples/star/A9_ScreenNegative_bam/Unmapped.out.mate2, samples/star/A9_ScreenNegative_bam/Unmapped.out.mate1; Input files updated by another job: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+    wildcards: sample=A9_ScreenNegative
+
+[Tue Dec 14 12:58:03 2021]
+Job 51: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A9_ScreenNegative --extract  -f fastq samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R1_t.good.fq.gz samples/bbduk/A9_ScreenNegative/good/A9_ScreenNegative_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 44: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A2_Case --extract  -f fastq samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+    output: samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.html, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.png, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.txt, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.html, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.png, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.txt
+    jobid: 56
+    reason: Input files updated by another job: samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz, samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+    wildcards: sample=A4_Control
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A4_Control samples/bbduk/A4_Control/good/A4_Control_R1_t.good.fq.gz samples/bbduk/A4_Control/good/A4_Control_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+    output: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/A3_Control_bam/ReadsPerGene.out.tab, samples/star/A3_Control_bam/Unmapped.out.mate1, samples/star/A3_Control_bam/Unmapped.out.mate2, samples/star/A3_Control_bam/Log.final.out
+    jobid: 11
+    reason: Missing output files: samples/star/A3_Control_bam/Unmapped.out.mate2, samples/star/A3_Control_bam/Unmapped.out.mate1; Input files updated by another job: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+    wildcards: sample=A3_Control
+
+[Tue Dec 14 12:58:03 2021]
+Job 48: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz, samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A6_Healthy --extract  -f fastq samples/bbduk/A6_Healthy/good/A6_Healthy_R1_t.good.fq.gz samples/bbduk/A6_Healthy/good/A6_Healthy_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+    output: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/A8_InSitu_bam/ReadsPerGene.out.tab, samples/star/A8_InSitu_bam/Unmapped.out.mate1, samples/star/A8_InSitu_bam/Unmapped.out.mate2, samples/star/A8_InSitu_bam/Log.final.out
+    jobid: 26
+    reason: Missing output files: samples/star/A8_InSitu_bam/Unmapped.out.mate1, samples/star/A8_InSitu_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+    wildcards: sample=A8_InSitu
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+    output: samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.txt
+    jobid: 52
+    reason: Input files updated by another job: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+    wildcards: sample=A10_ScreenNegative
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A10_ScreenNegative samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 45: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz, samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A3_Control --extract  -f fastq samples/bbduk/A3_Control/good/A3_Control_R1_t.good.fq.gz samples/bbduk/A3_Control/good/A3_Control_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+    output: samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.png, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.txt, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.png, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.txt
+    jobid: 60
+    reason: Input files updated by another job: samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz, samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+    wildcards: sample=A8_InSitu
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A8_InSitu samples/bbduk/A8_InSitu/good/A8_InSitu_R1_t.good.fq.gz samples/bbduk/A8_InSitu/good/A8_InSitu_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 42: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz, samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A10_ScreenNegative --extract  -f fastq samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R1_t.good.fq.gz samples/bbduk/A10_ScreenNegative/good/A10_ScreenNegative_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz
+    output: samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.html, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.png, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.html, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.png, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.txt
+    jobid: 57
+    reason: Input files updated by another job: samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz, samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz
+    wildcards: sample=A5_Healthy
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A5_Healthy samples/bbduk/A5_Healthy/good/A5_Healthy_R1_t.good.fq.gz samples/bbduk/A5_Healthy/good/A5_Healthy_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+Job 49: --- Quality check of raw data with Fastqc.
+Reason: Input files updated by another job: samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz
+
+fastqc --outdir samples/fastqc/A7_InSitu --extract  -f fastq samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz
+    output: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/A7_InSitu_bam/ReadsPerGene.out.tab, samples/star/A7_InSitu_bam/Unmapped.out.mate1, samples/star/A7_InSitu_bam/Unmapped.out.mate2, samples/star/A7_InSitu_bam/Log.final.out
+    jobid: 23
+    reason: Missing output files: samples/star/A7_InSitu_bam/Unmapped.out.mate1, samples/star/A7_InSitu_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A7_InSitu/good/A7_InSitu_R2_t.good.fq.gz, samples/bbduk/A7_InSitu/good/A7_InSitu_R1_t.good.fq.gz
+    wildcards: sample=A7_InSitu
+
+[Tue Dec 14 12:58:03 2021]
+rule STAR:
+    input: samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz
+    output: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/A2_Case_bam/ReadsPerGene.out.tab, samples/star/A2_Case_bam/Unmapped.out.mate1, samples/star/A2_Case_bam/Unmapped.out.mate2, samples/star/A2_Case_bam/Log.final.out
+    jobid: 8
+    reason: Missing output files: samples/star/A2_Case_bam/Unmapped.out.mate1, samples/star/A2_Case_bam/Unmapped.out.mate2; Input files updated by another job: samples/bbduk/A2_Case/good/A2_Case_R2_t.good.fq.gz, samples/bbduk/A2_Case/good/A2_Case_R1_t.good.fq.gz
+    wildcards: sample=A2_Case
+
+[Tue Dec 14 12:58:03 2021]
+rule fastqscreen:
+    input: samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz
+    output: samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.html, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.html, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.txt
+    jobid: 53
+    reason: Input files updated by another job: samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz, samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz
+    wildcards: sample=A1_Case
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/A1_Case samples/bbduk/A1_Case/good/A1_Case_R1_t.good.fq.gz samples/bbduk/A1_Case/good/A1_Case_R2_t.good.fq.gz
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A6_Healthy/A6_Healthy.read_distribution.txt
+    jobid: 69
+    reason: Input files updated by another job: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A6_Healthy
+
+read_distribution.py -i samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A6_Healthy/A6_Healthy.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 76: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A3_Control_bam/A3_Control_unmapped.fa; Input files updated by another job: samples/star/A3_Control_bam/Unmapped.out.mate2, samples/star/A3_Control_bam/Unmapped.out.mate1
+
+
+        cat samples/star/A3_Control_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A3_Control_bam/A3_Control_unmapped.fa &&
+        cat samples/star/A3_Control_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A3_Control_bam/A3_Control_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 39
+    reason: Input files updated by another job: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A7_InSitu
+
+samtools index samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule star_statistics:
+    input: samples/star/A10_ScreenNegative_bam/Log.final.out, samples/star/A1_Case_bam/Log.final.out, samples/star/A2_Case_bam/Log.final.out, samples/star/A3_Control_bam/Log.final.out, samples/star/A4_Control_bam/Log.final.out, samples/star/A5_Healthy_bam/Log.final.out, samples/star/A6_Healthy_bam/Log.final.out, samples/star/A7_InSitu_bam/Log.final.out, samples/star/A8_InSitu_bam/Log.final.out, samples/star/A9_ScreenNegative_bam/Log.final.out
+    output: results/tables/platelet_full-cohort_STAR_mapping_statistics.txt
+    jobid: 1
+    reason: Input files updated by another job: samples/star/A6_Healthy_bam/Log.final.out, samples/star/A7_InSitu_bam/Log.final.out, samples/star/A4_Control_bam/Log.final.out, samples/star/A3_Control_bam/Log.final.out, samples/star/A8_InSitu_bam/Log.final.out, samples/star/A10_ScreenNegative_bam/Log.final.out, samples/star/A2_Case_bam/Log.final.out, samples/star/A1_Case_bam/Log.final.out, samples/star/A9_ScreenNegative_bam/Log.final.out, samples/star/A5_Healthy_bam/Log.final.out
+
+[Tue Dec 14 12:58:03 2021]
+Job 73: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa; Input files updated by another job: samples/star/A10_ScreenNegative_bam/Unmapped.out.mate1, samples/star/A10_ScreenNegative_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A10_ScreenNegative_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa &&
+        cat samples/star/A10_ScreenNegative_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 35
+    reason: Input files updated by another job: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A3_Control
+
+samtools index samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+Job 80: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa; Input files updated by another job: samples/star/A7_InSitu_bam/Unmapped.out.mate1, samples/star/A7_InSitu_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A7_InSitu_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa &&
+        cat samples/star/A7_InSitu_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A2_Case/A2_Case.read_distribution.txt
+    jobid: 65
+    reason: Input files updated by another job: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A2_Case
+
+read_distribution.py -i samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A2_Case/A2_Case.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 32
+    reason: Input files updated by another job: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A10_ScreenNegative
+
+samtools index samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+Job 77: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A4_Control_bam/A4_Control_unmapped.fa; Input files updated by another job: samples/star/A4_Control_bam/Unmapped.out.mate1, samples/star/A4_Control_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A4_Control_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A4_Control_bam/A4_Control_unmapped.fa &&
+        cat samples/star/A4_Control_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A4_Control_bam/A4_Control_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 40
+    reason: Input files updated by another job: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A8_InSitu
+
+samtools index samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A7_InSitu/A7_InSitu.read_distribution.txt
+    jobid: 70
+    reason: Input files updated by another job: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A7_InSitu
+
+read_distribution.py -i samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A7_InSitu/A7_InSitu.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 74: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A1_Case_bam/A1_Case_unmapped.fa; Input files updated by another job: samples/star/A1_Case_bam/Unmapped.out.mate2, samples/star/A1_Case_bam/Unmapped.out.mate1
+
+
+        cat samples/star/A1_Case_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A1_Case_bam/A1_Case_unmapped.fa &&
+        cat samples/star/A1_Case_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A1_Case_bam/A1_Case_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 36
+    reason: Input files updated by another job: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A4_Control
+
+samtools index samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A3_Control/A3_Control.read_distribution.txt
+    jobid: 66
+    reason: Input files updated by another job: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A3_Control
+
+read_distribution.py -i samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A3_Control/A3_Control.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 81: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa; Input files updated by another job: samples/star/A8_InSitu_bam/Unmapped.out.mate1, samples/star/A8_InSitu_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A8_InSitu_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa &&
+        cat samples/star/A8_InSitu_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 33
+    reason: Input files updated by another job: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A1_Case
+
+samtools index samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A10_ScreenNegative/A10_ScreenNegative.read_distribution.txt
+    jobid: 63
+    reason: Input files updated by another job: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A10_ScreenNegative
+
+read_distribution.py -i samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A10_ScreenNegative/A10_ScreenNegative.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 78: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa; Input files updated by another job: samples/star/A5_Healthy_bam/Unmapped.out.mate1, samples/star/A5_Healthy_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A5_Healthy_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa &&
+        cat samples/star/A5_Healthy_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 41
+    reason: Input files updated by another job: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A9_ScreenNegative
+
+samtools index samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A8_InSitu/A8_InSitu.read_distribution.txt
+    jobid: 71
+    reason: Input files updated by another job: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A8_InSitu
+
+read_distribution.py -i samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A8_InSitu/A8_InSitu.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 37
+    reason: Input files updated by another job: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A5_Healthy
+
+samtools index samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A4_Control/A4_Control.read_distribution.txt
+    jobid: 67
+    reason: Input files updated by another job: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A4_Control
+
+read_distribution.py -i samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A4_Control/A4_Control.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 82: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa; Input files updated by another job: samples/star/A9_ScreenNegative_bam/Unmapped.out.mate2, samples/star/A9_ScreenNegative_bam/Unmapped.out.mate1
+
+
+        cat samples/star/A9_ScreenNegative_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa &&
+        cat samples/star/A9_ScreenNegative_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 75: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A2_Case_bam/A2_Case_unmapped.fa; Input files updated by another job: samples/star/A2_Case_bam/Unmapped.out.mate1, samples/star/A2_Case_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A2_Case_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A2_Case_bam/A2_Case_unmapped.fa &&
+        cat samples/star/A2_Case_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A2_Case_bam/A2_Case_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A1_Case/A1_Case.read_distribution.txt
+    jobid: 64
+    reason: Input files updated by another job: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A1_Case
+
+read_distribution.py -i samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A1_Case/A1_Case.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 79: --- Converting Unmapped FASTQ to FASTA.
+Reason: Missing output files: samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa; Input files updated by another job: samples/star/A6_Healthy_bam/Unmapped.out.mate1, samples/star/A6_Healthy_bam/Unmapped.out.mate2
+
+
+        cat samples/star/A6_Healthy_bam/Unmapped.out.mate1 | sed -n '1~4s/^@/>/p;2~4p' > samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa &&
+        cat samples/star/A6_Healthy_bam/Unmapped.out.mate2 | sed -n '1~4s/^@/>/p;2~4p' >> samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A9_ScreenNegative/A9_ScreenNegative.read_distribution.txt
+    jobid: 72
+    reason: Input files updated by another job: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A9_ScreenNegative
+
+read_distribution.py -i samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A9_ScreenNegative/A9_ScreenNegative.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 34
+    reason: Input files updated by another job: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A2_Case
+
+samtools index samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule index:
+    input: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 38
+    reason: Input files updated by another job: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A6_Healthy
+
+samtools index samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Tue Dec 14 12:58:03 2021]
+rule read_distribution:
+    input: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/A5_Healthy/A5_Healthy.read_distribution.txt
+    jobid: 68
+    reason: Input files updated by another job: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=A5_Healthy
+
+read_distribution.py -i samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/A5_Healthy/A5_Healthy.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+Job 84: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A1_Case_overRepseqCount.txt; Input files updated by another job: samples/star/A1_Case_bam/A1_Case_unmapped.fa
+
+
+        cat samples/star/A1_Case_bam/A1_Case_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A1_Case_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 86: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A3_Control_overRepseqCount.txt; Input files updated by another job: samples/star/A3_Control_bam/A3_Control_unmapped.fa
+
+
+        cat samples/star/A3_Control_bam/A3_Control_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A3_Control_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 90: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A7_InSitu_overRepseqCount.txt; Input files updated by another job: samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa
+
+
+        cat samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A7_InSitu_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 91: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A8_InSitu_overRepseqCount.txt; Input files updated by another job: samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa
+
+
+        cat samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A8_InSitu_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 88: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A5_Healthy_overRepseqCount.txt; Input files updated by another job: samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa
+
+
+        cat samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A5_Healthy_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 83: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A10_ScreenNegative_overRepseqCount.txt; Input files updated by another job: samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa
+
+
+        cat samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A10_ScreenNegative_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 87: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A4_Control_overRepseqCount.txt; Input files updated by another job: samples/star/A4_Control_bam/A4_Control_unmapped.fa
+
+
+        cat samples/star/A4_Control_bam/A4_Control_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A4_Control_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 92: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A9_ScreenNegative_overRepseqCount.txt; Input files updated by another job: samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa
+
+
+        cat samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A9_ScreenNegative_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 85: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A2_Case_overRepseqCount.txt; Input files updated by another job: samples/star/A2_Case_bam/A2_Case_unmapped.fa
+
+
+        cat samples/star/A2_Case_bam/A2_Case_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A2_Case_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+Job 89: --- Counting unique unmapped sequences.
+Reason: Missing output files: data/unmappedSeqs/A6_Healthy_overRepseqCount.txt; Input files updated by another job: samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa
+
+
+        cat samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa | grep -v "^>" | sort | uniq -c | sort -nr > data/unmappedSeqs/A6_Healthy_overRepseqCount.txt
+        
+
+[Tue Dec 14 12:58:03 2021]
+rule compile_rd:
+    input: rseqc/read_distribution/A10_ScreenNegative/A10_ScreenNegative.read_distribution.txt, rseqc/read_distribution/A1_Case/A1_Case.read_distribution.txt, rseqc/read_distribution/A2_Case/A2_Case.read_distribution.txt, rseqc/read_distribution/A3_Control/A3_Control.read_distribution.txt, rseqc/read_distribution/A4_Control/A4_Control.read_distribution.txt, rseqc/read_distribution/A5_Healthy/A5_Healthy.read_distribution.txt, rseqc/read_distribution/A6_Healthy/A6_Healthy.read_distribution.txt, rseqc/read_distribution/A7_InSitu/A7_InSitu.read_distribution.txt, rseqc/read_distribution/A8_InSitu/A8_InSitu.read_distribution.txt, rseqc/read_distribution/A9_ScreenNegative/A9_ScreenNegative.read_distribution.txt
+    output: results/tables/read_coverage.txt
+    jobid: 62
+    reason: Missing output files: results/tables/read_coverage.txt; Input files updated by another job: rseqc/read_distribution/A3_Control/A3_Control.read_distribution.txt, rseqc/read_distribution/A2_Case/A2_Case.read_distribution.txt, rseqc/read_distribution/A8_InSitu/A8_InSitu.read_distribution.txt, rseqc/read_distribution/A10_ScreenNegative/A10_ScreenNegative.read_distribution.txt, rseqc/read_distribution/A9_ScreenNegative/A9_ScreenNegative.read_distribution.txt, rseqc/read_distribution/A5_Healthy/A5_Healthy.read_distribution.txt, rseqc/read_distribution/A4_Control/A4_Control.read_distribution.txt, rseqc/read_distribution/A7_InSitu/A7_InSitu.read_distribution.txt, rseqc/read_distribution/A6_Healthy/A6_Healthy.read_distribution.txt, rseqc/read_distribution/A1_Case/A1_Case.read_distribution.txt
+
+[Tue Dec 14 12:58:03 2021]
+localrule all:
+    input: results/tables/platelet_full-cohort_STAR_mapping_statistics.txt, samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqc/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqc/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_fastqc.zip, samples/fastqc/A1_Case/A1_Case_R1_t.good_fastqc.zip, samples/fastqc/A1_Case/A1_Case_R2_t.good_fastqc.zip, samples/fastqc/A2_Case/A2_Case_R1_t.good_fastqc.zip, samples/fastqc/A2_Case/A2_Case_R2_t.good_fastqc.zip, samples/fastqc/A3_Control/A3_Control_R1_t.good_fastqc.zip, samples/fastqc/A3_Control/A3_Control_R2_t.good_fastqc.zip, samples/fastqc/A4_Control/A4_Control_R1_t.good_fastqc.zip, samples/fastqc/A4_Control/A4_Control_R2_t.good_fastqc.zip, samples/fastqc/A5_Healthy/A5_Healthy_R1_t.good_fastqc.zip, samples/fastqc/A5_Healthy/A5_Healthy_R2_t.good_fastqc.zip, samples/fastqc/A6_Healthy/A6_Healthy_R1_t.good_fastqc.zip, samples/fastqc/A6_Healthy/A6_Healthy_R2_t.good_fastqc.zip, samples/fastqc/A7_InSitu/A7_InSitu_R1_t.good_fastqc.zip, samples/fastqc/A7_InSitu/A7_InSitu_R2_t.good_fastqc.zip, samples/fastqc/A8_InSitu/A8_InSitu_R1_t.good_fastqc.zip, samples/fastqc/A8_InSitu/A8_InSitu_R2_t.good_fastqc.zip, samples/fastqc/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqc/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_fastqc.zip, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.html, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.html, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.txt, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.txt, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.txt, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.png, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.txt, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.png, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.txt, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.html, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.png, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.txt, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.html, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.png, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.html, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.png, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.html, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.png, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.html, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.png, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.html, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.png, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.txt, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.html, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.png, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.txt, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.html, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.png, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.txt, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.png, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.txt, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.png, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.txt, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.txt, results/tables/read_coverage.txt, samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa, samples/star/A1_Case_bam/A1_Case_unmapped.fa, samples/star/A2_Case_bam/A2_Case_unmapped.fa, samples/star/A3_Control_bam/A3_Control_unmapped.fa, samples/star/A4_Control_bam/A4_Control_unmapped.fa, samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa, samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa, samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa, samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa, samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa, data/unmappedSeqs/A10_ScreenNegative_overRepseqCount.txt, data/unmappedSeqs/A1_Case_overRepseqCount.txt, data/unmappedSeqs/A2_Case_overRepseqCount.txt, data/unmappedSeqs/A3_Control_overRepseqCount.txt, data/unmappedSeqs/A4_Control_overRepseqCount.txt, data/unmappedSeqs/A5_Healthy_overRepseqCount.txt, data/unmappedSeqs/A6_Healthy_overRepseqCount.txt, data/unmappedSeqs/A7_InSitu_overRepseqCount.txt, data/unmappedSeqs/A8_InSitu_overRepseqCount.txt, data/unmappedSeqs/A9_ScreenNegative_overRepseqCount.txt, data/geneLengths.tsv
+    jobid: 0
+    reason: Input files updated by another job: samples/star/A6_Healthy_bam/A6_Healthy_unmapped.fa, samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.txt, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.html, samples/star/A7_InSitu_bam/A7_InSitu_unmapped.fa, samples/fastqc/A7_InSitu/A7_InSitu_R2_t.good_fastqc.zip, samples/fastqc/A8_InSitu/A8_InSitu_R2_t.good_fastqc.zip, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.png, samples/star/A3_Control_bam/A3_Control_unmapped.fa, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.html, samples/fastqc/A7_InSitu/A7_InSitu_R1_t.good_fastqc.zip, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.txt, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.txt, samples/star/A9_ScreenNegative_bam/A9_ScreenNegative_unmapped.fa, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.png, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.html, samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqc/A2_Case/A2_Case_R2_t.good_fastqc.zip, data/unmappedSeqs/A10_ScreenNegative_overRepseqCount.txt, samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, data/unmappedSeqs/A8_InSitu_overRepseqCount.txt, samples/fastqc/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.txt, samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.html, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.png, samples/star/A4_Control_bam/A4_Control_unmapped.fa, data/unmappedSeqs/A9_ScreenNegative_overRepseqCount.txt, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.html, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.txt, samples/star/A5_Healthy_bam/A5_Healthy_unmapped.fa, samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.txt, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.png, data/unmappedSeqs/A2_Case_overRepseqCount.txt, data/unmappedSeqs/A4_Control_overRepseqCount.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.png, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.html, data/unmappedSeqs/A5_Healthy_overRepseqCount.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R2_t.good_screen.txt, samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqc/A4_Control/A4_Control_R2_t.good_fastqc.zip, samples/fastqc/A5_Healthy/A5_Healthy_R2_t.good_fastqc.zip, samples/star/A10_ScreenNegative_bam/A10_ScreenNegative_unmapped.fa, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.png, data/unmappedSeqs/A7_InSitu_overRepseqCount.txt, samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqc/A6_Healthy/A6_Healthy_R2_t.good_fastqc.zip, samples/fastqscreen/A8_InSitu/A8_InSitu_R2_t.good_screen.png, samples/star/A8_InSitu_bam/A8_InSitu_unmapped.fa, results/tables/read_coverage.txt, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R1_t.good_screen.txt, samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.html, samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.txt, samples/fastqscreen/A7_InSitu/A7_InSitu_R1_t.good_screen.png, samples/fastqc/A6_Healthy/A6_Healthy_R1_t.good_fastqc.zip, samples/star/A2_Case_bam/A2_Case_unmapped.fa, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.txt, samples/fastqc/A8_InSitu/A8_InSitu_R1_t.good_fastqc.zip, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.png, samples/fastqc/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_fastqc.zip, samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam.bai, data/unmappedSeqs/A6_Healthy_overRepseqCount.txt, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.html, samples/fastqscreen/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.png, samples/fastqscreen/A3_Control/A3_Control_R1_t.good_screen.png, data/unmappedSeqs/A3_Control_overRepseqCount.txt, samples/fastqscreen/A6_Healthy/A6_Healthy_R2_t.good_screen.png, samples/star/A1_Case_bam/A1_Case_unmapped.fa, samples/fastqscreen/A7_InSitu/A7_InSitu_R2_t.good_screen.txt, samples/fastqc/A3_Control/A3_Control_R2_t.good_fastqc.zip, samples/fastqscreen/A4_Control/A4_Control_R1_t.good_screen.html, samples/fastqc/A9_ScreenNegative/A9_ScreenNegative_R2_t.good_fastqc.zip, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/A3_Control/A3_Control_R2_t.good_screen.txt, samples/fastqscreen/A1_Case/A1_Case_R2_t.good_screen.txt, data/unmappedSeqs/A1_Case_overRepseqCount.txt, samples/fastqc/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqc/A2_Case/A2_Case_R1_t.good_fastqc.zip, samples/fastqc/A1_Case/A1_Case_R2_t.good_fastqc.zip, samples/fastqc/A5_Healthy/A5_Healthy_R1_t.good_fastqc.zip, samples/fastqscreen/A4_Control/A4_Control_R2_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/A6_Healthy/A6_Healthy_R1_t.good_screen.html, samples/fastqscreen/A2_Case/A2_Case_R2_t.good_screen.html, samples/fastqscreen/A8_InSitu/A8_InSitu_R1_t.good_screen.png, samples/fastqscreen/A2_Case/A2_Case_R1_t.good_screen.png, samples/fastqc/A1_Case/A1_Case_R1_t.good_fastqc.zip, samples/fastqscreen/A5_Healthy/A5_Healthy_R1_t.good_screen.png, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R2_t.good_screen.png, samples/fastqc/A4_Control/A4_Control_R1_t.good_fastqc.zip, samples/fastqc/A3_Control/A3_Control_R1_t.good_fastqc.zip, samples/fastqscreen/A10_ScreenNegative/A10_ScreenNegative_R1_t.good_screen.png, results/tables/platelet_full-cohort_STAR_mapping_statistics.txt
+
+Job counts:
+	count	jobs
+	10	STAR
+	10	afterqc_filter
+	1	all
+	1	compile_rd
+	10	convertFQ2FA
+	10	countUniqUnmappedSeqs
+	10	fastqc
+	10	fastqscreen
+	10	index
+	10	read_distribution
+	1	star_statistics
+	10	trim_bbduk
+	93
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.

@@ -1,0 +1,1429 @@
+Building DAG of jobs...
+Job counts:
+	count	jobs
+	1	all
+	141	fwd_tracks
+	142
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N6_Healthy_fwd.bw
+    jobid: 47
+    reason: Missing output files: samples/bigwig/N6_Healthy_fwd.bw
+    wildcards: sample=N6_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N6_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N6_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G6_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/G6_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G6_InSitu_fwd.bw
+    jobid: 77
+    reason: Missing output files: samples/bigwig/G6_InSitu_fwd.bw
+    wildcards: sample=G6_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G6_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G6_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A8_InSitu_fwd.bw
+    jobid: 182
+    reason: Missing output files: samples/bigwig/A8_InSitu_fwd.bw
+    wildcards: sample=A8_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A8_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A8_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E8_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/E8_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E8_Control_fwd.bw
+    jobid: 2
+    reason: Missing output files: samples/bigwig/E8_Control_fwd.bw
+    wildcards: sample=E8_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E8_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E8_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L10_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/L10_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L10_Control_fwd.bw
+    jobid: 107
+    reason: Missing output files: samples/bigwig/L10_Control_fwd.bw
+    wildcards: sample=L10_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L10_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L10_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/F6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F6_ScreenNegative_fwd.bw
+    jobid: 152
+    reason: Missing output files: samples/bigwig/F6_ScreenNegative_fwd.bw
+    wildcards: sample=F6_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F6_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/L7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L7_ScreenNegative_fwd.bw
+    jobid: 447
+    reason: Missing output files: samples/bigwig/L7_ScreenNegative_fwd.bw
+    wildcards: sample=L7_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L7_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K6_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/K6_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K6_Case_fwd.bw
+    jobid: 632
+    reason: Missing output files: samples/bigwig/K6_Case_fwd.bw
+    wildcards: sample=K6_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K6_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K6_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B8_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/B8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B8_InSitu_fwd.bw
+    jobid: 227
+    reason: Missing output files: samples/bigwig/B8_InSitu_fwd.bw
+    wildcards: sample=B8_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B8_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B8_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/M6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M6_Healthy_fwd.bw
+    jobid: 272
+    reason: Missing output files: samples/bigwig/M6_Healthy_fwd.bw
+    wildcards: sample=M6_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M6_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M6_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C7_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/C7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C7_Case_fwd.bw
+    jobid: 302
+    reason: Missing output files: samples/bigwig/C7_Case_fwd.bw
+    wildcards: sample=C7_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C7_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C7_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A5_Healthy_fwd.bw
+    jobid: 317
+    reason: Missing output files: samples/bigwig/A5_Healthy_fwd.bw
+    wildcards: sample=A5_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A5_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A5_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L2_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/L2_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L2_Control_fwd.bw
+    jobid: 332
+    reason: Missing output files: samples/bigwig/L2_Control_fwd.bw
+    wildcards: sample=L2_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L2_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L2_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K9_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/K9_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K9_Control_fwd.bw
+    jobid: 422
+    reason: Missing output files: samples/bigwig/K9_Control_fwd.bw
+    wildcards: sample=K9_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K9_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K9_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L9_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/L9_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L9_Control_fwd.bw
+    jobid: 482
+    reason: Missing output files: samples/bigwig/L9_Control_fwd.bw
+    wildcards: sample=L9_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L9_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L9_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/D2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D2_Case_fwd.bw
+    jobid: 497
+    reason: Missing output files: samples/bigwig/D2_Case_fwd.bw
+    wildcards: sample=D2_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D2_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D2_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/I5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I5_Healthy_fwd.bw
+    jobid: 542
+    reason: Missing output files: samples/bigwig/I5_Healthy_fwd.bw
+    wildcards: sample=I5_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I5_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I5_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A9_ScreenNegative_fwd.bw
+    jobid: 692
+    reason: Missing output files: samples/bigwig/A9_ScreenNegative_fwd.bw
+    wildcards: sample=A9_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A9_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N11_Case_fwd.bw
+    jobid: 427
+    reason: Missing output files: samples/bigwig/N11_Case_fwd.bw
+    wildcards: sample=N11_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N11_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M8_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/M8_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M8_Case_fwd.bw
+    jobid: 407
+    reason: Missing output files: samples/bigwig/M8_Case_fwd.bw
+    wildcards: sample=M8_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M8_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M8_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N4_Control_fwd.bw
+    jobid: 397
+    reason: Missing output files: samples/bigwig/N4_Control_fwd.bw
+    wildcards: sample=N4_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N4_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F4_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/F4_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F4_InSitu_fwd.bw
+    jobid: 187
+    reason: Missing output files: samples/bigwig/F4_InSitu_fwd.bw
+    wildcards: sample=F4_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F4_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F4_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C3_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/C3_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C3_InSitu_fwd.bw
+    jobid: 157
+    reason: Missing output files: samples/bigwig/C3_InSitu_fwd.bw
+    wildcards: sample=C3_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C3_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C3_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D5_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/D5_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D5_Control_fwd.bw
+    jobid: 7
+    reason: Missing output files: samples/bigwig/D5_Control_fwd.bw
+    wildcards: sample=D5_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D5_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D5_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G8_NA_bam/Aligned.sortedByCoord.out.bam, samples/star/G8_NA_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G8_NA_fwd.bw
+    jobid: 52
+    reason: Missing output files: samples/bigwig/G8_NA_fwd.bw
+    wildcards: sample=G8_NA
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G8_NA_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G8_NA_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J5_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/J5_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J5_Control_fwd.bw
+    jobid: 82
+    reason: Missing output files: samples/bigwig/J5_Control_fwd.bw
+    wildcards: sample=J5_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J5_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J5_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N7_Case_fwd.bw
+    jobid: 112
+    reason: Missing output files: samples/bigwig/N7_Case_fwd.bw
+    wildcards: sample=N7_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N7_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/D1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D1_ScreenNegative_fwd.bw
+    jobid: 452
+    reason: Missing output files: samples/bigwig/D1_ScreenNegative_fwd.bw
+    wildcards: sample=D1_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D1_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/M2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M2_ScreenNegative_fwd.bw
+    jobid: 387
+    reason: Missing output files: samples/bigwig/M2_ScreenNegative_fwd.bw
+    wildcards: sample=M2_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M2_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/M4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M4_ScreenNegative_fwd.bw
+    jobid: 547
+    reason: Missing output files: samples/bigwig/M4_ScreenNegative_fwd.bw
+    wildcards: sample=M4_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M4_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/H2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H2_ScreenNegative_fwd.bw
+    jobid: 622
+    reason: Missing output files: samples/bigwig/H2_ScreenNegative_fwd.bw
+    wildcards: sample=H2_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H2_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/J1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J1_Control_fwd.bw
+    jobid: 502
+    reason: Missing output files: samples/bigwig/J1_Control_fwd.bw
+    wildcards: sample=J1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/K1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K1_Control_fwd.bw
+    jobid: 577
+    reason: Missing output files: samples/bigwig/K1_Control_fwd.bw
+    wildcards: sample=K1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N10_Case_fwd.bw
+    jobid: 637
+    reason: Missing output files: samples/bigwig/N10_Case_fwd.bw
+    wildcards: sample=N10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H6_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/H6_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H6_InSitu_fwd.bw
+    jobid: 682
+    reason: Missing output files: samples/bigwig/H6_InSitu_fwd.bw
+    wildcards: sample=H6_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H6_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H6_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F9_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/F9_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F9_Case_fwd.bw
+    jobid: 232
+    reason: Missing output files: samples/bigwig/F9_Case_fwd.bw
+    wildcards: sample=F9_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F9_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F9_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/I9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I9_ScreenNegative_fwd.bw
+    jobid: 277
+    reason: Missing output files: samples/bigwig/I9_ScreenNegative_fwd.bw
+    wildcards: sample=I9_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I9_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/H10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H10_ScreenNegative_fwd.bw
+    jobid: 307
+    reason: Missing output files: samples/bigwig/H10_ScreenNegative_fwd.bw
+    wildcards: sample=H10_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H10_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/H3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H3_Case_fwd.bw
+    jobid: 322
+    reason: Missing output files: samples/bigwig/H3_Case_fwd.bw
+    wildcards: sample=H3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A4_Control_fwd.bw
+    jobid: 442
+    reason: Missing output files: samples/bigwig/A4_Control_fwd.bw
+    wildcards: sample=A4_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A4_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A4_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F5_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/F5_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F5_InSitu_fwd.bw
+    jobid: 192
+    reason: Missing output files: samples/bigwig/F5_InSitu_fwd.bw
+    wildcards: sample=F5_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F5_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F5_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E7_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/E7_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E7_Healthy_fwd.bw
+    jobid: 87
+    reason: Missing output files: samples/bigwig/E7_Healthy_fwd.bw
+    wildcards: sample=E7_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E7_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E7_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A1_Case_fwd.bw
+    jobid: 12
+    reason: Missing output files: samples/bigwig/A1_Case_fwd.bw
+    wildcards: sample=A1_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A1_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A1_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G2_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/G2_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G2_Control_fwd.bw
+    jobid: 57
+    reason: Missing output files: samples/bigwig/G2_Control_fwd.bw
+    wildcards: sample=G2_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G2_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G2_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G7_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/G7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G7_InSitu_fwd.bw
+    jobid: 117
+    reason: Missing output files: samples/bigwig/G7_InSitu_fwd.bw
+    wildcards: sample=G7_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G7_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G7_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/E10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E10_Case_fwd.bw
+    jobid: 162
+    reason: Missing output files: samples/bigwig/E10_Case_fwd.bw
+    wildcards: sample=E10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/M1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M1_Control_fwd.bw
+    jobid: 657
+    reason: Missing output files: samples/bigwig/M1_Control_fwd.bw
+    wildcards: sample=M1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C9_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/C9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C9_Healthy_fwd.bw
+    jobid: 552
+    reason: Missing output files: samples/bigwig/C9_Healthy_fwd.bw
+    wildcards: sample=C9_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C9_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C9_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A10_ScreenNegative_fwd.bw
+    jobid: 627
+    reason: Missing output files: samples/bigwig/A10_ScreenNegative_fwd.bw
+    wildcards: sample=A10_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A10_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/K10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K10_Case_fwd.bw
+    jobid: 237
+    reason: Missing output files: samples/bigwig/K10_Case_fwd.bw
+    wildcards: sample=K10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/J2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J2_Case_fwd.bw
+    jobid: 282
+    reason: Missing output files: samples/bigwig/J2_Case_fwd.bw
+    wildcards: sample=J2_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J2_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J2_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/J3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J3_Case_fwd.bw
+    jobid: 312
+    reason: Missing output files: samples/bigwig/J3_Case_fwd.bw
+    wildcards: sample=J3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/C1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C1_ScreenNegative_fwd.bw
+    jobid: 327
+    reason: Missing output files: samples/bigwig/C1_ScreenNegative_fwd.bw
+    wildcards: sample=C1_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C1_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N9_Healthy_fwd.bw
+    jobid: 342
+    reason: Missing output files: samples/bigwig/N9_Healthy_fwd.bw
+    wildcards: sample=N9_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N9_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H9_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/H9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H9_Healthy_fwd.bw
+    jobid: 432
+    reason: Missing output files: samples/bigwig/H9_Healthy_fwd.bw
+    wildcards: sample=H9_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H9_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H9_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H8_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/H8_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H8_Control_fwd.bw
+    jobid: 612
+    reason: Missing output files: samples/bigwig/H8_Control_fwd.bw
+    wildcards: sample=H8_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H8_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H8_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I8_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/I8_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I8_Control_fwd.bw
+    jobid: 677
+    reason: Missing output files: samples/bigwig/I8_Control_fwd.bw
+    wildcards: sample=I8_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I8_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I8_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/E5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E5_ScreenNegative_fwd.bw
+    jobid: 572
+    reason: Missing output files: samples/bigwig/E5_ScreenNegative_fwd.bw
+    wildcards: sample=E5_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E5_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A2_Case_fwd.bw
+    jobid: 507
+    reason: Missing output files: samples/bigwig/A2_Case_fwd.bw
+    wildcards: sample=A2_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A2_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A2_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/J9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J9_ScreenNegative_fwd.bw
+    jobid: 382
+    reason: Missing output files: samples/bigwig/J9_ScreenNegative_fwd.bw
+    wildcards: sample=J9_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J9_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A7_InSitu_fwd.bw
+    jobid: 437
+    reason: Missing output files: samples/bigwig/A7_InSitu_fwd.bw
+    wildcards: sample=A7_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A7_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A7_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D4_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/D4_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D4_Healthy_fwd.bw
+    jobid: 267
+    reason: Missing output files: samples/bigwig/D4_Healthy_fwd.bw
+    wildcards: sample=D4_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D4_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D4_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/G10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G10_Case_fwd.bw
+    jobid: 17
+    reason: Missing output files: samples/bigwig/G10_Case_fwd.bw
+    wildcards: sample=G10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/C6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C6_ScreenNegative_fwd.bw
+    jobid: 32
+    reason: Missing output files: samples/bigwig/C6_ScreenNegative_fwd.bw
+    wildcards: sample=C6_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C6_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A6_Healthy_fwd.bw
+    jobid: 62
+    reason: Missing output files: samples/bigwig/A6_Healthy_fwd.bw
+    wildcards: sample=A6_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A6_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A6_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/I10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I10_ScreenNegative_fwd.bw
+    jobid: 167
+    reason: Missing output files: samples/bigwig/I10_ScreenNegative_fwd.bw
+    wildcards: sample=I10_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I10_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/H1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H1_Control_fwd.bw
+    jobid: 197
+    reason: Missing output files: samples/bigwig/H1_Control_fwd.bw
+    wildcards: sample=H1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C4_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/C4_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C4_InSitu_fwd.bw
+    jobid: 137
+    reason: Missing output files: samples/bigwig/C4_InSitu_fwd.bw
+    wildcards: sample=C4_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C4_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C4_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/K3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K3_Case_fwd.bw
+    jobid: 617
+    reason: Missing output files: samples/bigwig/K3_Case_fwd.bw
+    wildcards: sample=K3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/G9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G9_ScreenNegative_fwd.bw
+    jobid: 122
+    reason: Missing output files: samples/bigwig/G9_ScreenNegative_fwd.bw
+    wildcards: sample=G9_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G9_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E9_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/E9_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E9_Control_fwd.bw
+    jobid: 92
+    reason: Missing output files: samples/bigwig/E9_Control_fwd.bw
+    wildcards: sample=E9_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E9_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E9_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/G5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G5_Healthy_fwd.bw
+    jobid: 212
+    reason: Missing output files: samples/bigwig/G5_Healthy_fwd.bw
+    wildcards: sample=G5_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G5_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G5_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/G1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G1_Control_fwd.bw
+    jobid: 512
+    reason: Missing output files: samples/bigwig/G1_Control_fwd.bw
+    wildcards: sample=G1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/L3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L3_Case_fwd.bw
+    jobid: 557
+    reason: Missing output files: samples/bigwig/L3_Case_fwd.bw
+    wildcards: sample=L3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G4_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/G4_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G4_Case_fwd.bw
+    jobid: 662
+    reason: Missing output files: samples/bigwig/G4_Case_fwd.bw
+    wildcards: sample=G4_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G4_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G4_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/K4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K4_ScreenNegative_fwd.bw
+    jobid: 242
+    reason: Missing output files: samples/bigwig/K4_ScreenNegative_fwd.bw
+    wildcards: sample=K4_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K4_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/J10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J10_Case_fwd.bw
+    jobid: 257
+    reason: Missing output files: samples/bigwig/J10_Case_fwd.bw
+    wildcards: sample=J10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N8_ScreenNegative_fwd.bw
+    jobid: 287
+    reason: Missing output files: samples/bigwig/N8_ScreenNegative_fwd.bw
+    wildcards: sample=N8_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N8_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N2_ScreenNegative_fwd.bw
+    jobid: 347
+    reason: Missing output files: samples/bigwig/N2_ScreenNegative_fwd.bw
+    wildcards: sample=N2_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N2_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/H5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H5_Healthy_fwd.bw
+    jobid: 377
+    reason: Missing output files: samples/bigwig/H5_Healthy_fwd.bw
+    wildcards: sample=H5_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H5_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H5_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/G3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/G3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/G3_Case_fwd.bw
+    jobid: 362
+    reason: Missing output files: samples/bigwig/G3_Case_fwd.bw
+    wildcards: sample=G3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/G3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/G3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I6_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/I6_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I6_InSitu_fwd.bw
+    jobid: 392
+    reason: Missing output files: samples/bigwig/I6_InSitu_fwd.bw
+    wildcards: sample=I6_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I6_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I6_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F8_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/F8_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F8_Healthy_fwd.bw
+    jobid: 607
+    reason: Missing output files: samples/bigwig/F8_Healthy_fwd.bw
+    wildcards: sample=F8_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F8_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F8_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/B4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B4_Control_fwd.bw
+    jobid: 587
+    reason: Missing output files: samples/bigwig/B4_Control_fwd.bw
+    wildcards: sample=B4_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B4_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B4_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/F7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F7_ScreenNegative_fwd.bw
+    jobid: 702
+    reason: Missing output files: samples/bigwig/F7_ScreenNegative_fwd.bw
+    wildcards: sample=F7_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F7_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B3_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/B3_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B3_Control_fwd.bw
+    jobid: 417
+    reason: Missing output files: samples/bigwig/B3_Control_fwd.bw
+    wildcards: sample=B3_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B3_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B3_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D9_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/D9_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D9_Case_fwd.bw
+    jobid: 202
+    reason: Missing output files: samples/bigwig/D9_Case_fwd.bw
+    wildcards: sample=D9_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D9_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D9_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/K5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K5_ScreenNegative_fwd.bw
+    jobid: 172
+    reason: Missing output files: samples/bigwig/K5_ScreenNegative_fwd.bw
+    wildcards: sample=K5_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K5_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K5_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E3_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/E3_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E3_InSitu_fwd.bw
+    jobid: 22
+    reason: Missing output files: samples/bigwig/E3_InSitu_fwd.bw
+    wildcards: sample=E3_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E3_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E3_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/K8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K8_ScreenNegative_fwd.bw
+    jobid: 37
+    reason: Missing output files: samples/bigwig/K8_ScreenNegative_fwd.bw
+    wildcards: sample=K8_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K8_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D6_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/D6_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D6_Control_fwd.bw
+    jobid: 67
+    reason: Missing output files: samples/bigwig/D6_Control_fwd.bw
+    wildcards: sample=D6_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D6_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D6_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D7_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/D7_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D7_Control_fwd.bw
+    jobid: 97
+    reason: Missing output files: samples/bigwig/D7_Control_fwd.bw
+    wildcards: sample=D7_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D7_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D7_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H7_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/H7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H7_Case_fwd.bw
+    jobid: 127
+    reason: Missing output files: samples/bigwig/H7_Case_fwd.bw
+    wildcards: sample=H7_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H7_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H7_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/B10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B10_ScreenNegative_fwd.bw
+    jobid: 492
+    reason: Missing output files: samples/bigwig/B10_ScreenNegative_fwd.bw
+    wildcards: sample=B10_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B10_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/H4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/H4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/H4_Control_fwd.bw
+    jobid: 142
+    reason: Missing output files: samples/bigwig/H4_Control_fwd.bw
+    wildcards: sample=H4_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/H4_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/H4_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B5_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/B5_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B5_Healthy_fwd.bw
+    jobid: 532
+    reason: Missing output files: samples/bigwig/B5_Healthy_fwd.bw
+    wildcards: sample=B5_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B5_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B5_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/M10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M10_Case_fwd.bw
+    jobid: 592
+    reason: Missing output files: samples/bigwig/M10_Case_fwd.bw
+    wildcards: sample=M10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/J7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J7_ScreenNegative_fwd.bw
+    jobid: 457
+    reason: Missing output files: samples/bigwig/J7_ScreenNegative_fwd.bw
+    wildcards: sample=J7_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J7_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J7_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M3_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/M3_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M3_ScreenNegative_fwd.bw
+    jobid: 472
+    reason: Missing output files: samples/bigwig/M3_ScreenNegative_fwd.bw
+    wildcards: sample=M3_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M3_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M3_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I7_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/I7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I7_InSitu_fwd.bw
+    jobid: 352
+    reason: Missing output files: samples/bigwig/I7_InSitu_fwd.bw
+    wildcards: sample=I7_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I7_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I7_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I3_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/I3_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I3_Case_fwd.bw
+    jobid: 367
+    reason: Missing output files: samples/bigwig/I3_Case_fwd.bw
+    wildcards: sample=I3_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I3_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I3_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I2_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/I2_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I2_InSitu_fwd.bw
+    jobid: 217
+    reason: Missing output files: samples/bigwig/I2_InSitu_fwd.bw
+    wildcards: sample=I2_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I2_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I2_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N1_Case_fwd.bw
+    jobid: 247
+    reason: Missing output files: samples/bigwig/N1_Case_fwd.bw
+    wildcards: sample=N1_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N1_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/B1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B1_Case_fwd.bw
+    jobid: 262
+    reason: Missing output files: samples/bigwig/B1_Case_fwd.bw
+    wildcards: sample=B1_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B1_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B1_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E1_NA_bam/Aligned.sortedByCoord.out.bam, samples/star/E1_NA_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E1_NA_fwd.bw
+    jobid: 292
+    reason: Missing output files: samples/bigwig/E1_NA_fwd.bw
+    wildcards: sample=E1_NA
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E1_NA_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E1_NA_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N5_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N5_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N5_Case_fwd.bw
+    jobid: 652
+    reason: Missing output files: samples/bigwig/N5_Case_fwd.bw
+    wildcards: sample=N5_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N5_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N5_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/L1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L1_ScreenNegative_fwd.bw
+    jobid: 527
+    reason: Missing output files: samples/bigwig/L1_ScreenNegative_fwd.bw
+    wildcards: sample=L1_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L1_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L1_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L5_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/L5_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L5_Case_fwd.bw
+    jobid: 337
+    reason: Missing output files: samples/bigwig/L5_Case_fwd.bw
+    wildcards: sample=L5_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L5_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L5_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I4_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/I4_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I4_Case_fwd.bw
+    jobid: 252
+    reason: Missing output files: samples/bigwig/I4_Case_fwd.bw
+    wildcards: sample=I4_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I4_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I4_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/E4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E4_ScreenNegative_fwd.bw
+    jobid: 602
+    reason: Missing output files: samples/bigwig/E4_ScreenNegative_fwd.bw
+    wildcards: sample=E4_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E4_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E4_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/F10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F10_Case_fwd.bw
+    jobid: 642
+    reason: Missing output files: samples/bigwig/F10_Case_fwd.bw
+    wildcards: sample=F10_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F10_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F10_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C5_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/C5_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C5_Control_fwd.bw
+    jobid: 517
+    reason: Missing output files: samples/bigwig/C5_Control_fwd.bw
+    wildcards: sample=C5_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C5_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C5_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K7_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/K7_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K7_Control_fwd.bw
+    jobid: 207
+    reason: Missing output files: samples/bigwig/K7_Control_fwd.bw
+    wildcards: sample=K7_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K7_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K7_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F3_NA_bam/Aligned.sortedByCoord.out.bam, samples/star/F3_NA_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F3_NA_fwd.bw
+    jobid: 72
+    reason: Missing output files: samples/bigwig/F3_NA_fwd.bw
+    wildcards: sample=F3_NA
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F3_NA_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F3_NA_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L8_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/L8_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L8_InSitu_fwd.bw
+    jobid: 27
+    reason: Missing output files: samples/bigwig/L8_InSitu_fwd.bw
+    wildcards: sample=L8_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L8_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L8_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B7_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/B7_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B7_InSitu_fwd.bw
+    jobid: 42
+    reason: Missing output files: samples/bigwig/B7_InSitu_fwd.bw
+    wildcards: sample=B7_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B7_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B7_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/L6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L6_ScreenNegative_fwd.bw
+    jobid: 102
+    reason: Missing output files: samples/bigwig/L6_ScreenNegative_fwd.bw
+    wildcards: sample=L6_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L6_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F1_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/F1_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F1_Control_fwd.bw
+    jobid: 132
+    reason: Missing output files: samples/bigwig/F1_Control_fwd.bw
+    wildcards: sample=F1_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F1_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F1_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/C2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C2_ScreenNegative_fwd.bw
+    jobid: 147
+    reason: Missing output files: samples/bigwig/C2_ScreenNegative_fwd.bw
+    wildcards: sample=C2_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C2_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/D10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D10_ScreenNegative_fwd.bw
+    jobid: 177
+    reason: Missing output files: samples/bigwig/D10_ScreenNegative_fwd.bw
+    wildcards: sample=D10_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D10_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D10_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D3_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/D3_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D3_InSitu_fwd.bw
+    jobid: 697
+    reason: Missing output files: samples/bigwig/D3_InSitu_fwd.bw
+    wildcards: sample=D3_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D3_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D3_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/L4_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/L4_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/L4_Case_fwd.bw
+    jobid: 412
+    reason: Missing output files: samples/bigwig/L4_Case_fwd.bw
+    wildcards: sample=L4_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/L4_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/L4_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/B2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B2_Case_fwd.bw
+    jobid: 597
+    reason: Missing output files: samples/bigwig/B2_Case_fwd.bw
+    wildcards: sample=B2_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B2_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B2_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J8_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/J8_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J8_Control_fwd.bw
+    jobid: 537
+    reason: Missing output files: samples/bigwig/J8_Control_fwd.bw
+    wildcards: sample=J8_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J8_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J8_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C10_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/C10_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C10_Control_fwd.bw
+    jobid: 477
+    reason: Missing output files: samples/bigwig/C10_Control_fwd.bw
+    wildcards: sample=C10_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C10_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C10_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/I1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/I1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/I1_Case_fwd.bw
+    jobid: 522
+    reason: Missing output files: samples/bigwig/I1_Case_fwd.bw
+    wildcards: sample=I1_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/I1_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/I1_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/C8_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/C8_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/C8_Case_fwd.bw
+    jobid: 567
+    reason: Missing output files: samples/bigwig/C8_Case_fwd.bw
+    wildcards: sample=C8_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/C8_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/C8_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M9_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/M9_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M9_Case_fwd.bw
+    jobid: 672
+    reason: Missing output files: samples/bigwig/M9_Case_fwd.bw
+    wildcards: sample=M9_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M9_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M9_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M7_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/M7_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M7_Control_fwd.bw
+    jobid: 462
+    reason: Missing output files: samples/bigwig/M7_Control_fwd.bw
+    wildcards: sample=M7_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M7_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M7_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/A3_Control_fwd.bw
+    jobid: 372
+    reason: Missing output files: samples/bigwig/A3_Control_fwd.bw
+    wildcards: sample=A3_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/A3_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/A3_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/N3_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N3_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/N3_Healthy_fwd.bw
+    jobid: 357
+    reason: Missing output files: samples/bigwig/N3_Healthy_fwd.bw
+    wildcards: sample=N3_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/N3_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/N3_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/M5_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/M5_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/M5_Case_fwd.bw
+    jobid: 222
+    reason: Missing output files: samples/bigwig/M5_Case_fwd.bw
+    wildcards: sample=M5_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/M5_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/M5_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/B6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B6_Healthy_fwd.bw
+    jobid: 467
+    reason: Missing output files: samples/bigwig/B6_Healthy_fwd.bw
+    wildcards: sample=B6_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B6_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B6_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E2_InSitu_bam/Aligned.sortedByCoord.out.bam, samples/star/E2_InSitu_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E2_InSitu_fwd.bw
+    jobid: 487
+    reason: Missing output files: samples/bigwig/E2_InSitu_fwd.bw
+    wildcards: sample=E2_InSitu
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E2_InSitu_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E2_InSitu_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/E6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/E6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/E6_Healthy_fwd.bw
+    jobid: 297
+    reason: Missing output files: samples/bigwig/E6_Healthy_fwd.bw
+    wildcards: sample=E6_Healthy
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/E6_Healthy_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/E6_Healthy_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J4_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/J4_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J4_Case_fwd.bw
+    jobid: 402
+    reason: Missing output files: samples/bigwig/J4_Case_fwd.bw
+    wildcards: sample=J4_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J4_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J4_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/F2_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/F2_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/F2_Control_fwd.bw
+    jobid: 647
+    reason: Missing output files: samples/bigwig/F2_Control_fwd.bw
+    wildcards: sample=F2_Control
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/F2_Control_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/F2_Control_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/B9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/B9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/B9_ScreenNegative_fwd.bw
+    jobid: 687
+    reason: Missing output files: samples/bigwig/B9_ScreenNegative_fwd.bw
+    wildcards: sample=B9_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/B9_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/B9_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/D8_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/D8_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/D8_Case_fwd.bw
+    jobid: 562
+    reason: Missing output files: samples/bigwig/D8_Case_fwd.bw
+    wildcards: sample=D8_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/D8_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/D8_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/J6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/J6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/J6_ScreenNegative_fwd.bw
+    jobid: 667
+    reason: Missing output files: samples/bigwig/J6_ScreenNegative_fwd.bw
+    wildcards: sample=J6_ScreenNegative
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/J6_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/J6_ScreenNegative_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+rule fwd_tracks:
+    input: samples/star/K2_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/K2_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    output: samples/bigwig/K2_Case_fwd.bw
+    jobid: 582
+    reason: Missing output files: samples/bigwig/K2_Case_fwd.bw
+    wildcards: sample=K2_Case
+
+bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b samples/star/K2_Case_bam/Aligned.sortedByCoord.out.bam -o samples/bigwig/K2_Case_fwd.bw
+
+[Thu Jan  6 15:46:29 2022]
+localrule all:
+    input: data/geneLengths.tsv, samples/bigwig/E8_Control_fwd.bw, samples/bigwig/D5_Control_fwd.bw, samples/bigwig/A1_Case_fwd.bw, samples/bigwig/G10_Case_fwd.bw, samples/bigwig/E3_InSitu_fwd.bw, samples/bigwig/L8_InSitu_fwd.bw, samples/bigwig/C6_ScreenNegative_fwd.bw, samples/bigwig/K8_ScreenNegative_fwd.bw, samples/bigwig/B7_InSitu_fwd.bw, samples/bigwig/N6_Healthy_fwd.bw, samples/bigwig/G8_NA_fwd.bw, samples/bigwig/G2_Control_fwd.bw, samples/bigwig/A6_Healthy_fwd.bw, samples/bigwig/D6_Control_fwd.bw, samples/bigwig/F3_NA_fwd.bw, samples/bigwig/G6_InSitu_fwd.bw, samples/bigwig/J5_Control_fwd.bw, samples/bigwig/E7_Healthy_fwd.bw, samples/bigwig/E9_Control_fwd.bw, samples/bigwig/D7_Control_fwd.bw, samples/bigwig/L6_ScreenNegative_fwd.bw, samples/bigwig/L10_Control_fwd.bw, samples/bigwig/N7_Case_fwd.bw, samples/bigwig/G7_InSitu_fwd.bw, samples/bigwig/G9_ScreenNegative_fwd.bw, samples/bigwig/H7_Case_fwd.bw, samples/bigwig/F1_Control_fwd.bw, samples/bigwig/C4_InSitu_fwd.bw, samples/bigwig/H4_Control_fwd.bw, samples/bigwig/C2_ScreenNegative_fwd.bw, samples/bigwig/F6_ScreenNegative_fwd.bw, samples/bigwig/C3_InSitu_fwd.bw, samples/bigwig/E10_Case_fwd.bw, samples/bigwig/I10_ScreenNegative_fwd.bw, samples/bigwig/K5_ScreenNegative_fwd.bw, samples/bigwig/D10_ScreenNegative_fwd.bw, samples/bigwig/A8_InSitu_fwd.bw, samples/bigwig/F4_InSitu_fwd.bw, samples/bigwig/F5_InSitu_fwd.bw, samples/bigwig/H1_Control_fwd.bw, samples/bigwig/D9_Case_fwd.bw, samples/bigwig/K7_Control_fwd.bw, samples/bigwig/G5_Healthy_fwd.bw, samples/bigwig/I2_InSitu_fwd.bw, samples/bigwig/M5_Case_fwd.bw, samples/bigwig/B8_InSitu_fwd.bw, samples/bigwig/F9_Case_fwd.bw, samples/bigwig/K10_Case_fwd.bw, samples/bigwig/K4_ScreenNegative_fwd.bw, samples/bigwig/N1_Case_fwd.bw, samples/bigwig/I4_Case_fwd.bw, samples/bigwig/J10_Case_fwd.bw, samples/bigwig/B1_Case_fwd.bw, samples/bigwig/D4_Healthy_fwd.bw, samples/bigwig/M6_Healthy_fwd.bw, samples/bigwig/I9_ScreenNegative_fwd.bw, samples/bigwig/J2_Case_fwd.bw, samples/bigwig/N8_ScreenNegative_fwd.bw, samples/bigwig/E1_NA_fwd.bw, samples/bigwig/E6_Healthy_fwd.bw, samples/bigwig/C7_Case_fwd.bw, samples/bigwig/H10_ScreenNegative_fwd.bw, samples/bigwig/J3_Case_fwd.bw, samples/bigwig/A5_Healthy_fwd.bw, samples/bigwig/H3_Case_fwd.bw, samples/bigwig/C1_ScreenNegative_fwd.bw, samples/bigwig/L2_Control_fwd.bw, samples/bigwig/L5_Case_fwd.bw, samples/bigwig/N9_Healthy_fwd.bw, samples/bigwig/N2_ScreenNegative_fwd.bw, samples/bigwig/I7_InSitu_fwd.bw, samples/bigwig/N3_Healthy_fwd.bw, samples/bigwig/G3_Case_fwd.bw, samples/bigwig/I3_Case_fwd.bw, samples/bigwig/A3_Control_fwd.bw, samples/bigwig/H5_Healthy_fwd.bw, samples/bigwig/J9_ScreenNegative_fwd.bw, samples/bigwig/M2_ScreenNegative_fwd.bw, samples/bigwig/I6_InSitu_fwd.bw, samples/bigwig/N4_Control_fwd.bw, samples/bigwig/J4_Case_fwd.bw, samples/bigwig/M8_Case_fwd.bw, samples/bigwig/L4_Case_fwd.bw, samples/bigwig/B3_Control_fwd.bw, samples/bigwig/K9_Control_fwd.bw, samples/bigwig/N11_Case_fwd.bw, samples/bigwig/H9_Healthy_fwd.bw, samples/bigwig/A7_InSitu_fwd.bw, samples/bigwig/A4_Control_fwd.bw, samples/bigwig/L7_ScreenNegative_fwd.bw, samples/bigwig/D1_ScreenNegative_fwd.bw, samples/bigwig/J7_ScreenNegative_fwd.bw, samples/bigwig/M7_Control_fwd.bw, samples/bigwig/B6_Healthy_fwd.bw, samples/bigwig/M3_ScreenNegative_fwd.bw, samples/bigwig/C10_Control_fwd.bw, samples/bigwig/L9_Control_fwd.bw, samples/bigwig/E2_InSitu_fwd.bw, samples/bigwig/B10_ScreenNegative_fwd.bw, samples/bigwig/D2_Case_fwd.bw, samples/bigwig/J1_Control_fwd.bw, samples/bigwig/A2_Case_fwd.bw, samples/bigwig/G1_Control_fwd.bw, samples/bigwig/C5_Control_fwd.bw, samples/bigwig/I1_Case_fwd.bw, samples/bigwig/L1_ScreenNegative_fwd.bw, samples/bigwig/B5_Healthy_fwd.bw, samples/bigwig/J8_Control_fwd.bw, samples/bigwig/I5_Healthy_fwd.bw, samples/bigwig/M4_ScreenNegative_fwd.bw, samples/bigwig/C9_Healthy_fwd.bw, samples/bigwig/L3_Case_fwd.bw, samples/bigwig/D8_Case_fwd.bw, samples/bigwig/C8_Case_fwd.bw, samples/bigwig/E5_ScreenNegative_fwd.bw, samples/bigwig/K1_Control_fwd.bw, samples/bigwig/K2_Case_fwd.bw, samples/bigwig/B4_Control_fwd.bw, samples/bigwig/M10_Case_fwd.bw, samples/bigwig/B2_Case_fwd.bw, samples/bigwig/E4_ScreenNegative_fwd.bw, samples/bigwig/F8_Healthy_fwd.bw, samples/bigwig/H8_Control_fwd.bw, samples/bigwig/K3_Case_fwd.bw, samples/bigwig/H2_ScreenNegative_fwd.bw, samples/bigwig/A10_ScreenNegative_fwd.bw, samples/bigwig/K6_Case_fwd.bw, samples/bigwig/N10_Case_fwd.bw, samples/bigwig/F10_Case_fwd.bw, samples/bigwig/F2_Control_fwd.bw, samples/bigwig/N5_Case_fwd.bw, samples/bigwig/M1_Control_fwd.bw, samples/bigwig/G4_Case_fwd.bw, samples/bigwig/J6_ScreenNegative_fwd.bw, samples/bigwig/M9_Case_fwd.bw, samples/bigwig/I8_Control_fwd.bw, samples/bigwig/H6_InSitu_fwd.bw, samples/bigwig/B9_ScreenNegative_fwd.bw, samples/bigwig/A9_ScreenNegative_fwd.bw, samples/bigwig/D3_InSitu_fwd.bw, samples/bigwig/F7_ScreenNegative_fwd.bw
+    jobid: 0
+    reason: Input files updated by another job: samples/bigwig/H2_ScreenNegative_fwd.bw, samples/bigwig/B7_InSitu_fwd.bw, samples/bigwig/J2_Case_fwd.bw, samples/bigwig/G4_Case_fwd.bw, samples/bigwig/D10_ScreenNegative_fwd.bw, samples/bigwig/L10_Control_fwd.bw, samples/bigwig/K10_Case_fwd.bw, samples/bigwig/A10_ScreenNegative_fwd.bw, samples/bigwig/F9_Case_fwd.bw, samples/bigwig/E4_ScreenNegative_fwd.bw, samples/bigwig/L9_Control_fwd.bw, samples/bigwig/G10_Case_fwd.bw, samples/bigwig/I6_InSitu_fwd.bw, samples/bigwig/G7_InSitu_fwd.bw, samples/bigwig/B8_InSitu_fwd.bw, samples/bigwig/L4_Case_fwd.bw, samples/bigwig/L2_Control_fwd.bw, samples/bigwig/G1_Control_fwd.bw, samples/bigwig/F1_Control_fwd.bw, samples/bigwig/C1_ScreenNegative_fwd.bw, samples/bigwig/G8_NA_fwd.bw, samples/bigwig/I7_InSitu_fwd.bw, samples/bigwig/C4_InSitu_fwd.bw, samples/bigwig/E6_Healthy_fwd.bw, samples/bigwig/I1_Case_fwd.bw, samples/bigwig/B1_Case_fwd.bw, samples/bigwig/C7_Case_fwd.bw, samples/bigwig/G9_ScreenNegative_fwd.bw, samples/bigwig/B3_Control_fwd.bw, samples/bigwig/A9_ScreenNegative_fwd.bw, samples/bigwig/H8_Control_fwd.bw, samples/bigwig/J4_Case_fwd.bw, samples/bigwig/L5_Case_fwd.bw, samples/bigwig/E5_ScreenNegative_fwd.bw, samples/bigwig/E3_InSitu_fwd.bw, samples/bigwig/B6_Healthy_fwd.bw, samples/bigwig/F8_Healthy_fwd.bw, samples/bigwig/N10_Case_fwd.bw, samples/bigwig/D5_Control_fwd.bw, samples/bigwig/C5_Control_fwd.bw, samples/bigwig/B9_ScreenNegative_fwd.bw, samples/bigwig/F3_NA_fwd.bw, samples/bigwig/N11_Case_fwd.bw, samples/bigwig/J1_Control_fwd.bw, samples/bigwig/J5_Control_fwd.bw, samples/bigwig/B10_ScreenNegative_fwd.bw, samples/bigwig/K3_Case_fwd.bw, samples/bigwig/M9_Case_fwd.bw, samples/bigwig/I4_Case_fwd.bw, samples/bigwig/D9_Case_fwd.bw, samples/bigwig/M8_Case_fwd.bw, samples/bigwig/J7_ScreenNegative_fwd.bw, samples/bigwig/I3_Case_fwd.bw, samples/bigwig/M3_ScreenNegative_fwd.bw, samples/bigwig/H4_Control_fwd.bw, samples/bigwig/E2_InSitu_fwd.bw, samples/bigwig/D3_InSitu_fwd.bw, samples/bigwig/G6_InSitu_fwd.bw, samples/bigwig/B4_Control_fwd.bw, samples/bigwig/F2_Control_fwd.bw, samples/bigwig/M1_Control_fwd.bw, samples/bigwig/L3_Case_fwd.bw, samples/bigwig/C6_ScreenNegative_fwd.bw, samples/bigwig/D6_Control_fwd.bw, samples/bigwig/D7_Control_fwd.bw, samples/bigwig/D8_Case_fwd.bw, samples/bigwig/J3_Case_fwd.bw, samples/bigwig/G3_Case_fwd.bw, samples/bigwig/F10_Case_fwd.bw, samples/bigwig/D4_Healthy_fwd.bw, samples/bigwig/L1_ScreenNegative_fwd.bw, samples/bigwig/J10_Case_fwd.bw, samples/bigwig/A5_Healthy_fwd.bw, samples/bigwig/G5_Healthy_fwd.bw, samples/bigwig/L7_ScreenNegative_fwd.bw, samples/bigwig/J9_ScreenNegative_fwd.bw, samples/bigwig/E7_Healthy_fwd.bw, samples/bigwig/A4_Control_fwd.bw, samples/bigwig/N6_Healthy_fwd.bw, samples/bigwig/N2_ScreenNegative_fwd.bw, samples/bigwig/D1_ScreenNegative_fwd.bw, samples/bigwig/K4_ScreenNegative_fwd.bw, samples/bigwig/A7_InSitu_fwd.bw, samples/bigwig/K9_Control_fwd.bw, samples/bigwig/H10_ScreenNegative_fwd.bw, samples/bigwig/H7_Case_fwd.bw, samples/bigwig/A8_InSitu_fwd.bw, samples/bigwig/K2_Case_fwd.bw, samples/bigwig/I9_ScreenNegative_fwd.bw, samples/bigwig/N5_Case_fwd.bw, samples/bigwig/F7_ScreenNegative_fwd.bw, samples/bigwig/N8_ScreenNegative_fwd.bw, samples/bigwig/K5_ScreenNegative_fwd.bw, samples/bigwig/E8_Control_fwd.bw, samples/bigwig/A1_Case_fwd.bw, samples/bigwig/K6_Case_fwd.bw, samples/bigwig/E9_Control_fwd.bw, samples/bigwig/C3_InSitu_fwd.bw, samples/bigwig/C2_ScreenNegative_fwd.bw, samples/bigwig/K8_ScreenNegative_fwd.bw, samples/bigwig/E1_NA_fwd.bw, samples/bigwig/K7_Control_fwd.bw, samples/bigwig/M7_Control_fwd.bw, samples/bigwig/N4_Control_fwd.bw, samples/bigwig/I5_Healthy_fwd.bw, samples/bigwig/M6_Healthy_fwd.bw, samples/bigwig/H9_Healthy_fwd.bw, samples/bigwig/J6_ScreenNegative_fwd.bw, samples/bigwig/H6_InSitu_fwd.bw, samples/bigwig/B2_Case_fwd.bw, samples/bigwig/I8_Control_fwd.bw, samples/bigwig/H1_Control_fwd.bw, samples/bigwig/M4_ScreenNegative_fwd.bw, samples/bigwig/C10_Control_fwd.bw, samples/bigwig/K1_Control_fwd.bw, samples/bigwig/I2_InSitu_fwd.bw, samples/bigwig/N7_Case_fwd.bw, samples/bigwig/A2_Case_fwd.bw, samples/bigwig/J8_Control_fwd.bw, samples/bigwig/I10_ScreenNegative_fwd.bw, samples/bigwig/N1_Case_fwd.bw, samples/bigwig/N3_Healthy_fwd.bw, samples/bigwig/D2_Case_fwd.bw, samples/bigwig/M10_Case_fwd.bw, samples/bigwig/C9_Healthy_fwd.bw, samples/bigwig/F4_InSitu_fwd.bw, samples/bigwig/G2_Control_fwd.bw, samples/bigwig/L6_ScreenNegative_fwd.bw, samples/bigwig/M2_ScreenNegative_fwd.bw, samples/bigwig/E10_Case_fwd.bw, samples/bigwig/A3_Control_fwd.bw, samples/bigwig/B5_Healthy_fwd.bw, samples/bigwig/A6_Healthy_fwd.bw, samples/bigwig/L8_InSitu_fwd.bw, samples/bigwig/N9_Healthy_fwd.bw, samples/bigwig/H5_Healthy_fwd.bw, samples/bigwig/M5_Case_fwd.bw, samples/bigwig/H3_Case_fwd.bw, samples/bigwig/C8_Case_fwd.bw, samples/bigwig/F6_ScreenNegative_fwd.bw, samples/bigwig/F5_InSitu_fwd.bw
+
+Job counts:
+	count	jobs
+	1	all
+	141	fwd_tracks
+	142
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.

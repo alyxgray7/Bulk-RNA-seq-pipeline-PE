@@ -1,0 +1,160 @@
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17496692          76222      2         2   0.91    1.09    1.95    0.00    0.00
+17496692.batch    76223      2         2   0.91    1.09    1.95    1.80    0.16
+
+Recommendations:
+17496692        Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+17496692.batch  Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17496762          75396      2         2   0.93    1.07    1.95    0.00    0.00
+17496762.batch    75397      2         2   0.93    1.07    1.95    1.80    0.15
+
+Recommendations:
+17496762        Allocated 2 CPU(s), but uses 0.93 - Adjust CPU to 1
+17496762.batch  Allocated 2 CPU(s), but uses 0.93 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17496986          72203      2         2   0.89    1.11    1.95    0.00    0.00
+17496986.batch    72204      2         2   0.89    1.11    1.95    1.80    0.16
+
+Recommendations:
+17496986        Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+17496986.batch  Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17497029          71746      2         2   0.89    1.11    1.95    0.00    0.00
+17497029.batch    71747      2         2   0.89    1.11    1.95    1.80    0.16
+
+Recommendations:
+17497029        Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+17497029.batch  Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17497040          71117      2         2   0.90    1.10    1.95    0.00    0.00
+17497040.batch    71118      2         2   0.90    1.10    1.95    1.80    0.15
+
+Recommendations:
+17497040        Allocated 2 CPU(s), but uses 0.90 - Adjust CPU to 1
+17497040.batch  Allocated 2 CPU(s), but uses 0.90 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17497991          47883      2         2   0.89    1.11    1.95    0.00    0.00
+17497991.batch    47884      2         2   0.89    1.11    1.95    1.80    0.16
+
+Recommendations:
+17497991        Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+17497991.batch  Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498013          47116      2         2   0.93    1.07    1.95    0.00    0.00
+17498013.batch    47117      2         2   0.93    1.07    1.95    1.80    0.15
+
+Recommendations:
+17498013        Allocated 2 CPU(s), but uses 0.93 - Adjust CPU to 1
+17498013.batch  Allocated 2 CPU(s), but uses 0.93 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498026          46102      2         2   0.91    1.09    1.95    0.00    0.00
+17498026.batch    46103      2         2   0.91    1.09    1.95    1.80    0.16
+
+Recommendations:
+17498026        Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+17498026.batch  Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498040          46013      2         2   0.84    1.16    1.95    0.00    0.00
+17498040.batch    46014      2         2   0.84    1.16    1.95    1.80    0.15
+
+Recommendations:
+17498040        Allocated 2 CPU(s), but uses 0.84 - Adjust CPU to 1
+17498040.batch  Allocated 2 CPU(s), but uses 0.84 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498050          45776      2         2   0.89    1.11    1.95    0.00    0.00
+17498050.batch    45777      2         2   0.89    1.11    1.95    1.80    0.16
+
+Recommendations:
+17498050        Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+17498050.batch  Allocated 2 CPU(s), but uses 0.89 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498107          44579      2         2   0.94    1.06    1.95    0.00    0.00
+17498107.batch    44582      2         2   0.94    1.06    1.95    1.80    0.15
+
+Recommendations:
+17498107        Allocated 2 CPU(s), but uses 0.94 - Adjust CPU to 1
+17498107.batch  Allocated 2 CPU(s), but uses 0.94 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498112          44326      2         2   0.92    1.08    1.95    0.00    0.00
+17498112.batch    44327      2         2   0.92    1.08    1.95    1.80    0.16
+
+Recommendations:
+17498112        Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+17498112.batch  Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498134          44051      2         2   0.92    1.08    1.95    0.00    0.00
+17498134.batch    44052      2         2   0.92    1.08    1.95    1.80    0.15
+
+Recommendations:
+17498134        Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+17498134.batch  Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498151          43720      2         2   0.92    1.08    1.95    0.00    0.00
+17498151.batch    43721      2         2   0.92    1.08    1.95    1.80    0.15
+
+Recommendations:
+17498151        Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+17498151.batch  Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498203          43101      2         2   0.86    1.14    1.95    0.00    0.00
+17498203.batch    43102      2         2   0.86    1.14    1.95    1.79    0.16
+
+Recommendations:
+17498203        Allocated 2 CPU(s), but uses 0.86 - Adjust CPU to 1
+17498203.batch  Allocated 2 CPU(s), but uses 0.86 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498219          42285      2         2   0.91    1.09    1.95    0.00    0.00
+17498219.batch    42286      2         2   0.91    1.09    1.95    1.80    0.16
+
+Recommendations:
+17498219        Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+17498219.batch  Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498226          42098      2         2   0.88    1.12    1.95    0.00    0.00
+17498226.batch    42099      2         2   0.88    1.12    1.95    1.79    0.16
+
+Recommendations:
+17498226        Allocated 2 CPU(s), but uses 0.88 - Adjust CPU to 1
+17498226.batch  Allocated 2 CPU(s), but uses 0.88 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498239          42083      2         2   0.91    1.09    1.95    0.00    0.00
+17498239.batch    42084      2         2   0.91    1.09    1.95    1.80    0.15
+
+Recommendations:
+17498239        Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+17498239.batch  Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498293          41283      2         2   0.92    1.08    1.95    0.00    0.00
+17498293.batch    41284      2         2   0.92    1.08    1.95    1.80    0.15
+
+Recommendations:
+17498293        Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+17498293.batch  Allocated 2 CPU(s), but uses 0.92 - Adjust CPU to 1
+
+JobId           Elapsed ReqCPU  AllocCPU AveCPU DiffCPU  ReqMem  MaxMem DiffMem
+17498310          41197      2         2   0.91    1.09    1.95    0.00    0.00
+17498310.batch    41198      2         2   0.91    1.09    1.95    1.80    0.16
+
+Recommendations:
+17498310        Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+17498310.batch  Allocated 2 CPU(s), but uses 0.91 - Adjust CPU to 1
+

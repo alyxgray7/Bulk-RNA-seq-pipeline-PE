@@ -1,0 +1,572 @@
+Building DAG of jobs...
+Job counts:
+	count	jobs
+	2	STAR
+	1	all
+	8	clipping_profile
+	2	fastqc
+	2	fastqscreen
+	8	index
+	8	inner_distance
+	8	insertion_profile
+	8	read_GC
+	8	read_distribution
+	1	star_statistics
+	56
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 38
+    reason: Missing output files: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N2_ScreenNegative
+
+samtools index samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N9_Healthy/N9_Healthy.read_distribution.txt
+    jobid: 111
+    reason: Missing output files: rseqc/read_distribution/N9_Healthy/N9_Healthy.read_distribution.txt
+    wildcards: sample=N9_Healthy
+
+read_distribution.py -i samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N9_Healthy/N9_Healthy.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.r, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.xls
+    jobid: 69
+    reason: Missing output files: rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.r, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.xls, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R2.pdf
+    wildcards: sample=N11_Case
+
+insertion_profile.py -s 'PE' -i samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N11_Case/N11_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.r, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.xls
+    jobid: 90
+    reason: Missing output files: rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.r, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.xls, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R1.pdf
+    wildcards: sample=N10_Case
+
+clipping_profile.py -i samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N10_Case/N10_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule STAR:
+    input: samples/bbduk/N4_Control/good/N4_Control_R1_t.good.fq.gz, samples/bbduk/N4_Control/good/N4_Control_R2_t.good.fq.gz
+    output: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/N4_Control_bam/ReadsPerGene.out.tab, samples/star/N4_Control_bam/Unmapped.out.mate1, samples/star/N4_Control_bam/Unmapped.out.mate2, samples/star/N4_Control_bam/Log.final.out
+    jobid: 17
+    reason: Missing output files: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/N4_Control_bam/Log.final.out
+    wildcards: sample=N4_Control
+
+[Thu Jan  6 09:39:06 2022]
+rule fastqscreen:
+    input: samples/bbduk/N4_Control/good/N4_Control_R1_t.good.fq.gz, samples/bbduk/N4_Control/good/N4_Control_R2_t.good.fq.gz
+    output: samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.txt, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.txt
+    jobid: 62
+    reason: Missing output files: samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.txt, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.txt
+    wildcards: sample=N4_Control
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/N4_Control samples/bbduk/N4_Control/good/N4_Control_R1_t.good.fq.gz samples/bbduk/N4_Control/good/N4_Control_R2_t.good.fq.gz
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.r, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.xls
+    jobid: 76
+    reason: Missing output files: rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.xls, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.r
+    wildcards: sample=N7_Case
+
+insertion_profile.py -s 'PE' -i samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N7_Case/N7_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.r, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.xls
+    jobid: 91
+    reason: Missing output files: rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.xls, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.r, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R2.pdf
+    wildcards: sample=N11_Case
+
+clipping_profile.py -i samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N11_Case/N11_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N2_ScreenNegative/N2_ScreenNegative.read_distribution.txt
+    jobid: 104
+    reason: Missing output files: rseqc/read_distribution/N2_ScreenNegative/N2_ScreenNegative.read_distribution.txt
+    wildcards: sample=N2_ScreenNegative
+
+read_distribution.py -i samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N2_ScreenNegative/N2_ScreenNegative.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N10_Case/N10_Case.GC.xls, rseqc/read_GC/N10_Case/N10_Case.GC_plot.r, rseqc/read_GC/N10_Case/N10_Case.GC_plot.pdf
+    jobid: 112
+    reason: Missing output files: rseqc/read_GC/N10_Case/N10_Case.GC_plot.pdf, rseqc/read_GC/N10_Case/N10_Case.GC.xls, rseqc/read_GC/N10_Case/N10_Case.GC_plot.r
+    wildcards: sample=N10_Case
+
+read_GC.py -i samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N10_Case/N10_Case
+
+[Thu Jan  6 09:39:06 2022]
+Job 48: --- Quality check of raw data with Fastqc.
+Reason: Missing output files: samples/fastqc/N1_Case/N1_Case_R2_t.good_fastqc.zip, samples/fastqc/N1_Case/N1_Case_R1_t.good_fastqc.zip
+
+fastqc --outdir samples/fastqc/N1_Case --extract  -f fastq samples/bbduk/N1_Case/good/N1_Case_R1_t.good.fq.gz samples/bbduk/N1_Case/good/N1_Case_R2_t.good.fq.gz
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.xls
+    jobid: 77
+    reason: Missing output files: rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.xls
+    wildcards: sample=N8_ScreenNegative
+
+insertion_profile.py -s 'PE' -i samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.r, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.xls
+    jobid: 98
+    reason: Missing output files: rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.r, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.xls, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R2.pdf
+    wildcards: sample=N7_Case
+
+clipping_profile.py -i samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N7_Case/N7_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N11_Case/N11_Case.GC.xls, rseqc/read_GC/N11_Case/N11_Case.GC_plot.r, rseqc/read_GC/N11_Case/N11_Case.GC_plot.pdf
+    jobid: 113
+    reason: Missing output files: rseqc/read_GC/N11_Case/N11_Case.GC.xls, rseqc/read_GC/N11_Case/N11_Case.GC_plot.pdf, rseqc/read_GC/N11_Case/N11_Case.GC_plot.r
+    wildcards: sample=N11_Case
+
+read_GC.py -i samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N11_Case/N11_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.xls
+    jobid: 71
+    reason: Missing output files: rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.xls
+    wildcards: sample=N2_ScreenNegative
+
+insertion_profile.py -s 'PE' -i samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.r, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R1.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R2.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.xls
+    jobid: 78
+    reason: Missing output files: rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.xls, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R2.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R1.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.r
+    wildcards: sample=N9_Healthy
+
+insertion_profile.py -s 'PE' -i samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N9_Healthy/N9_Healthy
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.xls
+    jobid: 99
+    reason: Missing output files: rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.xls, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R2.pdf
+    wildcards: sample=N8_ScreenNegative
+
+clipping_profile.py -i samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N7_Case/N7_Case.GC.xls, rseqc/read_GC/N7_Case/N7_Case.GC_plot.r, rseqc/read_GC/N7_Case/N7_Case.GC_plot.pdf
+    jobid: 120
+    reason: Missing output files: rseqc/read_GC/N7_Case/N7_Case.GC_plot.pdf, rseqc/read_GC/N7_Case/N7_Case.GC_plot.r, rseqc/read_GC/N7_Case/N7_Case.GC.xls
+    wildcards: sample=N7_Case
+
+read_GC.py -i samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N7_Case/N7_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 35
+    reason: Missing output files: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N10_Case
+
+samtools index samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 43
+    reason: Missing output files: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N7_Case
+
+samtools index samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N10_Case/N10_Case.inner_distance.txt, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.r, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.pdf, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_freq.txt
+    jobid: 79
+    reason: Missing output files: rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.pdf, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.r, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_freq.txt, rseqc/inner_distance/N10_Case/N10_Case.inner_distance.txt
+    wildcards: sample=N10_Case
+
+inner_distance.py -i samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N10_Case/N10_Case -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N7_Case/N7_Case.inner_distance.txt, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.r, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.pdf, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_freq.txt
+    jobid: 87
+    reason: Missing output files: rseqc/inner_distance/N7_Case/N7_Case.inner_distance.txt, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.pdf, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_freq.txt, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.r
+    wildcards: sample=N7_Case
+
+inner_distance.py -i samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N7_Case/N7_Case -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.r, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R1.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R2.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.xls
+    jobid: 100
+    reason: Missing output files: rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R2.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R1.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.xls, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.r
+    wildcards: sample=N9_Healthy
+
+clipping_profile.py -i samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N9_Healthy/N9_Healthy
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC.xls, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.r, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.pdf
+    jobid: 121
+    reason: Missing output files: rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.r, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC.xls, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.pdf
+    wildcards: sample=N8_ScreenNegative
+
+read_GC.py -i samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC.xls, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.r, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.pdf
+    jobid: 115
+    reason: Missing output files: rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.r, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC.xls, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.pdf
+    wildcards: sample=N2_ScreenNegative
+
+read_GC.py -i samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N9_Healthy/N9_Healthy.GC.xls, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.r, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.pdf
+    jobid: 122
+    reason: Missing output files: rseqc/read_GC/N9_Healthy/N9_Healthy.GC.xls, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.pdf, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.r
+    wildcards: sample=N9_Healthy
+
+read_GC.py -i samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N9_Healthy/N9_Healthy
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 36
+    reason: Missing output files: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N11_Case
+
+samtools index samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 44
+    reason: Missing output files: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N8_ScreenNegative
+
+samtools index samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+Job 51: --- Quality check of raw data with Fastqc.
+Reason: Missing output files: samples/fastqc/N4_Control/N4_Control_R2_t.good_fastqc.zip, samples/fastqc/N4_Control/N4_Control_R1_t.good_fastqc.zip
+
+fastqc --outdir samples/fastqc/N4_Control --extract  -f fastq samples/bbduk/N4_Control/good/N4_Control_R1_t.good.fq.gz samples/bbduk/N4_Control/good/N4_Control_R2_t.good.fq.gz
+
+[Thu Jan  6 09:39:06 2022]
+rule fastqscreen:
+    input: samples/bbduk/N1_Case/good/N1_Case_R1_t.good.fq.gz, samples/bbduk/N1_Case/good/N1_Case_R2_t.good.fq.gz
+    output: samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.png, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.txt, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.png, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.txt
+    jobid: 59
+    reason: Missing output files: samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.png, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.txt, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.txt, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.png
+    wildcards: sample=N1_Case
+
+fastq_screen --aligner bowtie2 --conf /home/groups/CEDAR/tools/FastQ_Screen_Genomes/fastq_screen.conf --outdir samples/fastqscreen/N1_Case samples/bbduk/N1_Case/good/N1_Case_R1_t.good.fq.gz samples/bbduk/N1_Case/good/N1_Case_R2_t.good.fq.gz
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N11_Case/N11_Case.inner_distance.txt, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.r, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.pdf, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_freq.txt
+    jobid: 80
+    reason: Missing output files: rseqc/inner_distance/N11_Case/N11_Case.inner_distance.txt, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.pdf, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_freq.txt, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.r
+    wildcards: sample=N11_Case
+
+inner_distance.py -i samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N11_Case/N11_Case -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance.txt, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.pdf, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_freq.txt
+    jobid: 88
+    reason: Missing output files: rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_freq.txt, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.pdf, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance.txt
+    wildcards: sample=N8_ScreenNegative
+
+inner_distance.py -i samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.xls
+    jobid: 93
+    reason: Missing output files: rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.xls
+    wildcards: sample=N2_ScreenNegative
+
+clipping_profile.py -i samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N10_Case/N10_Case.read_distribution.txt
+    jobid: 101
+    reason: Missing output files: rseqc/read_distribution/N10_Case/N10_Case.read_distribution.txt
+    wildcards: sample=N10_Case
+
+read_distribution.py -i samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N10_Case/N10_Case.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 45
+    reason: Missing output files: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+    wildcards: sample=N9_Healthy
+
+samtools index samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.r, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.pdf, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_freq.txt
+    jobid: 89
+    reason: Missing output files: rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.pdf, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_freq.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.r
+    wildcards: sample=N9_Healthy
+
+inner_distance.py -i samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N9_Healthy/N9_Healthy -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N11_Case/N11_Case.read_distribution.txt
+    jobid: 102
+    reason: Missing output files: rseqc/read_distribution/N11_Case/N11_Case.read_distribution.txt
+    wildcards: sample=N11_Case
+
+read_distribution.py -i samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N11_Case/N11_Case.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N7_Case/N7_Case.read_distribution.txt
+    jobid: 109
+    reason: Missing output files: rseqc/read_distribution/N7_Case/N7_Case.read_distribution.txt
+    wildcards: sample=N7_Case
+
+read_distribution.py -i samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N7_Case/N7_Case.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.r, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.xls
+    jobid: 68
+    reason: Missing output files: rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.xls, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.r
+    wildcards: sample=N10_Case
+
+insertion_profile.py -s 'PE' -i samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N10_Case/N10_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule STAR:
+    input: samples/bbduk/N1_Case/good/N1_Case_R1_t.good.fq.gz, samples/bbduk/N1_Case/good/N1_Case_R2_t.good.fq.gz
+    output: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N1_Case_bam/ReadsPerGene.out.tab, samples/star/N1_Case_bam/Unmapped.out.mate1, samples/star/N1_Case_bam/Unmapped.out.mate2, samples/star/N1_Case_bam/Log.final.out
+    jobid: 8
+    reason: Missing output files: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N1_Case_bam/Log.final.out
+    wildcards: sample=N1_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.pdf, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_freq.txt
+    jobid: 82
+    reason: Missing output files: rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_freq.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.pdf
+    wildcards: sample=N2_ScreenNegative
+
+inner_distance.py -i samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N8_ScreenNegative/N8_ScreenNegative.read_distribution.txt
+    jobid: 110
+    reason: Missing output files: rseqc/read_distribution/N8_ScreenNegative/N8_ScreenNegative.read_distribution.txt
+    wildcards: sample=N8_ScreenNegative
+
+read_distribution.py -i samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N8_ScreenNegative/N8_ScreenNegative.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N4_Control/N4_Control.GC.xls, rseqc/read_GC/N4_Control/N4_Control.GC_plot.r, rseqc/read_GC/N4_Control/N4_Control.GC_plot.pdf
+    jobid: 117
+    reason: Missing output files: rseqc/read_GC/N4_Control/N4_Control.GC.xls, rseqc/read_GC/N4_Control/N4_Control.GC_plot.r, rseqc/read_GC/N4_Control/N4_Control.GC_plot.pdf; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+read_GC.py -i samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N4_Control/N4_Control
+
+[Thu Jan  6 09:39:06 2022]
+rule star_statistics:
+    input: samples/star/N10_Case_bam/Log.final.out, samples/star/N11_Case_bam/Log.final.out, samples/star/N1_Case_bam/Log.final.out, samples/star/N2_ScreenNegative_bam/Log.final.out, samples/star/N3_Healthy_bam/Log.final.out, samples/star/N4_Control_bam/Log.final.out, samples/star/N5_Case_bam/Log.final.out, samples/star/N6_Healthy_bam/Log.final.out, samples/star/N7_Case_bam/Log.final.out, samples/star/N8_ScreenNegative_bam/Log.final.out, samples/star/N9_Healthy_bam/Log.final.out
+    output: results/tables/platelet_full-cohort_STAR_mapping_statistics.txt
+    jobid: 1
+    reason: Missing output files: results/tables/platelet_full-cohort_STAR_mapping_statistics.txt; Input files updated by another job: samples/star/N1_Case_bam/Log.final.out, samples/star/N4_Control_bam/Log.final.out
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.r, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.xls
+    jobid: 70
+    reason: Missing output files: rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.xls, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.r; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+insertion_profile.py -s 'PE' -i samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N1_Case/N1_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N1_Case/N1_Case.inner_distance.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.r, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.pdf, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_freq.txt
+    jobid: 81
+    reason: Missing output files: rseqc/inner_distance/N1_Case/N1_Case.inner_distance_freq.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.pdf, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.r, rseqc/inner_distance/N1_Case/N1_Case.inner_distance.txt; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+inner_distance.py -i samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N1_Case/N1_Case -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.r, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.xls
+    jobid: 92
+    reason: Missing output files: rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.r, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.xls, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R1.pdf; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+clipping_profile.py -i samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N1_Case/N1_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N1_Case/N1_Case.read_distribution.txt
+    jobid: 103
+    reason: Missing output files: rseqc/read_distribution/N1_Case/N1_Case.read_distribution.txt; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+read_distribution.py -i samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N1_Case/N1_Case.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule read_GC:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_GC/N1_Case/N1_Case.GC.xls, rseqc/read_GC/N1_Case/N1_Case.GC_plot.r, rseqc/read_GC/N1_Case/N1_Case.GC_plot.pdf
+    jobid: 114
+    reason: Missing output files: rseqc/read_GC/N1_Case/N1_Case.GC_plot.r, rseqc/read_GC/N1_Case/N1_Case.GC_plot.pdf, rseqc/read_GC/N1_Case/N1_Case.GC.xls; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+read_GC.py -i samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam -o rseqc/read_GC/N1_Case/N1_Case
+
+[Thu Jan  6 09:39:06 2022]
+rule clipping_profile:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.r, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R1.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R2.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.xls
+    jobid: 95
+    reason: Missing output files: rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.xls, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R1.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R2.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.r; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+clipping_profile.py -i samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -s 'PE' -o rseqc/clipping_profile/N4_Control/N4_Control
+
+[Thu Jan  6 09:39:06 2022]
+rule inner_distance:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/inner_distance/N4_Control/N4_Control.inner_distance.txt, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.r, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_freq.txt
+    jobid: 84
+    reason: Missing output files: rseqc/inner_distance/N4_Control/N4_Control.inner_distance_freq.txt, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance.txt, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.r; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+inner_distance.py -i samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -o rseqc/inner_distance/N4_Control/N4_Control -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed
+
+[Thu Jan  6 09:39:06 2022]
+rule insertion_profile:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.r, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R1.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R2.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.xls
+    jobid: 73
+    reason: Missing output files: rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.xls, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.r, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R1.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R2.pdf; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+insertion_profile.py -s 'PE' -i samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -o rseqc/insertion_profile/N4_Control/N4_Control
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 40
+    reason: Missing output files: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+samtools index samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+rule read_distribution:
+    input: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    output: rseqc/read_distribution/N4_Control/N4_Control.read_distribution.txt
+    jobid: 106
+    reason: Missing output files: rseqc/read_distribution/N4_Control/N4_Control.read_distribution.txt; Input files updated by another job: samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N4_Control
+
+read_distribution.py -i samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam -r /home/groups/CEDAR/anno/gtf/hg38_ens94.chr.bed > rseqc/read_distribution/N4_Control/N4_Control.read_distribution.txt
+
+[Thu Jan  6 09:39:06 2022]
+rule index:
+    input: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    output: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+    jobid: 37
+    reason: Missing output files: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai; Input files updated by another job: samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam
+    wildcards: sample=N1_Case
+
+samtools index samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai
+
+[Thu Jan  6 09:39:06 2022]
+localrule all:
+    input: results/tables/platelet_full-cohort_STAR_mapping_statistics.txt, samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/N3_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam, samples/star/N5_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N6_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam, samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam, samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N3_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N5_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N6_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqc/N10_Case/N10_Case_R1_t.good_fastqc.zip, samples/fastqc/N10_Case/N10_Case_R2_t.good_fastqc.zip, samples/fastqc/N11_Case/N11_Case_R1_t.good_fastqc.zip, samples/fastqc/N11_Case/N11_Case_R2_t.good_fastqc.zip, samples/fastqc/N1_Case/N1_Case_R1_t.good_fastqc.zip, samples/fastqc/N1_Case/N1_Case_R2_t.good_fastqc.zip, samples/fastqc/N2_ScreenNegative/N2_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqc/N2_ScreenNegative/N2_ScreenNegative_R2_t.good_fastqc.zip, samples/fastqc/N3_Healthy/N3_Healthy_R1_t.good_fastqc.zip, samples/fastqc/N3_Healthy/N3_Healthy_R2_t.good_fastqc.zip, samples/fastqc/N4_Control/N4_Control_R1_t.good_fastqc.zip, samples/fastqc/N4_Control/N4_Control_R2_t.good_fastqc.zip, samples/fastqc/N5_Case/N5_Case_R1_t.good_fastqc.zip, samples/fastqc/N5_Case/N5_Case_R2_t.good_fastqc.zip, samples/fastqc/N6_Healthy/N6_Healthy_R1_t.good_fastqc.zip, samples/fastqc/N6_Healthy/N6_Healthy_R2_t.good_fastqc.zip, samples/fastqc/N7_Case/N7_Case_R1_t.good_fastqc.zip, samples/fastqc/N7_Case/N7_Case_R2_t.good_fastqc.zip, samples/fastqc/N8_ScreenNegative/N8_ScreenNegative_R1_t.good_fastqc.zip, samples/fastqc/N8_ScreenNegative/N8_ScreenNegative_R2_t.good_fastqc.zip, samples/fastqc/N9_Healthy/N9_Healthy_R1_t.good_fastqc.zip, samples/fastqc/N9_Healthy/N9_Healthy_R2_t.good_fastqc.zip, samples/fastqscreen/N10_Case/N10_Case_R1_t.good_screen.html, samples/fastqscreen/N10_Case/N10_Case_R1_t.good_screen.png, samples/fastqscreen/N10_Case/N10_Case_R1_t.good_screen.txt, samples/fastqscreen/N10_Case/N10_Case_R2_t.good_screen.html, samples/fastqscreen/N10_Case/N10_Case_R2_t.good_screen.png, samples/fastqscreen/N10_Case/N10_Case_R2_t.good_screen.txt, samples/fastqscreen/N11_Case/N11_Case_R1_t.good_screen.html, samples/fastqscreen/N11_Case/N11_Case_R1_t.good_screen.png, samples/fastqscreen/N11_Case/N11_Case_R1_t.good_screen.txt, samples/fastqscreen/N11_Case/N11_Case_R2_t.good_screen.html, samples/fastqscreen/N11_Case/N11_Case_R2_t.good_screen.png, samples/fastqscreen/N11_Case/N11_Case_R2_t.good_screen.txt, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.png, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.txt, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.html, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.png, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.txt, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/N2_ScreenNegative/N2_ScreenNegative_R2_t.good_screen.txt, samples/fastqscreen/N3_Healthy/N3_Healthy_R1_t.good_screen.html, samples/fastqscreen/N3_Healthy/N3_Healthy_R1_t.good_screen.png, samples/fastqscreen/N3_Healthy/N3_Healthy_R1_t.good_screen.txt, samples/fastqscreen/N3_Healthy/N3_Healthy_R2_t.good_screen.html, samples/fastqscreen/N3_Healthy/N3_Healthy_R2_t.good_screen.png, samples/fastqscreen/N3_Healthy/N3_Healthy_R2_t.good_screen.txt, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.txt, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.html, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.png, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.txt, samples/fastqscreen/N5_Case/N5_Case_R1_t.good_screen.html, samples/fastqscreen/N5_Case/N5_Case_R1_t.good_screen.png, samples/fastqscreen/N5_Case/N5_Case_R1_t.good_screen.txt, samples/fastqscreen/N5_Case/N5_Case_R2_t.good_screen.html, samples/fastqscreen/N5_Case/N5_Case_R2_t.good_screen.png, samples/fastqscreen/N5_Case/N5_Case_R2_t.good_screen.txt, samples/fastqscreen/N6_Healthy/N6_Healthy_R1_t.good_screen.html, samples/fastqscreen/N6_Healthy/N6_Healthy_R1_t.good_screen.png, samples/fastqscreen/N6_Healthy/N6_Healthy_R1_t.good_screen.txt, samples/fastqscreen/N6_Healthy/N6_Healthy_R2_t.good_screen.html, samples/fastqscreen/N6_Healthy/N6_Healthy_R2_t.good_screen.png, samples/fastqscreen/N6_Healthy/N6_Healthy_R2_t.good_screen.txt, samples/fastqscreen/N7_Case/N7_Case_R1_t.good_screen.html, samples/fastqscreen/N7_Case/N7_Case_R1_t.good_screen.png, samples/fastqscreen/N7_Case/N7_Case_R1_t.good_screen.txt, samples/fastqscreen/N7_Case/N7_Case_R2_t.good_screen.html, samples/fastqscreen/N7_Case/N7_Case_R2_t.good_screen.png, samples/fastqscreen/N7_Case/N7_Case_R2_t.good_screen.txt, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R1_t.good_screen.html, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R1_t.good_screen.png, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R1_t.good_screen.txt, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R2_t.good_screen.html, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R2_t.good_screen.png, samples/fastqscreen/N8_ScreenNegative/N8_ScreenNegative_R2_t.good_screen.txt, samples/fastqscreen/N9_Healthy/N9_Healthy_R1_t.good_screen.html, samples/fastqscreen/N9_Healthy/N9_Healthy_R1_t.good_screen.png, samples/fastqscreen/N9_Healthy/N9_Healthy_R1_t.good_screen.txt, samples/fastqscreen/N9_Healthy/N9_Healthy_R2_t.good_screen.html, samples/fastqscreen/N9_Healthy/N9_Healthy_R2_t.good_screen.png, samples/fastqscreen/N9_Healthy/N9_Healthy_R2_t.good_screen.txt, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.r, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.xls, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.r, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.xls, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.r, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.xls, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.xls, rseqc/insertion_profile/N3_Healthy/N3_Healthy.insertion_profile.r, rseqc/insertion_profile/N3_Healthy/N3_Healthy.insertion_profile.R1.pdf, rseqc/insertion_profile/N3_Healthy/N3_Healthy.insertion_profile.R2.pdf, rseqc/insertion_profile/N3_Healthy/N3_Healthy.insertion_profile.xls, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.r, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R1.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R2.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.xls, rseqc/insertion_profile/N5_Case/N5_Case.insertion_profile.r, rseqc/insertion_profile/N5_Case/N5_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N5_Case/N5_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N5_Case/N5_Case.insertion_profile.xls, rseqc/insertion_profile/N6_Healthy/N6_Healthy.insertion_profile.r, rseqc/insertion_profile/N6_Healthy/N6_Healthy.insertion_profile.R1.pdf, rseqc/insertion_profile/N6_Healthy/N6_Healthy.insertion_profile.R2.pdf, rseqc/insertion_profile/N6_Healthy/N6_Healthy.insertion_profile.xls, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.r, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R1.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.xls, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R2.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.xls, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.r, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R1.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R2.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.xls, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_freq.txt, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.pdf, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.r, rseqc/inner_distance/N10_Case/N10_Case.inner_distance.txt, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_freq.txt, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.pdf, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.r, rseqc/inner_distance/N11_Case/N11_Case.inner_distance.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_freq.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.pdf, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.r, rseqc/inner_distance/N1_Case/N1_Case.inner_distance.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_freq.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.pdf, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance.txt, rseqc/inner_distance/N3_Healthy/N3_Healthy.inner_distance_freq.txt, rseqc/inner_distance/N3_Healthy/N3_Healthy.inner_distance_plot.pdf, rseqc/inner_distance/N3_Healthy/N3_Healthy.inner_distance_plot.r, rseqc/inner_distance/N3_Healthy/N3_Healthy.inner_distance.txt, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_freq.txt, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.r, rseqc/inner_distance/N4_Control/N4_Control.inner_distance.txt, rseqc/inner_distance/N5_Case/N5_Case.inner_distance_freq.txt, rseqc/inner_distance/N5_Case/N5_Case.inner_distance_plot.pdf, rseqc/inner_distance/N5_Case/N5_Case.inner_distance_plot.r, rseqc/inner_distance/N5_Case/N5_Case.inner_distance.txt, rseqc/inner_distance/N6_Healthy/N6_Healthy.inner_distance_freq.txt, rseqc/inner_distance/N6_Healthy/N6_Healthy.inner_distance_plot.pdf, rseqc/inner_distance/N6_Healthy/N6_Healthy.inner_distance_plot.r, rseqc/inner_distance/N6_Healthy/N6_Healthy.inner_distance.txt, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_freq.txt, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.pdf, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.r, rseqc/inner_distance/N7_Case/N7_Case.inner_distance.txt, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_freq.txt, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.pdf, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.r, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_freq.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.pdf, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.r, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance.txt, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.r, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.xls, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.r, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.xls, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.r, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.xls, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.xls, rseqc/clipping_profile/N3_Healthy/N3_Healthy.clipping_profile.r, rseqc/clipping_profile/N3_Healthy/N3_Healthy.clipping_profile.R1.pdf, rseqc/clipping_profile/N3_Healthy/N3_Healthy.clipping_profile.R2.pdf, rseqc/clipping_profile/N3_Healthy/N3_Healthy.clipping_profile.xls, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.r, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R1.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R2.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.xls, rseqc/clipping_profile/N5_Case/N5_Case.clipping_profile.r, rseqc/clipping_profile/N5_Case/N5_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N5_Case/N5_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N5_Case/N5_Case.clipping_profile.xls, rseqc/clipping_profile/N6_Healthy/N6_Healthy.clipping_profile.r, rseqc/clipping_profile/N6_Healthy/N6_Healthy.clipping_profile.R1.pdf, rseqc/clipping_profile/N6_Healthy/N6_Healthy.clipping_profile.R2.pdf, rseqc/clipping_profile/N6_Healthy/N6_Healthy.clipping_profile.xls, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.r, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R2.pdf, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.xls, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R1.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.xls, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.r, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R1.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R2.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.xls, rseqc/read_distribution/N10_Case/N10_Case.read_distribution.txt, rseqc/read_distribution/N11_Case/N11_Case.read_distribution.txt, rseqc/read_distribution/N1_Case/N1_Case.read_distribution.txt, rseqc/read_distribution/N2_ScreenNegative/N2_ScreenNegative.read_distribution.txt, rseqc/read_distribution/N3_Healthy/N3_Healthy.read_distribution.txt, rseqc/read_distribution/N4_Control/N4_Control.read_distribution.txt, rseqc/read_distribution/N5_Case/N5_Case.read_distribution.txt, rseqc/read_distribution/N6_Healthy/N6_Healthy.read_distribution.txt, rseqc/read_distribution/N7_Case/N7_Case.read_distribution.txt, rseqc/read_distribution/N8_ScreenNegative/N8_ScreenNegative.read_distribution.txt, rseqc/read_distribution/N9_Healthy/N9_Healthy.read_distribution.txt, rseqc/read_GC/N10_Case/N10_Case.GC.xls, rseqc/read_GC/N10_Case/N10_Case.GC_plot.r, rseqc/read_GC/N10_Case/N10_Case.GC_plot.pdf, rseqc/read_GC/N11_Case/N11_Case.GC.xls, rseqc/read_GC/N11_Case/N11_Case.GC_plot.r, rseqc/read_GC/N11_Case/N11_Case.GC_plot.pdf, rseqc/read_GC/N1_Case/N1_Case.GC.xls, rseqc/read_GC/N1_Case/N1_Case.GC_plot.r, rseqc/read_GC/N1_Case/N1_Case.GC_plot.pdf, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC.xls, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.r, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.pdf, rseqc/read_GC/N3_Healthy/N3_Healthy.GC.xls, rseqc/read_GC/N3_Healthy/N3_Healthy.GC_plot.r, rseqc/read_GC/N3_Healthy/N3_Healthy.GC_plot.pdf, rseqc/read_GC/N4_Control/N4_Control.GC.xls, rseqc/read_GC/N4_Control/N4_Control.GC_plot.r, rseqc/read_GC/N4_Control/N4_Control.GC_plot.pdf, rseqc/read_GC/N5_Case/N5_Case.GC.xls, rseqc/read_GC/N5_Case/N5_Case.GC_plot.r, rseqc/read_GC/N5_Case/N5_Case.GC_plot.pdf, rseqc/read_GC/N6_Healthy/N6_Healthy.GC.xls, rseqc/read_GC/N6_Healthy/N6_Healthy.GC_plot.r, rseqc/read_GC/N6_Healthy/N6_Healthy.GC_plot.pdf, rseqc/read_GC/N7_Case/N7_Case.GC.xls, rseqc/read_GC/N7_Case/N7_Case.GC_plot.r, rseqc/read_GC/N7_Case/N7_Case.GC_plot.pdf, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC.xls, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.r, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.pdf, rseqc/read_GC/N9_Healthy/N9_Healthy.GC.xls, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.r, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.pdf, data/geneLengths.tsv
+    jobid: 0
+    reason: Input files updated by another job: rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.xls, samples/fastqc/N1_Case/N1_Case_R1_t.good_fastqc.zip, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.xls, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance.txt, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.r, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R2.pdf, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R1.pdf, samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.xls, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.r, rseqc/inner_distance/N11_Case/N11_Case.inner_distance.txt, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R2.pdf, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.r, rseqc/read_GC/N10_Case/N10_Case.GC.xls, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.r, rseqc/read_distribution/N10_Case/N10_Case.read_distribution.txt, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R2.pdf, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R2.pdf, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_freq.txt, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R2.pdf, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_freq.txt, results/tables/platelet_full-cohort_STAR_mapping_statistics.txt, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R2.pdf, rseqc/read_GC/N7_Case/N7_Case.GC.xls, rseqc/read_GC/N7_Case/N7_Case.GC_plot.pdf, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.R1.pdf, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R1.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.r, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.pdf, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC.xls, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.pdf, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC.xls, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.png, rseqc/read_GC/N4_Control/N4_Control.GC_plot.pdf, rseqc/read_GC/N10_Case/N10_Case.GC_plot.pdf, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance.txt, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.png, rseqc/read_GC/N9_Healthy/N9_Healthy.GC.xls, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.xls, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R1.pdf, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.xls, rseqc/read_GC/N4_Control/N4_Control.GC.xls, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.xls, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R2.pdf, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.r, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.R2.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R1.pdf, rseqc/read_GC/N7_Case/N7_Case.GC_plot.r, samples/star/N9_Healthy_bam/Aligned.sortedByCoord.out.bam.bai, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.r, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_plot.r, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.txt, samples/star/N10_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.txt, rseqc/inner_distance/N2_ScreenNegative/N2_ScreenNegative.inner_distance_freq.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.R1.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R1.pdf, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.r, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.r, rseqc/read_GC/N1_Case/N1_Case.GC_plot.r, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R2.pdf, samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam, samples/star/N7_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.html, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.R2.pdf, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_freq.txt, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.html, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R1.pdf, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.R1.pdf, rseqc/inner_distance/N10_Case/N10_Case.inner_distance_plot.r, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.xls, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.R2.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R1.pdf, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.pdf, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.r, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.html, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.pdf, rseqc/inner_distance/N1_Case/N1_Case.inner_distance.txt, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.R1.pdf, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_plot.pdf, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.R2.pdf, rseqc/read_distribution/N8_ScreenNegative/N8_ScreenNegative.read_distribution.txt, rseqc/read_distribution/N7_Case/N7_Case.read_distribution.txt, samples/star/N4_Control_bam/Aligned.sortedByCoord.out.bam.bai, rseqc/insertion_profile/N7_Case/N7_Case.insertion_profile.xls, rseqc/read_GC/N11_Case/N11_Case.GC_plot.r, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.xls, rseqc/read_distribution/N1_Case/N1_Case.read_distribution.txt, rseqc/read_distribution/N11_Case/N11_Case.read_distribution.txt, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.xls, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.r, samples/star/N2_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.txt, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_freq.txt, samples/star/N11_Case_bam/Aligned.sortedByCoord.out.bam.bai, samples/fastqscreen/N4_Control/N4_Control_R2_t.good_screen.txt, rseqc/clipping_profile/N8_ScreenNegative/N8_ScreenNegative.clipping_profile.r, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.xls, samples/fastqc/N4_Control/N4_Control_R2_t.good_fastqc.zip, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.R1.pdf, rseqc/read_GC/N11_Case/N11_Case.GC.xls, rseqc/read_GC/N10_Case/N10_Case.GC_plot.r, rseqc/read_GC/N9_Healthy/N9_Healthy.GC_plot.r, rseqc/inner_distance/N7_Case/N7_Case.inner_distance.txt, rseqc/inner_distance/N8_ScreenNegative/N8_ScreenNegative.inner_distance_plot.pdf, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.r, rseqc/insertion_profile/N8_ScreenNegative/N8_ScreenNegative.insertion_profile.R2.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_freq.txt, rseqc/read_GC/N1_Case/N1_Case.GC.xls, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.xls, rseqc/read_GC/N11_Case/N11_Case.GC_plot.pdf, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.r, samples/fastqc/N1_Case/N1_Case_R2_t.good_fastqc.zip, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.R1.pdf, rseqc/insertion_profile/N9_Healthy/N9_Healthy.insertion_profile.R2.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.R2.pdf, rseqc/clipping_profile/N1_Case/N1_Case.clipping_profile.r, rseqc/inner_distance/N10_Case/N10_Case.inner_distance.txt, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.R1.pdf, rseqc/read_distribution/N9_Healthy/N9_Healthy.read_distribution.txt, samples/fastqscreen/N1_Case/N1_Case_R2_t.good_screen.png, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R1.pdf, rseqc/inner_distance/N1_Case/N1_Case.inner_distance_plot.r, rseqc/read_GC/N8_ScreenNegative/N8_ScreenNegative.GC_plot.r, rseqc/read_distribution/N2_ScreenNegative/N2_ScreenNegative.read_distribution.txt, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.r, samples/star/N1_Case_bam/Aligned.sortedByCoord.out.bam.bai, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.R1.pdf, rseqc/inner_distance/N4_Control/N4_Control.inner_distance_plot.pdf, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_plot.pdf, rseqc/clipping_profile/N4_Control/N4_Control.clipping_profile.xls, rseqc/read_GC/N1_Case/N1_Case.GC_plot.pdf, samples/star/N8_ScreenNegative_bam/Aligned.sortedByCoord.out.bam.bai, rseqc/inner_distance/N4_Control/N4_Control.inner_distance.txt, rseqc/read_GC/N2_ScreenNegative/N2_ScreenNegative.GC_plot.pdf, rseqc/insertion_profile/N11_Case/N11_Case.insertion_profile.xls, rseqc/clipping_profile/N11_Case/N11_Case.clipping_profile.r, rseqc/insertion_profile/N1_Case/N1_Case.insertion_profile.r, samples/fastqscreen/N4_Control/N4_Control_R1_t.good_screen.html, rseqc/inner_distance/N7_Case/N7_Case.inner_distance_plot.pdf, rseqc/inner_distance/N11_Case/N11_Case.inner_distance_freq.txt, rseqc/clipping_profile/N2_ScreenNegative/N2_ScreenNegative.clipping_profile.r, rseqc/clipping_profile/N10_Case/N10_Case.clipping_profile.xls, rseqc/clipping_profile/N9_Healthy/N9_Healthy.clipping_profile.r, samples/fastqc/N4_Control/N4_Control_R1_t.good_fastqc.zip, rseqc/read_distribution/N4_Control/N4_Control.read_distribution.txt, rseqc/clipping_profile/N7_Case/N7_Case.clipping_profile.r, rseqc/insertion_profile/N10_Case/N10_Case.insertion_profile.R2.pdf, samples/fastqscreen/N1_Case/N1_Case_R1_t.good_screen.png, rseqc/insertion_profile/N4_Control/N4_Control.insertion_profile.r, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance_freq.txt, rseqc/inner_distance/N9_Healthy/N9_Healthy.inner_distance.txt, rseqc/read_GC/N4_Control/N4_Control.GC_plot.r, rseqc/insertion_profile/N2_ScreenNegative/N2_ScreenNegative.insertion_profile.xls
+
+Job counts:
+	count	jobs
+	2	STAR
+	1	all
+	8	clipping_profile
+	2	fastqc
+	2	fastqscreen
+	8	index
+	8	inner_distance
+	8	insertion_profile
+	8	read_GC
+	8	read_distribution
+	1	star_statistics
+	56
+This was a dry-run (flag -n). The order of jobs does not reflect the order of execution.
