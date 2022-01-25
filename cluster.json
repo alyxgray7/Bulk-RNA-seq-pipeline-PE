@@ -74,11 +74,11 @@
         "c" : 1,
         "mem":10000
     },
-    "filter_counts" :
+    "filter_STARcounts" :
     {
-        "J" : "filter_counts",
-        "e" : "logs/filter_counts/filter_counts_%j.err",
-        "o" : "logs/filter_counts/filter_counts_%j.out",
+        "J" : "filter_STARcounts",
+        "e" : "logs/filter_STARcounts/filter_STARcounts_%j.err",
+        "o" : "logs/filter_STARcounts/filter_STARcounts_%j.out",
         "c" : 1,
         "mem":10000
     },
@@ -105,6 +105,14 @@
         "o" : "logs/compile_counts/compile_counts_and_stats_%j.out",
         "c" : 1,
         "mem":5000
+    },
+    "filter_genecounts" :
+    {
+        "J" : "filter_genecounts",
+        "e" : "logs/filter_genecounts/filter_genecounts_%j.err",
+        "o" : "logs/filter_genecounts/filter_genecounts__%j.out",
+        "c" : 1,
+        "mem":10000
     },
     "readQC" :
     {

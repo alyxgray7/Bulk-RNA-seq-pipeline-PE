@@ -126,7 +126,7 @@ rule compile_star_counts:
         "../scripts/compile_star_counts.py"
 
 
-rule filter_counts:
+rule filter_STARcounts:
     input:
         countsFile="data/{project_id}_counts.txt".format(project_id=config["project_id"])
     output:
@@ -134,9 +134,16 @@ rule filter_counts:
     params:
         anno=config["filter_anno"],
         biotypes=config["biotypes"],
-        mito=config['mito']
-    script:
-        "../scripts/RNAseq_filterCounts.R"
+        mito=config['mito'],
+        ercc=config['ERCC']
+    shell:
+        """Rscript scripts/RNAseq_filterCounts.R \
+        --countsFile={input.countsFile} \
+        --annoFile={params.annoFile} \
+        --outDir=data \
+        --biotypes={params.biotypes} \
+        --mito={params.mito} \
+        --ercc={params.ercc}"""
 
 
 rule genecount:
@@ -177,6 +184,26 @@ rule compile_counts_and_stats:
         "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"])
     script:
         "../scripts/compile_counts_table_w_stats.py"
+
+
+rule filter_genecounts:
+    input:
+        countsFile="data/{project_id}_genecounts.txt".format(project_id=config["project_id"])
+    output:
+        "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
+    params:
+        anno=config["filter_anno"],
+        biotypes=config["biotypes"],
+        mito=config['mito'],
+        ercc=config['ERCC']
+    shell:
+        """Rscript scripts/RNAseq_filterCounts.R \
+        --countsFile={input.countsFile} \
+        --annoFile={params.annoFile} \
+        --outDir=data \
+        --biotypes={params.biotypes} \
+        --mito={params.mito} \
+        --ercc={params.ercc}"""
 
 
 rule readQC:

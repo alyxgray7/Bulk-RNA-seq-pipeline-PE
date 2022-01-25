@@ -18,6 +18,7 @@ help <- function() {
       \n")
   cat("--biotypes     : [ required ] Comma separated biotypes to include in filtered counts table.")
   cat("--mito         : [ required ] Binary way to signal if mitochondrial genes should be included in filtered counts table (0) or removed (1).")
+  cat("--ercc         : [ required ] Binary way to signal if ERCC genes were included (1) in counts table or not (0).")
   cat("--outDir       : [ required ] Desired directory to write table outputs.")
   cat("\n")
   q()
@@ -31,6 +32,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   countsFile <- sub('--countsFile=', '', args[grep('--countsFile=', args)])
   biotypes <- sub('--biotypes=', '', args[grep('--biotypes=', args)])
   mito <- sub('--mito=', '', args[grep('--mito=', args)])
+  ercc <- sub('--ercc=', '', args[grep('--ercc=', args)])
   outDir <- sub('--outDir=', '', args[grep('--outDir=', args)])
 }
 
@@ -40,6 +42,7 @@ io <- list(
   countsFile = countsFile,
   biotypes = biotypes,
   mito = mito,
+  ercc = ercc,
   outDir = outDir
 )
 io
@@ -137,7 +140,7 @@ filename <- sub(".txt", ".filt.txt", filename)
 write.table(counts.sub, file=paste0(io$outDir, "/", filename), sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
 
 # filter ERCC genes if desired
-if (ercc == 1) {
+if (io$ercc == 1) {
     print("filtering ERCC genes")
     counts.ercc <- counts[grep("ERCC", counts[,1]), ]
 
@@ -147,5 +150,5 @@ if (ercc == 1) {
     write.table(counts.ercc, file = paste0(io$outDir, "/", filename), sep = "\t", quote = FALSE, row.names = FALSE, col.names = TRUE)
 }
 
-print("Finished script.")
+print("Finished script")
 
