@@ -132,7 +132,7 @@ rule filter_STARcounts:
     output:
         "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
     params:
-        anno=config["filter_anno"],
+        annoFile=config["filter_anno"],
         biotypes=config["biotypes"],
         mito=config['mito'],
         ercc=config['ERCC']
@@ -190,9 +190,9 @@ rule filter_genecounts:
     input:
         countsFile="data/{project_id}_genecounts.txt".format(project_id=config["project_id"])
     output:
-        "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
+        "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"])
     params:
-        anno=config["filter_anno"],
+        annoFile=config["filter_anno"],
         biotypes=config["biotypes"],
         mito=config['mito'],
         ercc=config['ERCC']

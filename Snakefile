@@ -105,6 +105,7 @@ rule all:
         # "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
         # "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"]),
+        "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"]),
         # expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
         # expand("rseqc/inner_distance/{sample}/{sample}.inner_distance{ext}", sample = SAMPLES, ext = inner_distance_ext),
         # expand("rseqc/clipping_profile/{sample}/{sample}.clipping_profile.{ext}", sample = SAMPLES, ext = insertion_and_clipping_prof_ext),
