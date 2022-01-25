@@ -1,0 +1,20 @@
+name: deeptools
+channels:
+  - bioinfo
+  - conda-forge
+  - r
+  - bioconda
+  - defaults
+dependencies:
+  - deeptools=3.5.1
+  - deeptoolsintervals=0.1.9
+  - matplotlib-base=3.4.3
+  - numpy=1.21.2
+  - py2bit=0.3.0
+  - pybigwig=0.3.18
+  - pyparsing=2.4.7
+  - pysam=0.15.3
+  - python=3.7.10
+  - python-dateutil=2.8.2
+  - python_abi=3.7
+  - scipy=1.7.1

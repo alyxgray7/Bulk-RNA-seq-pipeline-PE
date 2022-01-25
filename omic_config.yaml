@@ -21,7 +21,7 @@ filter_anno:
 
 # Fasta file including Illumina adapters to be trimmed out via bbduk
 bb_adapter:
-  ./data/adapters.fa
+  data/adapters.fa
 # Pre-built genome indexes for various organisms which we will screen against to 
 # look for contamination
 conf:
@@ -36,7 +36,7 @@ star_tool:
 
 # Unique project identifier which will be concatenated onto your counts table file name.
 project_id:
-  project_id
+  platelet_full-cohort
 # Genome assembly used for GO analysis.
 # Format must be as below, with the genome assembly first, and the version of ensembl second, separated by a period
 # (Unless there is only one ensembl version, then just write assembly)
@@ -45,10 +45,13 @@ assembly:
 # Metadata needed for differential expression analysis
 omic_meta_data:
 # tab delimited file
-  /path/to/metadata.tsv
+  data/md_merged_noI9.tsv
 # desired expression threshold for estimating sequencing saturation (in FPKM)
 expression_threshold:
-  5
+  1
+# Are ERCC sequences included in data? (no = 0; yes = 1)
+ERCC:
+  1
 # Biotypes you would like to include in your gene counts table 
 # Examples: protein_coding, lincRNA, sRNA, rRNA, snRNA, snoRNA, etc.
 biotypes:
@@ -71,38 +74,53 @@ seq_layout:
 # Examples: Diagnosis, genotype, condition, etc.) 
 # This must be a column in your omic_meta_data.
 linear_model:
-  Condition
+  Group
 # The column name in which your sampleIDs are defined in omic_meta_data (i.e., column 1)
 # These should match the sampleIDs in your fastq files.
 sample_id:
-  SampleID
+  rnaSampleID
 # The column names in your omic_meta_data file which you would like to annotate your heatmaps by. 
 # This is used as a QC to look for batch effects. 
 # Enter columns which could potentially introduce a batch effect in your data.
 meta_columns_to_plot:
   Lane: Lane
-  Condition: Condition
-  Time: Time
+  Group: Group
+  Sex: Sex
+  Age_at_collection: Age_at_collection
+  Novogene_RIN: Novogene_RIN
+  TM_class: TM_class
+  RINcat: RINcat
 pca:
   labels:
     #Column name in meta data file to generate group files and comparisons
-    - Condition
-    - Time
     - Lane
+    - Group
+    - Sex
+    - Age_at_collection
+    - Novogene_RIN
+    - TM_class
+    - RINcat
 # Contrasts which you would like to run differential expression on.
 # For example if you want to look at wild type (wt) vs. mutant (mut), you would specify mut-vs-wt
 # It is important that when listing your types here, you write your baseline SECOND
 diffexp:
   # contrasts to generate group files and perform comparisons
   contrasts:
-    contrast-vs-baseline:
-      - contrast
-      - baseline
+    1_Case-vs-4_ScreenNegative:
+      - 1_Case
+      - 4_ScreenNegative
+    1_Case-vs-3_Control:
+      - 1_Case
+      - 3_Control
+    1_Case-vs-2_InSitu:
+      - 1_Case
+      - 2_InSitu
   # This option is specified if you would like to run DESeq2 on a subset of your samples (> pairwise comparison)
   LRT:
-    - contrast1
-    - contrast2
-    - baseline
+    - 1_Case
+    - 2_InSitu
+    - 3_Control
+    - 4_ScreenNegative
 # Correlation test type to use for plotting sample-sample correlations.
 # Options are Pearson, Spearman, or both.
 correlation_test:

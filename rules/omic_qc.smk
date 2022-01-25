@@ -91,3 +91,14 @@ rule geneBody_coverage:
         "../envs/rseqc.yaml"
     shell:
         "geneBody_coverage.py -r {params.bed} -i {input} -o rseqc/geneBody_coverage/{wildcards.sample}/{wildcards.sample}"
+
+
+rule compile_gc:
+    input:
+        expand("rseqc/read_GC/{sample}/{sample}.GC.xls", sample = SAMPLES)
+    output:
+        "results/tables/compiled_readGC.tsv"
+    conda:
+        "../envs/py37.yaml"
+    script:
+        "../scripts/compile_gc.py"

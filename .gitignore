@@ -3,9 +3,14 @@
 multiqc/
 rseqc/
 logs/*
+analysis/
+tests/
 
 # Ignore these files
-log.txt
+*.txt
 *.pdf
 scripts/.Rhistory
-
+*.err
+*.out
+gzip.sh
+gzip*.sh

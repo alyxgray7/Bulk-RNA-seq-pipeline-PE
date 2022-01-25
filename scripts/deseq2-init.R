@@ -2,22 +2,42 @@ library("dplyr")
 library("DESeq2")
 
 counts = snakemake@input[['counts']]
+print(counts)
 
 metadata <- snakemake@params[['samples']]
+print(metadata)
 
 sampleID <- snakemake@params[['sample_id']]
+print(sampleID)
 
 Type <- snakemake@params[['linear_model']]
+print(Type)
 
 contrast <- snakemake@params[['contrast']]
+print(contrast)
 
 baseline <- contrast[[2]]
+print(baseline)
 
 target <- contrast[[1]]
+print(target)
 
 output = snakemake@output[['rds']]
+print(output)
 
 rld_out = snakemake@output[['rld_out']]
+print(rld_out)
+
+# debugging on exa
+# counts <- "data/platelet_full-cohort_counts.filt.txt"
+# metadata <- "data/metadata.tsv"
+# sampleID <- "SampleID"
+# Type <- "Group"
+# contrast <- c("1_Case", "4_ScreenNegative")
+# baseline <- "4_ScreenNegative"
+# target <- "1_Case"
+# output <- "results/diffexp/pairwise/1_Case-vs-4_ScreenNegative_all.rds"
+# rld_out <- "results/diffexp/pairwise/1_Case-vs-4_ScreenNegative_rlog_dds.rds"
 
 parallel <- FALSE
 if (snakemake@threads > 1) {

@@ -3,8 +3,8 @@ rule trim_bbduk:
         fwd = "samples/raw/{sample}_R1.fastq.gz",
         rev = "samples/raw/{sample}_R2.fastq.gz"
     output:
-        fwd = "samples/bbduk/{sample}/{sample}_R1_t.fastq.gz",
-        rev = "samples/bbduk/{sample}/{sample}_R2_t.fastq.gz",
+        fwd = temp("samples/bbduk/{sample}/{sample}_R1_t.fastq.gz"),
+        rev = temp("samples/bbduk/{sample}/{sample}_R2_t.fastq.gz"),
     params:
         ref=config["bb_adapter"]
     message:
@@ -19,10 +19,10 @@ rule afterqc_filter:
         fwd = "samples/bbduk/{sample}/{sample}_R1_t.fastq.gz",
         rev = "samples/bbduk/{sample}/{sample}_R2_t.fastq.gz"
     output:
-        "samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz",
-        "samples/bbduk/{sample}/good/{sample}_R2_t.good.fq.gz",
-        "samples/bbduk/{sample}/bad/{sample}_R1_t.bad.fq.gz",
-        "samples/bbduk/{sample}/bad/{sample}_R2_t.bad.fq.gz",
+        temp("samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz"),
+        temp("samples/bbduk/{sample}/good/{sample}_R2_t.good.fq.gz"),
+        temp("samples/bbduk/{sample}/bad/{sample}_R1_t.bad.fq.gz"),
+        temp("samples/bbduk/{sample}/bad/{sample}_R2_t.bad.fq.gz"),
         "samples/bbduk/{sample}/QC/{sample}_R1_t.fastq.gz.html",
         "samples/bbduk/{sample}/QC/{sample}_R1_t.fastq.gz.json",
 
@@ -139,6 +139,46 @@ rule filter_counts:
         "../scripts/RNAseq_filterCounts.R"
 
 
+rule genecount:
+    input:
+        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+    output:
+        "samples/htseq_count/{sample}_genecount.txt"
+    params:
+        name = "genecount_{sample}",
+        gtf = config["gtf_file"]
+    conda:
+        "../envs/omic_qc_wf.yaml"
+    threads: 1
+    shell:
+        """htseq-count \
+                -f bam \
+                -r name \
+                -s reverse \
+                -m union \
+                --additional-attr=gene_name \
+                {input} \
+                {params.gtf} > {output}"""
+
+
+rule compile_counts:
+    input:
+        expand("samples/htseq_count/{sample}_genecount.txt", sample=SAMPLES)
+    output:
+        "data/{project_id}_genecounts.txt".format(project_id=config["project_id"])
+    script:
+        "../scripts/compile_counts_table.py"
+
+
+rule compile_counts_and_stats:
+    input:
+        expand("samples/htseq_count/{sample}_genecount.txt",sample=SAMPLES)
+    output:
+        "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"])
+    script:
+        "../scripts/compile_counts_table_w_stats.py"
+
+
 rule readQC:
     input:
         countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
@@ -165,7 +205,6 @@ rule readQC:
         --contrast={params.contrast} \
         --corType={params.corType} \
         --outdir=results/readQC"""
-
 
 
 rule cpm_tracks:

@@ -73,8 +73,10 @@ rownames(md) <- md[[sampleID]]
 md[[sampleID]] <- NULL
 
 # Ensure that we subset md to have exactly the same samples as in the counts table
+cts <- cts[, colnames(cts) %in% rownames(md)]
 md <- md[colnames(cts),]
 dim(md)
+head(md)
 
 # Check
 stopifnot(rownames(md)==colnames(cts))
@@ -90,6 +92,7 @@ if(colors[[1]] !='NA' & discrete[[1]] =='NA'){
         pal <- gg_color_hue(length(unique(md[[Type]])))
 }
 
+print(as.formula(paste('~', Type)))
 # Create dds object from counts data and correct columns
 dds <- DESeqDataSetFromMatrix(countData=cts,
                               colData=md,
