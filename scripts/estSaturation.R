@@ -54,9 +54,12 @@ help <- function() {
                             a feature to be 'expressed'. Default = 1.
       \n")
   cat("--contrast     : The column name in your config['omic_meta_data'] file,  [ required ]
-                        this is the characteristic you would like to do DE on.
+                        This is the characteristic you would like to do DE on.
                         Example: diagnosis, geotype, etc. (used to color the plots by.)
       \n")
+  cat("--sampleID     : The column name in your config['omic_meta_data'] file,  [ required ]
+                        These are how the samples are labeled in your counts table.
+  \n")
   cat("\n")
   q()
 }
@@ -71,12 +74,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   outDir <- sub('--outDir=', '', args[grep('--outDir=', args)])
   minCount <- as.numeric(sub('--minCount=', '', args[grep('--minCount=', args)]))
   contrast <- sub('--contrast=', '', args[grep('--contrast=', args)])
-}
-
-# create outdir as needed
-if(!(file.exists( outDir ))) {
-  print(paste("mkdir:", outDir))
-  dir.create(outDir, FALSE, TRUE)  
+  sampleID <- sub('--sampleID=','', args[grep('--sampleID=', args)])
 }
 
 # save std in/out
@@ -86,7 +84,8 @@ io <- list(
   geneLengthsFile = geneLengthsFile,
   outDir = outDir,
   minCount = as.numeric(minCount),
-  contrast = contrast
+  contrast = contrast,
+  sampleID = sampleID
 )
 io
 
@@ -101,16 +100,25 @@ io
 #   contrast = "RINcat"
 # )
 
-# # exa
+# exa
 # io <- list(
-#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/platelet_pilot2_counts.txt",
-#   mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/metadata.tsv",
+#   # countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/platelet_pilot2_counts.txt",
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts.txt",
+#   # mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/metadata.tsv",
+#   mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/md_merged_noI9.tsv",
 #   geneLengthsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/geneLengths.tsv",
-#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/results/estSaturation",
-#   minCount = 2,
-#   contrast = "RINcat"
+#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/estSaturation",
+#   minCount = 5,
+#   contrast = "Group",
+#   sampleID = "rnaSampleID"
 # )
 # io
+
+# create outdir as needed
+if(!(file.exists( io$outDir ))) {
+  print(paste("mkdir:", io$outDir))
+  dir.create(io$outDir, FALSE, TRUE)  
+}
 
 
 ### Libraries
@@ -137,45 +145,40 @@ package.check <- lapply(
   }
 )
 
-################################################################################
-#####                                Functions                             #####
-################################################################################
-
-### Calculate fpkm from raw counts
-##################################
-# function to calculate rpkm/fpkm
-# matrix = counts matrix
-# df = geneLengths look up table
-fpkm.fx <- function(matrix, df, annoType) {
-  
-  # normalize per million fragments
-  pm <- apply(matrix, 2, sum) / 10^6
-  
-  # divide counts by per million scaling factor
-  cpm.mat <- matrix / pm
-  
-  # ensure the correct order based on annotation type
-  m <- match(rownames(matrix), df[, annoType])
-  
-  # divide counts per million by length of gene in kilobases
-  rpkm.mat <- cpm.mat / df$length_kb[m]
-  
-  return(rpkm.mat)
-}
 
 ################################################################################
 #####                              Format data                             #####
 ################################################################################
+
+### Meta data
+#############
+# read in metadata file
+md <- read.table(io$mdFile, header = TRUE, row.names = NULL, sep = "\t")
+head(md)
+
 
 ### Raw counts
 ##############
 # read in raw counts matrix
 counts <- read.table(io$countsFile, header = TRUE, row.names = NULL, sep = "\t")
 
+# select only samples included in metadata file
+counts <- counts[, c(1, which(colnames(counts) %in% md[[io$sampleID]]))]
+dim(counts)
+head(counts)
+
 # reformat into matrix and remove uninformative features
 counts.mat <- as.matrix(counts[, -1])
 rownames(counts.mat) <- counts[, 1]
-counts.mat <- counts.mat[which(rowSums(counts.mat) >= 1), ]
+counts.mat <- counts.mat[which(rowMeans(counts.mat) >= 1), ]
+head(counts.mat)
+dim(counts.mat)
+
+# check if ERCC is included and remove if present
+if (length(grep("ERCC", rownames(counts.mat))) > 0) {
+  print("Removing ERCC genes from further analysis")
+  counts.mat <- counts.mat[grep("ERCC", rownames(counts.mat), invert = TRUE), ]
+}
 
 # check how gene names are annotated in counts
 annoType <- c()
@@ -185,7 +188,7 @@ if (length(grep("ENSG", rownames(counts.mat))) == 0) {
 } else {
   print("counts are ensembl ids")
   annoType <- "ensembl_gene_id"
-  rownames(counts.mat) <- sub("\\..*$", "", rownames(raw)) # be sure ens Ids are unique
+  rownames(counts.mat) <- sub("\\..*$", "", rownames(counts.mat)) # be sure ens Ids are unique
 }
 
 
@@ -199,36 +202,28 @@ head(geneLengths)
 ### Normalize raw counts per kilobase million
 #############################################
 # PE data uses "fragments" instead of "reads"
-fpkm.mat <- fpkm.fx(counts.mat, geneLengths, annoType)
-print("Normalized (FPKM) values")
-head(fpkm.mat)
-
-# sanity check -- needs more ambiguous solution
-if (annoType == "external_gene_name") {
-  c <- counts.mat["DDX11L1", 1]
-  pm <- (sum(counts.mat[,1])/10^6)
-  cpm <- c/pm
-  kb <- geneLengths[grep("DDX11L1", geneLengths[, annoType]), ]$length_kb[2]
-  stopifnot(fpkm.mat["DDX11L1", 1] == cpm / kb)
-}
+fpkm.mat <- apply(counts.mat, 2,
+  function(x) {
+    10^6 * x / geneLengths[["length_kb"]][which(rownames(counts.mat) %in% geneLengths[[annoType]])] / sum(as.numeric(x))
+    
+    # [which(geneLengths[[annoType]] %in% rownames(x))] / sum(as.numeric(x))
+  }
+)
+dim(fpkm.mat)
+stopifnot(dim(fpkm.mat) == dim(counts.mat))
 
 # save for future use
-write.table(fpkm.mat, paste(io$outDir, "counts_fpkm.tsv", sep = "/"), 
+filename <- tail(strsplit(io$countsFile, split = "/", fixed = TRUE)[[1]], 1)
+filename <- sub(".txt", ".fpkm.txt", filename)
+write.table(fpkm.mat, paste(io$outDir, filename, sep = "/"), 
             col.names = TRUE, row.names = TRUE, sep = "\t", quote = FALSE)
-
-
-### Meta data
-#############
-# read in metadata file
-md <- read.table(io$mdFile, header = TRUE, row.names = NULL, sep = "\t")
-head(md)
 
 
 ### Get sequencing statistics
 #############################
 # initialize dataframe
 stats <- data.frame(
-  SampleID = md[,1]
+  SampleID = md[[io$sampleID]]
 )
 
 # add counts summaries
@@ -268,7 +263,7 @@ satEst <- estimate_saturation(
 ### Reformat results for saving
 ###############################
 # add contrast information
-m <- match(satEst$sample, md[, 1])
+m <- match(satEst$sample, md[[io$sampleID]])
 satEst$contrast <- md[, io$contrast][m]
 
 # save results
@@ -412,4 +407,4 @@ ggplot(toplot, aes(x = contrast, y = nFeatures, fill = contrast)) +
   theme_bw()
 ggsave(paste(io$outDir, "violin_nFeatureDistribution_byContrast.png", sep = "/"), device = "png")
 
-print("Finished script")
+print("Finished script.")

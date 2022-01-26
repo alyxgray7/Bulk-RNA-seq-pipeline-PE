@@ -284,7 +284,7 @@ rule make_geneLengthTable:
 
 rule estSaturation:
     input:
-        countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
+        countsFile = "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
         geneLengthsFile = "data/geneLengths.tsv"
     output:
         barplot = "results/estSaturation/barplot_nFeatures_bySample.png",
@@ -299,8 +299,16 @@ rule estSaturation:
     params:
         md = config['omic_meta_data'],
         minCount = config['expression_threshold'],
-        contrast = config['linear_model']
+        contrast = config['linear_model'],
+        sampleID = config['sample_id']
     conda:
         "../envs/estSaturation.yaml"
     shell:
-        """Rscript scripts/estSaturation.R --countsFile={input.countsFile} --geneLengthsFile={input.geneLengthsFile} --mdFile={params.md} --outDir=results/estSaturation --minCount={params.minCount} --contrast={params.contrast}"""
+        """Rscript scripts/estSaturation.R \
+        --countsFile={input.countsFile} \
+        --geneLengthsFile={input.geneLengthsFile} \
+        --mdFile={params.md} \
+        --outDir=results/estSaturation \
+        --minCount={params.minCount} \
+        --contrast={params.contrast} \
+        --sampleID={params.sampleID}"""
