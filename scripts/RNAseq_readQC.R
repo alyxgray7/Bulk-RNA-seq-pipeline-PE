@@ -79,23 +79,23 @@ io <- list(
 )
 io
 
-### Debugging on exa
-####################
-io <- list(
-  annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
-  metaFile = "data/md_merged_noI9.tsv",
-  # countsFile = "data/platelet_full-cohort_counts.txt",
-  # countsFile = "data/platelet_full-cohort_genecounts.txt",
-  countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts_noERCC.txt",
-  # readDistFile = "results/tables/read_coverage.txt",
-  readDistFile = "results/tables/read_coverage_edit.txt",
-  contrast = "Group",
-  plotCols = c("Lane", "Group", "Sex", "Age_at_collection", "Novogene_RIN", "TM_class"),
-  outDir = "results/readQC_htseqCounts_noI9",
-  corType = "Spearman",
-  sampleID = "rnaSampleID"
-)
-io
+# ### Debugging on exa
+# ####################
+# io <- list(
+#   annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
+#   metaFile = "data/md_merged_noI9.tsv",
+#   # countsFile = "data/platelet_full-cohort_counts.txt",
+#   # countsFile = "data/platelet_full-cohort_genecounts.txt",
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts_noERCC.txt",
+#   # readDistFile = "results/tables/read_coverage.txt",
+#   readDistFile = "results/tables/read_coverage_edit.txt",
+#   contrast = "Group",
+#   plotCols = c("Lane", "Group", "Sex", "Age_at_collection", "Novogene_RIN", "TM_class"),
+#   outDir = "results/readQC_htseqCounts_noI9",
+#   corType = "Spearman",
+#   sampleID = "rnaSampleID"
+# )
+# io
 
 # create outdir as needed
 if(!(file.exists( io$outDir ))) {

@@ -22,7 +22,8 @@ help <- function() {
   \n")
   cat("--contrast         : [ required ] Sample group contrasts to build DE model.
   \n")
-  cat("--threads          : [ required ] Number of threads for parallel processing. (Defaults to 6 unless the number of samples is > 100.)")
+  cat("--threads          : [ required ] Number of threads for parallel processing. (Defaults to 6 unless the number of samples is > 100.)
+  \n")
   cat("\n")
   q()
 }
@@ -38,7 +39,6 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   linear_model <- sub('--linear_model=', '', args[grep('--linear_model=', args)])
   contrast <- sub('--contrast=', '', args[grep('--contrast=', args)])
   threads <- sub('--threads=', '', args[grep('--threads=', args)])
-
 }
 
 # create the contrast vector

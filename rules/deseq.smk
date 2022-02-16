@@ -51,7 +51,7 @@ rule deseq2_pairwise:
 
 rule deseq2_group:
     input:
-        counts = "data/{project_id}_counts.filt.txt".format(project_id = project_id)
+        counts = "data/{project_id}_genecounts.filt.txt".format(project_id = project_id)
     output:
         pca="results/diffexp/group/LRT_pca.pdf",
         sd_mean_plot="results/diffexp/group/LRT_sd_mean_plot.pdf",
@@ -161,7 +161,7 @@ rule volcano:
 
 rule permutation:
     input:
-        counts = "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
+        counts = "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"])
     output:
         numGenes = "results/diffexp/pairwise/permutationTest/{contrast}.number.diff.genes.csv",
         permList = "results/diffexp/pairwise/permutationTest/{contrast}.permutation.list.csv",

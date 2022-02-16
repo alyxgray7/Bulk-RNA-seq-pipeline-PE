@@ -101,18 +101,18 @@ io
 # )
 
 # exa
-# io <- list(
-#   # countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/platelet_pilot2_counts.txt",
-#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts.txt",
-#   # mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/metadata.tsv",
-#   mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/md_merged_noI9.tsv",
-#   geneLengthsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/geneLengths.tsv",
-#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/estSaturation",
-#   minCount = 5,
-#   contrast = "Group",
-#   sampleID = "rnaSampleID"
-# )
-# io
+io <- list(
+  # countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/platelet_pilot2_counts.txt",
+  countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts.txt",
+  # mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/metadata.tsv",
+  mdFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/md_merged_noI9.tsv",
+  geneLengthsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/pilot2/Bulk-RNA-seq-pipeline-PE/data/geneLengths.tsv",
+  outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/estSaturation",
+  minCount = 5,
+  contrast = "Group",
+  sampleID = "rnaSampleID"
+)
+io
 
 # create outdir as needed
 if(!(file.exists( io$outDir ))) {
@@ -205,8 +205,6 @@ head(geneLengths)
 fpkm.mat <- apply(counts.mat, 2,
   function(x) {
     10^6 * x / geneLengths[["length_kb"]][which(rownames(counts.mat) %in% geneLengths[[annoType]])] / sum(as.numeric(x))
-    
-    # [which(geneLengths[[annoType]] %in% rownames(x))] / sum(as.numeric(x))
   }
 )
 dim(fpkm.mat)
@@ -238,6 +236,7 @@ stats
 # save table
 write.table(stats, paste(io$outDir, "summaryStatistics.tsv", sep = "/"), 
             col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
+print("Saved stats table.")
 
 
 ################################################################################
@@ -259,6 +258,11 @@ satEst <- estimate_saturation(
   verbose = TRUE
 )
 
+# test output for satEst
+# satEst <- read.table("/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/tests/estSaturation_results.tsv", sep = "\t", header = TRUE, row.names = NULL)
+# satEst <- satEst[, c(1:4)]
+# colnames(satEst) <- c("sample", "depth", "sat", "var")
+# head(satEst)
 
 ### Reformat results for saving
 ###############################
@@ -372,7 +376,7 @@ toplot$nFeatures <- nFeatures
 toplot$variance <- variance
 
 # add contrast information
-m <- match(toplot$sample, md[, 1])
+m <- match(toplot$sample, md[[io$sampleID]])
 toplot$contrast <- md[, io$contrast][m]
 
 # get the SD from variance
