@@ -38,7 +38,7 @@ picard_tool:
 
 # Unique project identifier which will be concatenated onto your counts table file name.
 project_id:
-  platelet_full-cohort
+  platelet_full-cohort_rmdp
 # Genome assembly used for GO analysis.
 # Format must be as below, with the genome assembly first, and the version of ensembl second, separated by a period
 # (Unless there is only one ensembl version, then just write assembly)
@@ -48,6 +48,7 @@ assembly:
 omic_meta_data:
 # tab delimited file
   data/md_merged_noI9.tsv
+  # data/pltRNAseq_metadata_02162022.tsv
 # desired expression threshold for estimating sequencing saturation (in FPKM)
 expression_threshold:
   1

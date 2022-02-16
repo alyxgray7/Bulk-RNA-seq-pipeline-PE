@@ -17,8 +17,8 @@ timestamp = ('{:%Y-%m-%d_%H:%M:%S}'.format(datetime.datetime.now()))
 configfile:"omic_config.yaml"
 project_id = config["project_id"]
 
-# SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
-SAMPLES, = glob_wildcards("samples/raw/{sample}_R1.fastq.gz")
+SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
+# SAMPLES, = glob_wildcards("samples/raw/{sample}_R1.fastq.gz")
 #SAMPLES = ["A10_ScreenNegative", "A1_Case", "A2_Case", "A3_Control", "A4_Control", "A5_Healthy", "A6_Healthy", "A7_InSitu", "A8_InSitu", "A9_ScreenNegative"]
 #SAMPLES = [ "B10_ScreenNegative", "B1_Case", "B2_Case", "B3_Control", "B4_Control", "B5_Healthy", "B6_Healthy", "B7_InSitu", "B8_InSitu", "B9_ScreenNegative"]
 #SAMPLES = ["C10_Control", "C1_ScreenNegative", "C2_ScreenNegative", "C3_InSitu", "C4_InSitu", "C5_Control", "C6_ScreenNegative", "C7_Case", "C8_Case", "C9_Healthy"]
@@ -101,20 +101,20 @@ rule all:
         # expand("results/tables/{project_id}_STAR_mapping_statistics.txt", project_id = config['project_id']),
         # expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam", sample = SAMPLES),
         # expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai", sample = SAMPLES),
-        expand("samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai", sample = SAMPLES),
+        expand("samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai", sample = SAMPLES),
         expand("samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam", sample = SAMPLES),
         expand("samples/htseq_count/{sample}_genecount.txt", sample = SAMPLES),
         "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"]),
         "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"]),
-        # expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
-        # expand("rseqc/inner_distance/{sample}/{sample}.inner_distance{ext}", sample = SAMPLES, ext = inner_distance_ext),
-        # expand("rseqc/clipping_profile/{sample}/{sample}.clipping_profile.{ext}", sample = SAMPLES, ext = insertion_and_clipping_prof_ext),
-        # expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.{ext}", sample = SAMPLES, ext = read_dist_ext),
-        # "results/tables/read_coverage.txt",
-        # expand("rseqc/read_GC/{sample}/{sample}.GC{ext}", sample = SAMPLES, ext = read_gc_ext),
-        # expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
+        expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
+        expand("rseqc/inner_distance/{sample}/{sample}.inner_distance{ext}", sample = SAMPLES, ext = inner_distance_ext),
+        expand("rseqc/clipping_profile/{sample}/{sample}.clipping_profile.{ext}", sample = SAMPLES, ext = insertion_and_clipping_prof_ext),
+        expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.{ext}", sample = SAMPLES, ext = read_dist_ext),
+        "results/tables/read_coverage.txt",
+        expand("rseqc/read_GC/{sample}/{sample}.GC{ext}", sample = SAMPLES, ext = read_gc_ext),
+        expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
         # expand("results/readQC/{plot}.png", plot = readQC_plotNames),
         # expand("results/diffexp/pairwise/{contrast}_all.rds", contrast = config["diffexp"]["contrasts"]),
         # expand("results/diffexp/pairwise/{contrast}_rlog_dds.rds", contrast = config["diffexp"]["contrasts"]),
@@ -133,10 +133,10 @@ rule all:
         # "data/geneLengths.tsv",
         # expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
         # expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
-        # expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
-        # expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
-        # expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
-        # "results/tables/compiled_readGC.tsv",
+        expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
+        expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
+        expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
+        "results/tables/compiled_readGC.tsv",
 
 
 include: "rules/align_rmdp.smk"
