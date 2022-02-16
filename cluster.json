@@ -82,6 +82,30 @@
         "c" : 1,
         "mem":10000
     },
+    "picard" :
+    {
+        "J" : "picard",
+        "e" : "logs/picard/picard_%j.err",
+        "o" : "logs/picard/picard_%j.out",
+        "c" : 1,
+        "mem" : 45000
+    },
+    "index_rmdp" :
+    {
+        "J" : "index_rmdp",
+        "e" : "logs/index_rmdp/{wildcards.sample}_%j.err",
+        "o" : "logs/index_rmdp/{wildcards.sample}_%j.out",
+        "c" : 1,
+        "mem" : 45000
+    },
+    "sort" :
+    {
+        "J" : "sort",
+        "e" : "logs/sort/sort_%j.err",
+        "o" : "logs/sort/sort_%j.out",
+        "c" : 1,
+        "mem" : 54000
+    },
     "genecount" :
     {
         "J" : "genecount",

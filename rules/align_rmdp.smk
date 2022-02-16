@@ -14,6 +14,7 @@ rule trim_bbduk:
     shell:
         """bbduk.sh -Xmx1g in1={input.fwd} in2={input.rev} out1={output.fwd} out2={output.rev} minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref={params.ref} hdist=1"""
 
+
 rule afterqc_filter:
     input:
         fwd = "samples/bbduk/{sample}/{sample}_R1_t.fastq.gz",
@@ -32,6 +33,7 @@ rule afterqc_filter:
         "../envs/afterqc.yaml"
     shell:
         """after.py -1 {input.fwd} -2 {input.rev} --report_output_folder=samples/bbduk/{wildcards.sample}/QC/ -g samples/bbduk/{wildcards.sample}/good/ -b samples/bbduk/{wildcards.sample}/bad/"""
+
 
 rule fastqscreen:
     input:
@@ -66,6 +68,7 @@ rule fastqc:
     shell:
         """fastqc --outdir samples/fastqc/{wildcards.sample} --extract  -f fastq {input.fwd} {input.rev}"""
 
+
 rule STAR:
     input:
         fwd = "samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz",
@@ -94,6 +97,7 @@ rule STAR:
                 --outReadsUnmapped Fastx \
                 --twopassMode Basic
                 """)
+
 
 rule index:
     input:
@@ -146,9 +150,52 @@ rule filter_STARcounts:
         --ercc={params.ercc}"""
 
 
-rule genecount:
+rule picard:
     input:
         "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+    output:
+        temp("samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam")
+    params:
+        name="rmd_{sample}",
+        mem="5300"
+    run:
+      picard=config["picard_tool"]
+
+      shell("java -Xmx3g -jar {picard} \
+      INPUT={input} \
+      OUTPUT={output} \
+      METRICS_FILE=samples/genecounts_rmdp/{wildcards.sample}_bam/{wildcards.sample}.rmd.metrics.text \
+      REMOVE_DUPLICATES=true")
+
+
+rule index_rmdp:
+    input:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam"
+    output:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai"
+    conda:
+        "../envs/samtools_env.yaml"
+    shell:
+        """samtools index {input} {output}"""
+
+
+rule sort:
+    input:
+      "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam"
+    output:
+      "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
+    params:
+      name = "sort_{sample}",
+      mem = "6400"
+    conda:
+      "../envs/omic_qc_wf.yaml"
+    shell:
+      """samtools sort -O bam -n {input} -o {output}"""
+
+
+rule genecount:
+    input:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     output:
         "samples/htseq_count/{sample}_genecount.txt"
     params:
@@ -162,8 +209,7 @@ rule genecount:
                 -f bam \
                 -r name \
                 -s reverse \
-                -m union \
-                --additional-attr=gene_name \
+                -m intersection-strict \
                 {input} \
                 {params.gtf} > {output}"""
 
@@ -234,40 +280,40 @@ rule readQC:
         --outdir=results/readQC"""
 
 
-rule cpm_tracks:
-    input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
-    output:
-        wig = "samples/bigwig/{sample}_cpm.bw"
-    conda:
-        "../envs/deeptools.yaml"
-    shell:
-        "bamCoverage -p 4 --normalizeUsing CPM -bs 1 -b {input.bam} -o {output.wig}"
+# rule cpm_tracks:
+#     input:
+#         bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+#         idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+#     output:
+#         wig = "samples/bigwig/{sample}_cpm.bw"
+#     conda:
+#         "../envs/deeptools.yaml"
+#     shell:
+#         "bamCoverage -p 4 --normalizeUsing CPM -bs 1 -b {input.bam} -o {output.wig}"
 
 
-rule fwd_tracks:
-    input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
-    output:
-       wig = "samples/bigwig/{sample}_fwd.bw"
-    conda:
-        "../envs/deeptools.yaml"
-    shell:
-        "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b {input.bam} -o {output.wig}"
+# rule fwd_tracks:
+#     input:
+#         bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+#         idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+#     output:
+#        wig = "samples/bigwig/{sample}_fwd.bw"
+#     conda:
+#         "../envs/deeptools.yaml"
+#     shell:
+#         "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand forward -bs 1 -b {input.bam} -o {output.wig}"
 
 
-rule rev_tracks:
-    input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
-    output:
-        wig = "samples/bigwig/{sample}_rev.bw"
-    conda:
-        "../envs/deeptools.yaml"
-    shell:
-        "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand reverse -bs 1 -b {input.bam} -o {output.wig}"
+# rule rev_tracks:
+#     input:
+#         bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
+#         idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+#     output:
+#         wig = "samples/bigwig/{sample}_rev.bw"
+#     conda:
+#         "../envs/deeptools.yaml"
+#     shell:
+#         "bamCoverage -p 4 --normalizeUsing CPM --filterRNAstrand reverse -bs 1 -b {input.bam} -o {output.wig}"
 
 
 rule make_geneLengthTable:

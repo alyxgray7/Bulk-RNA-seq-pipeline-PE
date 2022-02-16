@@ -29,6 +29,8 @@ conf:
 # Paths to various tools which are used in this pipeline
 star_tool:
   /home/groups/CEDAR/tools/STAR/tags/2.5.3a/bin/Linux_x86_64/STAR
+picard_tool:
+  /home/groups/CEDAR/tools/picard-tools-1.119/MarkDuplicates.jar
 
 ##############################################################################################
 # Project-specific specifications you will need to make prior to submission of the pipeline

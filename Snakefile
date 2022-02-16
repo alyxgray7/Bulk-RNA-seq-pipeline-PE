@@ -17,6 +17,7 @@ timestamp = ('{:%Y-%m-%d_%H:%M:%S}'.format(datetime.datetime.now()))
 configfile:"omic_config.yaml"
 project_id = config["project_id"]
 
+# SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
 SAMPLES, = glob_wildcards("samples/raw/{sample}_R1.fastq.gz")
 #SAMPLES = ["A10_ScreenNegative", "A1_Case", "A2_Case", "A3_Control", "A4_Control", "A5_Healthy", "A6_Healthy", "A7_InSitu", "A8_InSitu", "A9_ScreenNegative"]
 #SAMPLES = [ "B10_ScreenNegative", "B1_Case", "B2_Case", "B3_Control", "B4_Control", "B5_Healthy", "B6_Healthy", "B7_InSitu", "B8_InSitu", "B9_ScreenNegative"]
@@ -38,7 +39,6 @@ insertion_and_clipping_prof_ext = ['r','R1.pdf','R2.pdf','xls']
 inner_distance_ext = ['_freq.txt','_plot.pdf','_plot.r','.txt']
 read_dist_ext = ['txt']
 read_gc_ext = ['.xls','_plot.r','_plot.pdf']
-#plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
 readQC_plotNames = ['biotype_barplot', 'geneAttributes_barplot', 'totalReads_arranged']
 estSat_plotNames = ['barplot_nFeatures_bySample','facet_saturationCurve_bySample', 'facet_saturationCurve_byContrast','violin_nFeatureDistribution_byContrast', 'violin_saturationVariance_byContrast']
 estSat_tableNames = ['counts_fpkm', 'estSaturation_results', 'summaryStatistics']
@@ -101,9 +101,11 @@ rule all:
         # expand("results/tables/{project_id}_STAR_mapping_statistics.txt", project_id = config['project_id']),
         # expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam", sample = SAMPLES),
         # expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai", sample = SAMPLES),
-        # expand("samples/htseq_count/{sample}_genecount.txt", sample = SAMPLES),
-        # "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
-        # "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"]),
+        expand("samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai", sample = SAMPLES),
+        expand("samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam", sample = SAMPLES),
+        expand("samples/htseq_count/{sample}_genecount.txt", sample = SAMPLES),
+        "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
+        "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"]),
         "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"]),
         # expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
@@ -114,23 +116,23 @@ rule all:
         # expand("rseqc/read_GC/{sample}/{sample}.GC{ext}", sample = SAMPLES, ext = read_gc_ext),
         # expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
         # expand("results/readQC/{plot}.png", plot = readQC_plotNames),
-        expand("results/diffexp/pairwise/{contrast}_all.rds", contrast = config["diffexp"]["contrasts"]),
-        expand("results/diffexp/pairwise/{contrast}_rlog_dds.rds", contrast = config["diffexp"]["contrasts"]),
-        expand("results/diffexp/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
-        "results/diffexp/group/LRT_pca.pdf",
-        "results/diffexp/group/MDS_table.txt",
-        "results/diffexp/group/LRT_density_plot.pdf",
-        expand(["results/diffexp/pairwise/{contrast}.qplot.pdf","results/diffexp/pairwise/{contrast}.qhist.pdf","results/diffexp/pairwise/{contrast}.qvalue_diffexp.tsv"],contrast=config["diffexp"]["contrasts"]),
+        # expand("results/diffexp/pairwise/{contrast}_all.rds", contrast = config["diffexp"]["contrasts"]),
+        # expand("results/diffexp/pairwise/{contrast}_rlog_dds.rds", contrast = config["diffexp"]["contrasts"]),
+        # expand("results/diffexp/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
+        # "results/diffexp/group/LRT_pca.pdf",
+        # "results/diffexp/group/MDS_table.txt",
+        # "results/diffexp/group/LRT_density_plot.pdf",
+        # expand(["results/diffexp/pairwise/{contrast}.qplot.pdf","results/diffexp/pairwise/{contrast}.qhist.pdf","results/diffexp/pairwise/{contrast}.qvalue_diffexp.tsv"],contrast=config["diffexp"]["contrasts"]),
         # expand(["results/diffexp/pairwise/GOterms/{contrast}.diffexp.downFC.{FC}.adjp.{adjp}_BP_GO.txt", "results/diffexp/pairwise/GOterms/{contrast}.diffexp.upFC.{FC}.adjp.{adjp}_BP_GO.txt"], contrast = config["diffexp"]["contrasts"], FC=config['FC'], adjp=config['adjp']),
-        expand("results/diffexp/pairwise/{contrast}.diffexp.{adjp}.VolcanoPlot.pdf", contrast = config["diffexp"]["contrasts"], adjp = config['adjp']),
-        expand("results/diffexp/pairwise/permutationTest/Histogram.{contrast}.Permutation.Test.pdf", contrast = config["diffexp"]["contrasts"]),
-        expand(["results/diffexp/glimma-plots/{contrast}.ma_plot.html", "results/diffexp/glimma-plots/{contrast}.volcano_plot.html"],contrast = config["diffexp"]["contrasts"]),
-        "results/diffexp/glimma-plots/{project_id}.mds_plot.html".format(project_id=project_id),
+        # expand("results/diffexp/pairwise/{contrast}.diffexp.{adjp}.VolcanoPlot.pdf", contrast = config["diffexp"]["contrasts"], adjp = config['adjp']),
+        # expand("results/diffexp/pairwise/permutationTest/Histogram.{contrast}.Permutation.Test.pdf", contrast = config["diffexp"]["contrasts"]),
+        # expand(["results/diffexp/glimma-plots/{contrast}.ma_plot.html", "results/diffexp/glimma-plots/{contrast}.volcano_plot.html"],contrast = config["diffexp"]["contrasts"]),
+        # "results/diffexp/glimma-plots/{project_id}.mds_plot.html".format(project_id=project_id),
         # expand("samples/star/{sample}_bam/{sample}_unmapped.fa", sample = SAMPLES),
         # expand("data/unmappedSeqs/{sample}_overRepseqCount.txt", sample = SAMPLES),
-        "data/geneLengths.tsv",
-        expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
-        expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
+        # "data/geneLengths.tsv",
+        # expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
+        # expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
         # expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
         # expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
         # expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
