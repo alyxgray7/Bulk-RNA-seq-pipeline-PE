@@ -3,7 +3,6 @@
 multiqc/
 rseqc/
 logs/*
-analysis/
 tests/
 
 # Ignore these files
