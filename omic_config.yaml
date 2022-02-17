@@ -48,7 +48,6 @@ assembly:
 omic_meta_data:
 # tab delimited file
   data/pltRNAseq_metadata_02162022.tsv
-  # data/pltRNAseq_metadata_02162022.tsv
 # desired expression threshold for estimating sequencing saturation (in FPKM)
 expression_threshold:
   1
@@ -58,7 +57,7 @@ ERCC:
 # Biotypes you would like to include in your gene counts table 
 # Examples: protein_coding, lincRNA, sRNA, rRNA, snRNA, snoRNA, etc.
 biotypes:
-  protein_coding
+  protein_coding, antisense, lincRNA, misc_RNA, processed_transcript, unprocessed_pseudogene, unprocessedsense_intronic, sense_overlapping, sense_intronic, snoRNA, snRNA, miRNA, transcribed_processed_pseudogene, transcribed_unprocessed_pseudogene, processed_pseudogene, unprocessed_pseudogene, transcribed_unitary_pseudogene, bidirectional_promoter_lncRNA
 # Remove mito genes (no = 0; yes = 1)
 mito:
   1
@@ -70,14 +69,14 @@ FC:
   2
 # FDR adjusted p-value cutoff for GO analysis and volcano plot
 adjp:
-  0.01
+  0.05
 seq_layout:
   PE
 # The column name of the characteristic you would like to do DE on
 # Examples: Diagnosis, genotype, condition, etc.) 
 # This must be a column in your omic_meta_data.
 linear_model:
-  Group
+  group
 # The column name in which your sampleIDs are defined in omic_meta_data (i.e., column 1)
 # These should match the sampleIDs in your fastq files.
 sample_id:
@@ -86,22 +85,23 @@ sample_id:
 # This is used as a QC to look for batch effects. 
 # Enter columns which could potentially introduce a batch effect in your data.
 meta_columns_to_plot:
-  Lane: Lane
-  Group: Group
-  Sex: Sex
-  Age_at_collection: Age_at_collection
-  Novogene_RIN: Novogene_RIN
+  lane: lane
+  group: group
+  diabetes: diabetes
+  sex: sex
+  age: age
+  RIN: RIN
   TM_class: TM_class
   RINcat: RINcat
 pca:
   labels:
     #Column name in meta data file to generate group files and comparisons
-    - Lane
-    - Group
-    - Sex
-    - Age_at_collection
-    - Novogene_RIN
+    - group
+    - diabetes
+    - sex
+    - age
     - TM_class
+    - PDAC_stage
     - RINcat
 # Contrasts which you would like to run differential expression on.
 # For example if you want to look at wild type (wt) vs. mutant (mut), you would specify mut-vs-wt
