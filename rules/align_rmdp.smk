@@ -263,6 +263,7 @@ rule readQC:
     params:
         annoFile = config['filter_anno'],
         metaFile = config['omic_meta_data'],
+        sampleID = config['sample_id'],
         contrast = config['linear_model'],
         corType = config['correlation_test'],
         plotCols = format_plot_columns
@@ -274,6 +275,7 @@ rule readQC:
         --readDistFile={input.readDistFile} \
         --annoFile={params.annoFile} \
         --metaFile={params.metaFile} \
+        --sampleID={params.sampleID} \
         --plotCols={params.plotCols} \
         --contrast={params.contrast} \
         --corType={params.corType} \
