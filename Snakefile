@@ -17,8 +17,13 @@ timestamp = ('{:%Y-%m-%d_%H:%M:%S}'.format(datetime.datetime.now()))
 configfile:"omic_config.yaml"
 project_id = config["project_id"]
 
-SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
+### RunALL
 # SAMPLES, = glob_wildcards("samples/raw/{sample}_R1.fastq.gz")
+
+### Testing
+SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
+
+### Batches
 #SAMPLES = ["A10_ScreenNegative", "A1_Case", "A2_Case", "A3_Control", "A4_Control", "A5_Healthy", "A6_Healthy", "A7_InSitu", "A8_InSitu", "A9_ScreenNegative"]
 #SAMPLES = [ "B10_ScreenNegative", "B1_Case", "B2_Case", "B3_Control", "B4_Control", "B5_Healthy", "B6_Healthy", "B7_InSitu", "B8_InSitu", "B9_ScreenNegative"]
 #SAMPLES = ["C10_Control", "C1_ScreenNegative", "C2_ScreenNegative", "C3_InSitu", "C4_InSitu", "C5_Control", "C6_ScreenNegative", "C7_Case", "C8_Case", "C9_Healthy"]
