@@ -3,8 +3,8 @@ rule trim_bbduk:
         fwd = "samples/raw/{sample}_R1.fastq.gz",
         rev = "samples/raw/{sample}_R2.fastq.gz"
     output:
-        fwd = "samples/bbduk/{sample}/{sample}_R1_t.fastq.gz",
-        rev = "samples/bbduk/{sample}/{sample}_R2_t.fastq.gz",
+        fwd = temp("samples/bbduk/{sample}/{sample}_R1_t.fastq.gz"),
+        rev = temp("samples/bbduk/{sample}/{sample}_R2_t.fastq.gz"),
     params:
         ref=config["bb_adapter"]
     message:
@@ -14,15 +14,16 @@ rule trim_bbduk:
     shell:
         """bbduk.sh -Xmx1g in1={input.fwd} in2={input.rev} out1={output.fwd} out2={output.rev} minlen=25 qtrim=rl trimq=10 ktrim=r k=25 mink=11 ref={params.ref} hdist=1"""
 
+
 rule afterqc_filter:
     input:
         fwd = "samples/bbduk/{sample}/{sample}_R1_t.fastq.gz",
         rev = "samples/bbduk/{sample}/{sample}_R2_t.fastq.gz"
     output:
-        "samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz",
-        "samples/bbduk/{sample}/good/{sample}_R2_t.good.fq.gz",
-        "samples/bbduk/{sample}/bad/{sample}_R1_t.bad.fq.gz",
-        "samples/bbduk/{sample}/bad/{sample}_R2_t.bad.fq.gz",
+        temp("samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz"),
+        temp("samples/bbduk/{sample}/good/{sample}_R2_t.good.fq.gz"),
+        temp("samples/bbduk/{sample}/bad/{sample}_R1_t.bad.fq.gz"),
+        temp("samples/bbduk/{sample}/bad/{sample}_R2_t.bad.fq.gz"),
         "samples/bbduk/{sample}/QC/{sample}_R1_t.fastq.gz.html",
         "samples/bbduk/{sample}/QC/{sample}_R1_t.fastq.gz.json",
 
@@ -32,6 +33,7 @@ rule afterqc_filter:
         "../envs/afterqc.yaml"
     shell:
         """after.py -1 {input.fwd} -2 {input.rev} --report_output_folder=samples/bbduk/{wildcards.sample}/QC/ -g samples/bbduk/{wildcards.sample}/good/ -b samples/bbduk/{wildcards.sample}/bad/"""
+
 
 rule fastqscreen:
     input:
@@ -66,6 +68,7 @@ rule fastqc:
     shell:
         """fastqc --outdir samples/fastqc/{wildcards.sample} --extract  -f fastq {input.fwd} {input.rev}"""
 
+
 rule STAR:
     input:
         fwd = "samples/bbduk/{sample}/good/{sample}_R1_t.good.fq.gz",
@@ -94,6 +97,7 @@ rule STAR:
                 --outReadsUnmapped Fastx \
                 --twopassMode Basic
                 """)
+
 
 rule index:
     input:
@@ -126,17 +130,126 @@ rule compile_star_counts:
         "../scripts/compile_star_counts.py"
 
 
-rule filter_counts:
+rule filter_STARcounts:
     input:
         countsFile="data/{project_id}_counts.txt".format(project_id=config["project_id"])
     output:
         "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
     params:
-        anno=config["filter_anno"],
+        annoFile=config["filter_anno"],
         biotypes=config["biotypes"],
-        mito=config['mito']
+        mito=config['mito'],
+        ercc=config['ERCC']
+    shell:
+        """Rscript scripts/RNAseq_filterCounts.R \
+        --countsFile={input.countsFile} \
+        --annoFile={params.annoFile} \
+        --outDir=data \
+        --biotypes={params.biotypes} \
+        --mito={params.mito} \
+        --ercc={params.ercc}"""
+
+
+rule picard:
+    input:
+        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+    output:
+        temp("samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam")
+    params:
+        name="rmd_{sample}",
+        mem="5300"
+    run:
+      picard=config["picard_tool"]
+
+      shell("java -Xmx3g -jar {picard} \
+      INPUT={input} \
+      OUTPUT={output} \
+      METRICS_FILE=samples/genecounts_rmdp/{wildcards.sample}_bam/{wildcards.sample}.rmd.metrics.text \
+      REMOVE_DUPLICATES=true")
+
+
+rule sort:
+    input:
+      "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam"
+    output:
+      "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
+    params:
+      name = "sort_{sample}",
+      mem = "6400"
+    conda:
+      "../envs/omic_qc_wf.yaml"
+    shell:
+      """samtools sort -O bam -n {input} -o {output}"""
+
+
+rule index_rmdp:
+    input:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
+    output:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
+    conda:
+        "../envs/samtools_env.yaml"
+    shell:
+        """samtools index {input} {output}"""
+
+
+rule genecount:
+    input:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
+    output:
+        "samples/htseq_count/{sample}_genecount.txt"
+    params:
+        name = "genecount_{sample}",
+        gtf = config["gtf_file"]
+    conda:
+        "../envs/omic_qc_wf.yaml"
+    threads: 1
+    shell:
+        """htseq-count \
+                -f bam \
+                -r name \
+                -s reverse \
+                -m intersection-strict \
+                {input} \
+                {params.gtf} > {output}"""
+
+
+rule compile_counts:
+    input:
+        expand("samples/htseq_count/{sample}_genecount.txt", sample=SAMPLES)
+    output:
+        "data/{project_id}_genecounts.txt".format(project_id=config["project_id"])
     script:
-        "../scripts/RNAseq_filterCounts.R"
+        "../scripts/compile_counts_table.py"
+
+
+rule compile_counts_and_stats:
+    input:
+        expand("samples/htseq_count/{sample}_genecount.txt",sample=SAMPLES)
+    output:
+        "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"])
+    script:
+        "../scripts/compile_counts_table_w_stats.py"
+
+
+rule filter_genecounts:
+    input:
+        countsFile="data/{project_id}_genecounts.txt".format(project_id=config["project_id"])
+    output:
+        "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"])
+    params:
+        annoFile=config["filter_anno"],
+        biotypes=config["biotypes"],
+        mito=config['mito'],
+        ercc=config['ERCC']
+    shell:
+        """Rscript scripts/RNAseq_filterCounts.R \
+        --countsFile={input.countsFile} \
+        --annoFile={params.annoFile} \
+        --outDir=data \
+        --biotypes={params.biotypes} \
+        --mito={params.mito} \
+        --ercc={params.ercc}"""
 
 
 rule readQC:
@@ -167,11 +280,10 @@ rule readQC:
         --outdir=results/readQC"""
 
 
-
 rule cpm_tracks:
     input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+        bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
     output:
         wig = "samples/bigwig/{sample}_cpm.bw"
     conda:
@@ -182,8 +294,8 @@ rule cpm_tracks:
 
 rule fwd_tracks:
     input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+        bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
     output:
        wig = "samples/bigwig/{sample}_fwd.bw"
     conda:
@@ -194,8 +306,8 @@ rule fwd_tracks:
 
 rule rev_tracks:
     input:
-        bam = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam",
-        idx = "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai"
+        bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
     output:
         wig = "samples/bigwig/{sample}_rev.bw"
     conda:
@@ -218,7 +330,7 @@ rule make_geneLengthTable:
 
 rule estSaturation:
     input:
-        countsFile = "data/{project_id}_counts.txt".format(project_id=config["project_id"]),
+        countsFile = "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
         geneLengthsFile = "data/geneLengths.tsv"
     output:
         barplot = "results/estSaturation/barplot_nFeatures_bySample.png",
@@ -233,8 +345,16 @@ rule estSaturation:
     params:
         md = config['omic_meta_data'],
         minCount = config['expression_threshold'],
-        contrast = config['linear_model']
+        contrast = config['linear_model'],
+        sampleID = config['sample_id']
     conda:
         "../envs/estSaturation.yaml"
     shell:
-        """Rscript scripts/estSaturation.R --countsFile={input.countsFile} --geneLengthsFile={input.geneLengthsFile} --mdFile={params.md} --outDir=results/estSaturation --minCount={params.minCount} --contrast={params.contrast}"""
+        """Rscript scripts/estSaturation.R \
+        --countsFile={input.countsFile} \
+        --geneLengthsFile={input.geneLengthsFile} \
+        --mdFile={params.md} \
+        --outDir=results/estSaturation \
+        --minCount={params.minCount} \
+        --contrast={params.contrast} \
+        --sampleID={params.sampleID}"""

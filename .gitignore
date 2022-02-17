@@ -3,10 +3,18 @@
 multiqc/
 rseqc/
 logs/*
+tests/
 
 # Ignore these files
+<<<<<<< HEAD
 dryrun_*.txt
 log.txt
+=======
+*.txt
+>>>>>>> add_commandArgs_filterCounts
 *.pdf
 scripts/.Rhistory
-
+*.err
+*.out
+gzip.sh
+gzip*.sh

@@ -2,20 +2,27 @@ contrast = get_contrast
 
 rule deseq2_init:
     input:
-        counts = "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
+        counts = "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"])
     output:
         rds="results/diffexp/pairwise/{contrast}_all.rds",
         rld_out = "results/diffexp/pairwise/{contrast}_rlog_dds.rds"
     params:
-        samples=config["omic_meta_data"],
+        md=config["omic_meta_data"],
         sample_id = config["sample_id"],
         linear_model = config["linear_model"],
-        contrast = get_contrast
+        contrast = get_contrast,
+        threads = get_deseq2_threads
     conda:
         "../envs/permutation.yaml"
-    threads: get_deseq2_threads()
-    script:
-        "../scripts/deseq2-init.R"
+    shell:
+        """Rscript scripts/deseq2-init.R \
+        --countsFile={input.counts} \
+        --outDir=results/diffexp/pairwise \
+        --metaFile={params.md} \
+        --sampleID={params.sample_id} \
+        --linear_model={params.linear_model} \
+        --contrast='{params.contrast}' \
+        --threads={params.threads}"""
 
 
 rule deseq2_pairwise:
@@ -44,7 +51,7 @@ rule deseq2_pairwise:
 
 rule deseq2_group:
     input:
-        counts = "data/{project_id}_counts.filt.txt".format(project_id = project_id)
+        counts = "data/{project_id}_genecounts.filt.txt".format(project_id = project_id)
     output:
         pca="results/diffexp/group/LRT_pca.pdf",
         sd_mean_plot="results/diffexp/group/LRT_sd_mean_plot.pdf",
@@ -154,7 +161,7 @@ rule volcano:
 
 rule permutation:
     input:
-        counts = "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"])
+        counts = "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"])
     output:
         numGenes = "results/diffexp/pairwise/permutationTest/{contrast}.number.diff.genes.csv",
         permList = "results/diffexp/pairwise/permutationTest/{contrast}.permutation.list.csv",

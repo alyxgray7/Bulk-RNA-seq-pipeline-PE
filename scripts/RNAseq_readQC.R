@@ -59,16 +59,11 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   plotCols     <- sub('--plotCols=', '', args[grep('--plotCols=', args)])
   outDir       <- sub('--outdir=', '', args[grep('--outdir=', args)])
   corType      <- sub('--corType=', '', args[grep('--corType=', args)])
+  sampleID     <- sub('--sampleID=', '', args[grep('--sampleID=', args)])
 }
 
 # make plotCols argument R-readable
 plotCols <- c(strsplit(plotCols, split = ",", fixed = TRUE)[[1]])
-
-# create outdir as needed
-if(!(file.exists( outDir ))) {
-  print(paste("mkdir:", outDir))
-  dir.create(outDir, FALSE, TRUE)  
-}
 
 # check input files in logs/.out file
 io <- list(
@@ -79,9 +74,34 @@ io <- list(
   contrast = contrast,
   plotCols = plotCols,
   outDir = outDir,
-  corType = corType
+  corType = corType,
+  sampleID = sampleID
 )
 io
+
+# ### Debugging on exa
+# ####################
+# io <- list(
+#   annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
+#   metaFile = "data/md_merged_noI9.tsv",
+#   # countsFile = "data/platelet_full-cohort_counts.txt",
+#   # countsFile = "data/platelet_full-cohort_genecounts.txt",
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts_noERCC.txt",
+#   # readDistFile = "results/tables/read_coverage.txt",
+#   readDistFile = "results/tables/read_coverage_edit.txt",
+#   contrast = "Group",
+#   plotCols = c("Lane", "Group", "Sex", "Age_at_collection", "Novogene_RIN", "TM_class"),
+#   outDir = "results/readQC_htseqCounts_noI9",
+#   corType = "Spearman",
+#   sampleID = "rnaSampleID"
+# )
+# io
+
+# create outdir as needed
+if(!(file.exists( io$outDir ))) {
+  print(paste("mkdir:", io$outDir))
+  dir.create(io$outDir, FALSE, TRUE)  
+}
 
 # libraries
 library(ggplot2)
@@ -102,24 +122,30 @@ load(io$annoFile, verbose = TRUE)
 
 # meta data
 md  <- read.table(io$metaFile, stringsAsFactors = FALSE, sep = "\t", header = TRUE)
-rownames(md) <- md[,1]
+rownames(md) <- md[[io$sampleID]]
+head(md)
 
 # organize sampleIDs so the order is the same
 md <- md[order(md[, io$contrast], rownames(md)), ]
+#rownames(md) <- md$Alias
 ord <- rownames(md)
+ord
 
 # unfiltered counts table
 raw <- read.table(io$countsFile, sep = "\t", header = TRUE, row.names = 1)
 raw <- raw[, colnames(raw) %in% rownames(md)]
 raw <- raw[, ord]
+dim(raw)
 
 # remove uninformative columns
 raw <- raw[which(rowSums(raw) >= 1), ]
+dim(raw)
 
 # sample read coverages
 rDist <- read.table(io$readDistFile, header = TRUE, sep = "\t", row.names = 1)
 rDist <- rDist[rownames(rDist) %in% rownames(md), ]
 rDist <- rDist[ord, ]
+head(rDist)
 
 ### Summarize gene counts
 #########################
@@ -130,11 +156,16 @@ sumCounts.df$SampleID <- rownames(sumCounts.df)
 iv                    <- match(rownames(sumCounts.df), rownames(md))
 sumCounts.df$contrast <- md[iv, io$contrast]
 stopifnot(rownames(sumCounts.df) == rownames(md)[iv])
+
+# save the order
 sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, levels = sumCounts.df$SampleID)
 # sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, 
 #                                 levels = paste(sumCounts.df[order(sumCounts.df$contrast, -sumCounts.df$sumCounts),"SampleID"])) # keeps the correct numerical order for ggplot
 sumCounts.df$contrast <- md[iv, io$contrast]
-ord <- levels(sumCounts.df$SampleID)
+
+if (io$contrast == "RINcat") {
+  sumCounts.df$contrast <- factor(sumCounts.df$contrast, levels = c("low", "med", "high"))
+}
 
 # barplot of sumCounts by sample
 totalReads.plot <- ggplot(
@@ -155,6 +186,56 @@ totalReads.plot <- ggplot(
         axis.line = element_line(colour = "black"))
 totalReads.plot
 ggsave(filename = paste(io$outDir, "totalReads_barplot.png", sep = "/"), device = "png")
+
+# ordered barplot by group and sumCount
+toplot <- sumCounts.df
+toplot <- toplot[order(toplot$contrast, toplot$sumCounts), ]
+toplot$SampleID <- factor(toplot$SampleID, levels = toplot$SampleID)
+
+# barplot of sumCounts by sample
+totalReads.plot <- ggplot(
+    toplot, 
+    aes(x = SampleID, y = sumCounts, fill = contrast)) +
+    geom_col(color="black") +
+    ylab("Total gene counts") +
+    xlab("Sample") +
+    scale_fill_brewer(palette = "Paired") +
+    scale_y_continuous(labels = scientific) +
+    theme_bw()+
+    theme(axis.text.x = element_text(angle = 90, size = 8),
+        axis.text.y = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 10),
+        axis.line = element_line(colour = "black"))
+totalReads.plot
+ggsave(filename = paste(io$outDir, "totalReads_barplot_ordered.png", sep = "/"), device = "png")
+
+# ordered barplot by RNA batch order and sumCount
+# batch <- tstrsplit(toplot$SampleID, split = "_", fixed = TRUE)[[1]]
+# batch <- gsub("*[0-9]", "", batch)
+# toplot$batch <- batch
+# toplot <- toplot[order(toplot$batch, toplot$sumCount), ]
+# toplot$SampleID <- factor(toplot$SampleID, levels = toplot$SampleID)
+# totalReads.plot <- ggplot(
+#     toplot, 
+#     aes(x = SampleID, y = sumCounts, fill = contrast)) +
+#     geom_col(color="black") +
+#     ylab("Total gene counts") +
+#     xlab("Sample") +
+#     scale_fill_brewer(palette = "Paired") +
+#     scale_y_continuous(labels = scientific) +
+#     theme_bw()+
+#     theme(axis.text.x = element_text(angle = 90, size = 8),
+#         axis.text.y = element_text(size = 10),
+#         axis.title.y = element_text(size = 10),
+#         axis.title.x = element_text(size = 10),
+#         legend.title = element_blank(),
+#         legend.text = element_text(size = 10),
+#         axis.line = element_line(colour = "black"))
+# totalReads.plot
+# ggsave(filename = paste(io$outDir, "totalReads_barplot_orderedBatch.png", sep = "/"), device = "png")
 
 # violin plot of gene counts by sample group
 totalReads.boxplot <- ggplot(
@@ -177,6 +258,7 @@ totalReads.boxplot <- ggplot(
 totalReads.boxplot
 ggsave(filename = paste(io$outDir, "totalReads_boxplot.png", sep = "/"), device = "png")
 
+
 ### Summarize mitochondrial counts
 ##################################
 # check how gene names are annotated in counts
@@ -184,9 +266,14 @@ annoType <- c()
 if (length(grep("ENSG", rownames(raw))) == 0) {
   print("counts are external gene ids")
   annoType <- "external_gene_name"
-  mtSub.mat             <- raw[grep("MT-", rownames(raw), value = TRUE, ignore.case = TRUE), ]
-  sumCounts.df$mtCounts <- colSums(mtSub.mat)
-  sumCounts.df$fracMT   <- sumCounts.df$mtCounts / sumCounts.df$sumCounts
+  mtGenes <- anno[grep("^MT-", anno$external_gene_name), annoType]
+  mtSub.mat <- raw[which(rownames(raw) %in% mtGenes), ]
+  #mtSub.mat             <- raw[grep("^MT-", anno$external_gene_name), annoType, ]
+  #mtSub.mat             <- raw[grep("^MT-", rownames(raw), value = TRUE, ignore.case = TRUE), ]
+  #sumCounts.df$mtCounts <- colSums(mtSub.mat)
+  #sumCounts.df$mtCounts <- apply(mtSub.mat, 2, sum)
+  #sumCounts.df$fracMT   <- sumCounts.df$mtCounts / sumCounts.df$sumCounts
+  sumCounts.df$fracMT <- colSums(mtSub.mat) / colSums(raw)
 } else {
   print("counts are ensembl ids")
   annoType <- "ensembl_gene_id"
@@ -219,6 +306,33 @@ mtReads.plot <- ggplot(
           axis.line = element_line(colour = "black"))
 mtReads.plot
 ggsave(filename = paste(io$outDir, "mtReads_barplot.png", sep = "/"), device = "png")
+
+# order samples by group and fracMT
+toplot <- sumCounts.df
+toplot <- toplot[order(toplot$contrast, toplot$fracMT), ]
+toplot$SampleID <- factor(toplot$SampleID, levels = toplot$SampleID)
+# sumCounts.df <- sumCounts.df[order(sumCounts.df$contrast, sumCounts.df$fracMT), ]
+# sumCounts.df$SampleID <- factor(sumCounts.df$SampleID, levels = sumCounts.df$SampleID)
+
+# barplot of mito read fraction by sample
+mtReads.plot <- ggplot(
+    toplot, 
+    aes(x = SampleID, y = fracMT, fill = contrast)) +
+    geom_col(color="black") +
+    ylab("Percent mitochondrial counts") +
+    xlab("Sample") +
+    scale_fill_brewer(palette = "Paired") +
+    scale_y_continuous(labels = scales::percent) +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, size = 8),
+          axis.text.y = element_text(size = 10),
+          axis.title.y = element_text(size = 10),
+          axis.title.x = element_text(size = 10),
+          legend.title = element_blank(),
+          legend.text = element_text(size = 10),
+          axis.line = element_line(colour = "black"))
+mtReads.plot
+ggsave(filename = paste(io$outDir, "mtReads_barplot_ordered.png", sep = "/"), device = "png")
 
 # violin plot of mito read fraction by sample group
 mtReads.boxplot <- ggplot(
@@ -271,6 +385,7 @@ head(fD)
 # match the gene name with its corresponding biotype
 m          <- match(fD[,1], anno[, annoType])
 fD$biotype <- anno[m, ]$gene_biotype
+head(fD)
 
 # make a new dataframe of gene expression data
 # only include counts > 0
@@ -281,6 +396,7 @@ expr      <- expr[rowSums(expr[,-ncol(expr)]) > 0, ]
 # add geneID and biotype information
 m            <- match(expr$gene, fD[,1])
 expr$biotype <- fD$biotype[m]
+head(expr[, (ncol(expr)-5):ncol(expr)])
 
 # melt for plotting
 geneTable <- melt(expr, id = c("gene", "biotype"))
@@ -288,6 +404,7 @@ geneTable <- geneTable[geneTable$value > 0, ]
 
 # order biotypes by most --> least expressed
 ordered <- as.data.table(geneTable)[, .N, by = biotype][order(-N)]
+head(ordered)
 #write.csv(ordered, file = paste(dir, "biotypes_ordered.csv", sep = "/"), col.names = TRUE, )
 
 # filter for the first 6 options for cleaner plotting
@@ -304,13 +421,17 @@ geneTable   <- as.data.table(geneTable)[, .N, by = .(biotype, variable)]
 # get the fraction for each biotype per sample
 m              <- match(geneTable$variable, sampleTable$variable)
 geneTable$Frac <- geneTable$N / sampleTable[m, ]$N
+head(geneTable)
 
 # add in contrast information
-m                  <- match(geneTable$variable, md$SampleID)
+#m                  <- match(geneTable$variable, md$SampleID)
+m <- match(geneTable$variable, md[[io$sampleID]])
+# m <- match(geneTable$variable, md$Alias)
 geneTable$contrast <- md[, io$contrast][m]
 
 # keep same order as other plots
 levels(geneTable$variable) <- levels(sumCounts.df$SampleID)
+head(geneTable)
 
 # barplot of biotypes by sample
 biotype.plot <- ggplot(geneTable, aes(x=variable, y=Frac, fill=biotype)) +
@@ -373,7 +494,7 @@ ggsave(filename = paste(io$outDir, "geneAttributes_barplot.png", sep = "/"), dev
 save_pheatmap_png <- function(x, filename) {
   stopifnot(!missing(x))
   stopifnot(!missing(filename))
-  png(filename, 1000, 1000)
+  png(filename, 1000, 2000)
   grid::grid.newpage()
   grid::grid.draw(x$gtable)
   dev.off()
@@ -381,8 +502,8 @@ save_pheatmap_png <- function(x, filename) {
 
 # get metadata columns for heatmap
 annoMD <- md
-samples <- annoMD[,1]
-cols2keep <- c(io$contrast, io$plotCols)
+samples <- annoMD[[io$sampleID]]
+cols2keep <- unique(c(io$contrast, io$plotCols))
 
 # check dimensions needed for formatting
 if (length(cols2keep) >= 2) {
@@ -396,9 +517,59 @@ if (length(cols2keep) >= 2) {
   annoMD <- as.data.frame(annoMD, row.names = samples)
   colnames(annoMD) <- cols2keep
 }
+head(annoMD)
+
+# # factorize annotations
+# annoMD$RINcat <- factor(annoMD$RINcat, levels = c("low", "med", "high", NA))
 
 # set the correlation test type
 type <- tolower(io$corType)
+type
+
+# # define better colors for pheatmap
+# lane <- colorRampPalette(c("#1b9e77", "#d95f02", "#7570b3"))(length(unique(annoMD$Lane))) # Dark2
+# names(lane) <- unique(annoMD$Lane)[order(unique(annoMD$Lane))]
+
+# group <- colorRampPalette(c("#d7191c", "#ffffbf", "#2c7bb6"))(length(unique(annoMD$Group))) # RdYlBu
+# names(group) <- unique(annoMD$Group)[order(unique(annoMD$Group))] 
+
+# ages <- unique(annoMD$Age_at_collection)
+# ages <- ages[order(ages)]
+# age <- colorRampPalette(c("#ece2f0", "#a6bddb","#1c9099"))(length(ages)) # PuBuGn
+# names(age) <- ages
+
+# sex <- colorRampPalette(c("#af8dc3", "#7fbf7b","#f7f7f7"))(length(unique(annoMD$Sex))) # PRGn
+# names(sex) <- unique(annoMD$Sex)[order(unique(annoMD$Sex))]
+
+# tm_class <- colorRampPalette(c('#f1a340','#998ec3','#f7f7f7'))(length(unique(annoMD$TM_class))) # PuGr
+# names(tm_class) <- unique(annoMD$TM_class)
+
+# novo_rin <- colorRampPalette(c("#9e0142", "#ffffbf", "#5e4fa2"))(length(unique(annoMD$Novogene_RIN))) # Spectral
+# names(novo_rin) <- unique(annoMD$Novogene_RIN)[order(unique(annoMD$Novogene_RIN))]
+
+# rin_cat <- colorRampPalette(c("#9e0142", "#ffffbf", "#5e4fa2"))(length(unique(annoMD$RINcat))) # Spectral
+# #names(rin_cat) <- unique(annoMD$RINcat)
+# names(rin_cat) <- c("low", "med", "high", NA)
+# #group_sub <- colorRampPalette(c("#a6cee3", "#1f78b4", "#b2df8a"))(3) # Paired
+# #names(group_sub) <- unique(key.dt$patient_dx2)
+
+# # diabetes <- colorRampPalette(c('#f1a340','#998ec3','#f7f7f7'))(3) #PuGr
+# # names(diabetes) <- unique(key$diabetes)
+
+# # age_bin <- colorRampPalette(c("#ece2f0", "#1c9099"))(length(unique(annotations$age_bin))) # PuBuGn
+# # names(age_bin) <- unique(annotations$age_bin)
+
+# # save colors to list
+# ann_colors <- list(
+#   Lane = lane,
+#   Group = group,
+#   Age_at_collection = age,
+#   Sex = sex,
+#   TM_class = tm_class,
+#   Novogene_RIN = novo_rin,
+#   RINcat = rin_cat
+# )
+
 
 # for Pearson or Spearman test types
 if (type == "pearson" || type == "spearman") {
@@ -410,9 +581,9 @@ if (type == "pearson" || type == "spearman") {
   saveRDS(cor.res, file = paste(io$outDir, filename, sep= "/"))
   
   # unordered correlation plot
-  filename <- paste(type, "unorderedCorrplot.png", sep = "_")
+  filename <- paste(type, "unorderedCorrplot_noLabel.png", sep = "_")
   png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
-  corrplot(cor.res$r, method = "color", addCoef.col = "darkgrey", 
+  corrplot(cor.res$r, method = "color", #addCoef.col = "darkgrey", 
            title = paste("Unordered correlation heatmap", io$corType, sep = ": "), 
            outline = TRUE, number.cex = 1.25,
            tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
@@ -421,10 +592,10 @@ if (type == "pearson" || type == "spearman") {
   # h-clustered correlation plot
   filename <- paste(type, "hclustCorrplot.png", sep = "_")
   png(filename = paste(io$outDir, filename, sep = "/"), 1000, 1000)
-  corrplot(cor.res$r, method = "square", order = "hclust",
+  corrplot(cor.res$r, method = "color", order = "hclust",
            title = paste("Hierarchical clustering correlation heatmap", io$corType, sep = ": "),
            number.cex = 1.25, outline = TRUE,
-           tl.cex = 1.5, cl.cex = 1.25, mar=c(0,0,2,0))
+           tl.cex = 0.75, cl.cex = 1.25, mar=c(0,0,2,0))
   dev.off()
   
   # annotated pheatmap
@@ -433,9 +604,11 @@ if (type == "pearson" || type == "spearman") {
                    main = paste("Clustered sample correlation heatmap", io$corType, sep = ": "),
                    cluster_rows = TRUE, cluster_cols = TRUE, clustering_method = "ward.D",
                    annotation_col = annoMD, annotation_row = annoMD,
-                   fontsize = 12, fontsize_row = 10, fontsize_col = 10, show_rownames = TRUE,
+                  #  , annotation_colors = ann_colors,
+                   fontsize = 12, fontsize_row = 10, fontsize_col = 10, show_rownames = TRUE, show_colnames = FALSE,
+                   treeheight_col = 100,
                    labels_row = as.character(rownames(cor.res$r)),
-                   labels_col = as.character(colnames(cor.res$r)),
+                   #labels_col = as.character(colnames(cor.res$r)),
                    color = colorRampPalette(c("navy", "white", "red"))(50)
   )
   save_pheatmap_png(plot, paste(io$outDir, filename, sep = "/"))
@@ -576,3 +749,5 @@ if (type == "both") {
   print("Finished testing with Spearman")
 }
 
+# save annoTable to md
+# write.table(annoMD, paste(io$outDir, "annoMD.tsv", sep = "/"), col.names = TRUE, row.names = TRUE, quote = FALSE, sep = "\t")

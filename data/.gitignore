@@ -3,4 +3,3 @@
 # Except
 !.gitignore
 !adapters.fa
-!metadata.tsv

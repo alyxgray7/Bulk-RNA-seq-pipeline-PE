@@ -1,6 +1,6 @@
 rule insertion_profile:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     params:
         seq_layout=config['seq_layout'],
     output:
@@ -13,9 +13,10 @@ rule insertion_profile:
     shell:
         "insertion_profile.py -s '{params.seq_layout}' -i {input} -o rseqc/insertion_profile/{wildcards.sample}/{wildcards.sample}"
 
+
 rule inner_distance:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     params:
         bed=config['bed_file']
     output:
@@ -28,9 +29,10 @@ rule inner_distance:
     shell:
         "inner_distance.py -i {input} -o rseqc/inner_distance/{wildcards.sample}/{wildcards.sample} -r {params.bed}"
 
+
 rule clipping_profile:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     params:
         seq_layout=config['seq_layout'],
     output:
@@ -43,9 +45,10 @@ rule clipping_profile:
     shell:
         "clipping_profile.py -i {input} -s '{params.seq_layout}' -o rseqc/clipping_profile/{wildcards.sample}/{wildcards.sample}"
 
+
 rule read_distribution:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     params:
         bed=config['bed_file']
     output:
@@ -56,18 +59,9 @@ rule read_distribution:
         "read_distribution.py -i {input} -r {params.bed} > {output}"
 
 
-rule compile_rd:
-    input:
-        expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.txt", sample=SAMPLES)
-    output:
-        "results/tables/read_coverage.txt"
-    script:
-        "../scripts/get_rd.py"
-
-
 rule read_GC:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     output:
         "rseqc/read_GC/{sample}/{sample}.GC.xls",
         "rseqc/read_GC/{sample}/{sample}.GC_plot.r",
@@ -80,7 +74,7 @@ rule read_GC:
 
 rule geneBody_coverage:
     input:
-        "samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam"
+        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
     params:
         bed=config['bed_file']
     output:
@@ -91,3 +85,23 @@ rule geneBody_coverage:
         "../envs/rseqc.yaml"
     shell:
         "geneBody_coverage.py -r {params.bed} -i {input} -o rseqc/geneBody_coverage/{wildcards.sample}/{wildcards.sample}"
+
+
+rule compile_rd:
+    input:
+        expand("rseqc/read_distribution/{sample}/{sample}.read_distribution.txt", sample=SAMPLES)
+    output:
+        "results/tables/read_coverage.txt"
+    script:
+        "../scripts/get_rd.py"
+
+
+rule compile_gc:
+    input:
+        expand("rseqc/read_GC/{sample}/{sample}.GC.xls", sample = SAMPLES)
+    output:
+        "results/tables/compiled_readGC.tsv"
+    conda:
+        "../envs/py37.yaml"
+    script:
+        "../scripts/compile_gc.py"
