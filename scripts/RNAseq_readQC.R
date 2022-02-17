@@ -109,6 +109,9 @@ library(corrplot)
 library(pheatmap) 
 library(Hmisc)
 
+# other
+options(scipen = 999)
+
 ### Load and organize data
 ##########################
 # annotation file
@@ -334,6 +337,9 @@ ggarrange(mtReads.plot, mtReads.boxplot, ncol = 2, nrow = 1,
           common.legend = TRUE, legend = "bottom")
 ggsave(filename = paste(io$outDir, "mtReads_arranged.png", sep = "/"), device = "png")
 
+# save table
+write.table(sumCounts.df, paste0(io$outDir, "/summary_rawCounts.tsv"), col.names = TRUE, row.names = TRUE, sep = "\t", quote = FALSE)
+
 
 ### Summarize RNA biotypes
 ##########################
@@ -370,6 +376,10 @@ geneTable <- geneTable[geneTable$value > 0, ]
 
 # order biotypes by most --> least expressed
 ordered <- as.data.table(geneTable)[, .N, by = biotype][order(-N)]
+ordered$Frac <- ordered$N / sum(ordered$N)
+# for (i in ordered$biotype) {
+  # ordered[biotype == i, Frac := (N/all)]
+# }
 head(ordered)
 write.table(ordered, file = paste(io$outDir, "biotype_quantities.csv", sep = "/"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
 
