@@ -18,10 +18,13 @@ configfile:"omic_config.yaml"
 project_id = config["project_id"]
 
 ### RunALL
-# SAMPLES, = glob_wildcards("samples/raw/{sample}_R1.fastq.gz")
+# SAMPLES, = glob_wildcards("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam")
 
 ### Testing
-SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
+SAMPLES = ['A10', 'A1', "A2", "A3"]
+
+### Testing
+# SAMPLES = ['A10_ScreenNegative', 'A1_Case', "A2_Case", "A3_Control"]
 
 ### Batches
 #SAMPLES = ["A10_ScreenNegative", "A1_Case", "A2_Case", "A3_Control", "A4_Control", "A5_Healthy", "A6_Healthy", "A7_InSitu", "A8_InSitu", "A9_ScreenNegative"]
@@ -101,18 +104,18 @@ for sample in SAMPLES:
 
 rule all:
     input:
-        expand("samples/fastqc/{sample}/{sample}_{fastq_ext}_t.good_fastqc.zip", sample = SAMPLES, fastq_ext = fastq_ext),
-        expand("samples/fastqscreen/{sample}/{sample}_{fastq_ext}_t.good_screen.{fastqscreen_ext}", sample=SAMPLES, fastq_ext=fastq_ext, fastqscreen_ext=fastqscreen_ext),
-        expand("results/tables/{project_id}_STAR_mapping_statistics.txt", project_id = config['project_id']),
+        # expand("samples/fastqc/{sample}/{sample}_{fastq_ext}_t.good_fastqc.zip", sample = SAMPLES, fastq_ext = fastq_ext),
+        # expand("samples/fastqscreen/{sample}/{sample}_{fastq_ext}_t.good_screen.{fastqscreen_ext}", sample=SAMPLES, fastq_ext=fastq_ext, fastqscreen_ext=fastqscreen_ext),
+        # expand("results/tables/{project_id}_STAR_mapping_statistics.txt", project_id = config['project_id']),
         expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam", sample = SAMPLES),
-        expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai", sample = SAMPLES),
+        # expand("samples/star/{sample}_bam/Aligned.sortedByCoord.out.bam.bai", sample = SAMPLES),
         expand("samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai", sample = SAMPLES),
         expand("samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam", sample = SAMPLES),
         expand("samples/htseq_count/{sample}_genecount.txt", sample = SAMPLES),
         "data/{project_id}_genecounts.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts_w_stats.txt".format(project_id=config["project_id"]),
         "data/{project_id}_genecounts.filt.txt".format(project_id=config["project_id"]),
-        "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"]),
+        # "data/{project_id}_counts.filt.txt".format(project_id=config["project_id"]),
         expand("rseqc/insertion_profile/{sample}/{sample}.insertion_profile.{ext}",sample=SAMPLES, ext=insertion_and_clipping_prof_ext),
         expand("rseqc/inner_distance/{sample}/{sample}.inner_distance{ext}", sample = SAMPLES, ext = inner_distance_ext),
         expand("rseqc/clipping_profile/{sample}/{sample}.clipping_profile.{ext}", sample = SAMPLES, ext = insertion_and_clipping_prof_ext),

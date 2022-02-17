@@ -22,26 +22,23 @@ help <- function(){
       ")
   cat("\n")
   cat("Usage : \n")
-  cat("--annoFile     : Path to config['filter_anno']                           [ required ]
+  cat("--annoFile     : [ required ] Path to config['filter_anno']
       \n")
-  cat("--metaFile     : Path to config['omic_meta_data']                        [ required ]
+  cat("--metaFile     : [ required ] Path to config['omic_meta_data']
       \n")
-  cat("--countsFile   : Path to unfiltered counts matrix                        [ required ]
+  cat("--sampleID     : [ required ] Column specifying the sample IDs. Specified by config['sample_id'].
       \n")
-  cat("--readDistFile : Path to read_coverage.txt                               [ required ]
-                        (output from rule compile_rd)
+  cat("--countsFile   : [ required ] Path to unfiltered counts matrix.
       \n")
-  cat("--contrast     : The column name in your config['omic_meta_data'] file,  [ required ]
-                        this is the characteristic you would like to do DE on.
-                        Example: diagnosis, geotype, etc. (used to color the plots by.)
+  cat("--readDistFile : [ required ] Path to read_coverage.txt (output from rule compile_rd)
       \n")
-  cat("--plotCols     : Column names in metadata file to annotate clustering;   [ required ]
-                        specified by config['meta_columns_to_plot']
+  cat("--contrast     : [ required ] The column name in your config['omic_meta_data'] file, this is the characteristic you would like to do DE on. Example: diagnosis, geotype, etc. (used to color the plots by.)
       \n")
-  cat("--outdir       : Path to the directory to save the figures in.           [ required ]
+  cat("--plotCols     : [ required ] Column names in metadata file to annotate clustering; specified by config['meta_columns_to_plot']
       \n")
-  cat("--corType      : Type of correlation test to run.                        [ required ]
-                        Options are Pearson, Spearman, or both
+  cat("--outdir       : [ required ] Path to the directory to save the figures in.
+      \n")
+  cat("--corType      : [ required ] Type of correlation test to run. Options are Pearson, Spearman, or both.
       \n")
   cat("\n")
   q()
@@ -81,21 +78,18 @@ io
 
 # ### Debugging on exa
 # ####################
-# io <- list(
-#   annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
-#   metaFile = "data/md_merged_noI9.tsv",
-#   # countsFile = "data/platelet_full-cohort_counts.txt",
-#   # countsFile = "data/platelet_full-cohort_genecounts.txt",
-#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/data/platelet_full-cohort_genecounts_noERCC.txt",
-#   # readDistFile = "results/tables/read_coverage.txt",
-#   readDistFile = "results/tables/read_coverage_edit.txt",
-#   contrast = "Group",
-#   plotCols = c("Lane", "Group", "Sex", "Age_at_collection", "Novogene_RIN", "TM_class"),
-#   outDir = "results/readQC_htseqCounts_noI9",
-#   corType = "Spearman",
-#   sampleID = "rnaSampleID"
-# )
-# io
+io <- list(
+  annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
+  metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv",
+  countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_rmdp/data/platelet_full-cohort_counts.txt",
+  readDistFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/tables/read_coverage_edit.txt",
+  contrast = "group",
+  plotCols = c("lane", "group", "sex", "age", "RINcat", "diabetes", "TM_class"),
+  outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/readQC_test",
+  corType = "Spearman",
+  sampleID = "rnaSampleID"
+)
+io
 
 # create outdir as needed
 if(!(file.exists( io$outDir ))) {
@@ -127,7 +121,6 @@ head(md)
 
 # organize sampleIDs so the order is the same
 md <- md[order(md[, io$contrast], rownames(md)), ]
-#rownames(md) <- md$Alias
 ord <- rownames(md)
 ord
 
@@ -146,6 +139,7 @@ rDist <- read.table(io$readDistFile, header = TRUE, sep = "\t", row.names = 1)
 rDist <- rDist[rownames(rDist) %in% rownames(md), ]
 rDist <- rDist[ord, ]
 head(rDist)
+dim(rDist)
 
 ### Summarize gene counts
 #########################
@@ -212,31 +206,6 @@ totalReads.plot <- ggplot(
 totalReads.plot
 ggsave(filename = paste(io$outDir, "totalReads_barplot_ordered.png", sep = "/"), device = "png")
 
-# ordered barplot by RNA batch order and sumCount
-# batch <- tstrsplit(toplot$SampleID, split = "_", fixed = TRUE)[[1]]
-# batch <- gsub("*[0-9]", "", batch)
-# toplot$batch <- batch
-# toplot <- toplot[order(toplot$batch, toplot$sumCount), ]
-# toplot$SampleID <- factor(toplot$SampleID, levels = toplot$SampleID)
-# totalReads.plot <- ggplot(
-#     toplot, 
-#     aes(x = SampleID, y = sumCounts, fill = contrast)) +
-#     geom_col(color="black") +
-#     ylab("Total gene counts") +
-#     xlab("Sample") +
-#     scale_fill_brewer(palette = "Paired") +
-#     scale_y_continuous(labels = scientific) +
-#     theme_bw()+
-#     theme(axis.text.x = element_text(angle = 90, size = 8),
-#         axis.text.y = element_text(size = 10),
-#         axis.title.y = element_text(size = 10),
-#         axis.title.x = element_text(size = 10),
-#         legend.title = element_blank(),
-#         legend.text = element_text(size = 10),
-#         axis.line = element_line(colour = "black"))
-# totalReads.plot
-# ggsave(filename = paste(io$outDir, "totalReads_barplot_orderedBatch.png", sep = "/"), device = "png")
-
 # violin plot of gene counts by sample group
 totalReads.boxplot <- ggplot(
     sumCounts.df,
@@ -282,10 +251,12 @@ if (length(grep("ENSG", rownames(raw))) == 0) {
   mtSub.mat             <- raw[raw$ids %in% ids, ]
   raw$ids               <- NULL
   mtSub.mat$ids         <- NULL
-  sumCounts.df$mtCounts <- colSums(mtSub.mat)
-  sumCounts.df$fracMT   <- sumCounts.df$mtCounts / sumCounts.df$sumCounts
+  # sumCounts.df$mtCounts <- colSums(mtSub.mat)
+  sumCounts.df$fracMT   <- colSums(mtSub.mat) / colSums(raw)
+  # sumCounts.df$fracMT   <- sumCounts.df$mtCounts / sumCounts.df$sumCounts
 }
 annoType
+head(sumCounts.df)
 
 # barplot of mito read fraction by sample
 mtReads.plot <- ggplot(
@@ -405,7 +376,7 @@ geneTable <- geneTable[geneTable$value > 0, ]
 # order biotypes by most --> least expressed
 ordered <- as.data.table(geneTable)[, .N, by = biotype][order(-N)]
 head(ordered)
-#write.csv(ordered, file = paste(dir, "biotypes_ordered.csv", sep = "/"), col.names = TRUE, )
+write.table(ordered, file = paste(io$outDir, "biotype_quantities.csv", sep = "/"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
 
 # filter for the first 6 options for cleaner plotting
 # all other biotypes are labeled as "other"
@@ -452,17 +423,60 @@ biotype.plot <- ggplot(geneTable, aes(x=variable, y=Frac, fill=biotype)) +
 biotype.plot
 ggsave(filename = paste(io$outDir, "biotype_barplot.png", sep = "/"), device = "png")
 
+# compare biotypes fractions between groups
+toplot <- list()
+for (i in unique(geneTable[["contrast"]])) {
+  total <- sum(geneTable[contrast == i, ]$N)
+
+  # loop through each biotype to get the fraction
+  fracs <- c()
+  for (j in unique(geneTable[["biotype"]])){
+    frac <- sum(geneTable[biotype == j & contrast == i, ]$N) / total
+    names(frac) <- j
+    fracs <- append(fracs, frac, length(fracs))
+  }
+  toplot[[i]] <- fracs
+}
+
+# convert to dataframe for melting
+toplot.df <- data.frame(toplot)
+toplot.df$biotype <- rownames(toplot.df)
+toplot.melted <- reshape2::melt(toplot.df)
+if (length(grep("X", toplot.melted[["variable"]]) > 1)) {
+  toplot.melted[["variable"]] <- gsub("X", "", toplot.melted[["variable"]])
+}
+toplot.melted$biotype <- factor(toplot.melted$biotype, levels = c("other", filtBio))
+head(toplot.melted)
+
+ggplot(toplot.melted, aes(x = variable, y = value, fill=biotype)) +
+  geom_bar(stat="identity") +
+  ylab("Fraction of each biotype") +
+  xlab(io$contrast) +
+  scale_fill_brewer(palette = "YlGnBu") +
+  theme(axis.text.x=element_text(angle = 90, size = 8),
+        axis.text.y=element_text(size=10),
+        axis.title.y=element_text(size=10),
+        axis.title.x=element_text(size=10),
+        legend.title=element_blank(),
+        legend.text=element_text(size=6),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"))
+ggsave(filename = paste(io$outDir, "biotype_barplot_byContrast.png", sep = "/"), device = "png")
+
 
 ### Plot gene attributes
 ########################
 # create datatable from read distribution file
 rDist.dt          <- data.table(rDist, keep.rownames = "sampleID")
+rDist.dt <- as.data.table(read.table("/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/tables/read_coverage.txt", header = TRUE, row.names = 1, sep = "\t"), keep.rownames = "sampleID")
+rDist.dt[, sampleID := tstrsplit(sampleID, split = "_", fixed = TRUE)[1]]
+rDist.dt <- rDist.dt[which(sampleID %in% rownames(md)), ]
 rDist.dt$sampleID <- factor(rDist.dt$sampleID, levels = levels(sumCounts.df$SampleID))
 
-# melt for plotting
-rDist.melted <- melt(rDist.dt)
-
 # relevel by exon
+rDist.melted <- reshape2::melt(rDist.dt)
 rDist.melted$variable <- relevel(rDist.melted$variable, ref = "Intergenic")
 #rDist.melted$sampleID <- factor(rDist.melted$sampleID, levels = rDist.melted$sampleID)
 
@@ -486,6 +500,50 @@ mappings.plot <- ggplot(
         axis.line = element_line(colour = "black"))
 mappings.plot
 ggsave(filename = paste(io$outDir, "geneAttributes_barplot.png", sep = "/"), device = "png")
+
+# compare attribute fractions by contrast
+m <- match(rDist.melted$sampleID, md[[io$sampleID]])
+rDist.melted$contrast <- md[[io$contrast]][m]
+
+toplot <- list()
+for (i in unique(rDist.melted[["contrast"]])) {
+  total <- sum(rDist.melted[which(rDist.melted$contrast == i), ]$value)
+
+  # loop through each biotype to get the fraction
+  fracs <- c()
+  for (j in unique(rDist.melted[["variable"]])){
+    frac <- sum(rDist.melted[which(rDist.melted$variable == j & rDist.melted$contrast == i), ]$value)
+    names(frac) <- j
+    fracs <- append(fracs, (frac / total), length(fracs))
+  }
+  toplot[[i]] <- fracs
+}
+
+# convert to dataframe for melting
+toplot.df <- data.frame(toplot)
+toplot.df$attribute <- rownames(toplot.df)
+toplot.melted <- reshape2::melt(toplot.df)
+if (length(grep("X", toplot.melted[["variable"]]) > 1)) {
+  toplot.melted[["variable"]] <- gsub("X", "", toplot.melted[["variable"]])
+}
+
+ggplot(toplot.melted, aes(x = variable, y = value, fill = factor(attribute, levels = c("Intergenic", "Intron", "Exon")))) +
+  geom_bar(position = "fill", stat = "identity") +
+  ylab("Fraction of each gene attribute") +
+  xlab(io$contrast) +
+  scale_fill_brewer( palette = "Purples" ) +
+  theme(axis.text.x = element_text(angle = 90, size = 8),
+        axis.text.y = element_text(size = 10),
+        axis.title.y = element_text(size = 10),
+        axis.title.x = element_text(size = 10),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 6),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(), 
+        axis.line = element_line(colour = "black"))
+ggsave(filename = paste(io$outDir, "geneAttributes_barplot_byContrast.png", sep = "/"), device = "png")
+
 
 
 ### Pairwise sample correlations
@@ -635,6 +693,7 @@ if (type == "pearson" || type == "spearman") {
 if (type == "both") {
   print("Running both Pearson and Spearman correlation tests")
   
+  
   ### Pearson correlation
   #######################
   type <- "pearson"
@@ -691,6 +750,7 @@ if (type == "both") {
   dev.off()
   print("Finished testing with Pearson")
   
+
   ### Spearman correlation
   ########################
   type <- "spearman"

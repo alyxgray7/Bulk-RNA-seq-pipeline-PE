@@ -47,7 +47,7 @@ assembly:
 # Metadata needed for differential expression analysis
 omic_meta_data:
 # tab delimited file
-  data/md_merged_noI9.tsv
+  data/pltRNAseq_metadata_02162022.tsv
   # data/pltRNAseq_metadata_02162022.tsv
 # desired expression threshold for estimating sequencing saturation (in FPKM)
 expression_threshold:
