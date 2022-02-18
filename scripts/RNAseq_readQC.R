@@ -60,6 +60,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
 }
 
 # make plotCols argument R-readable
+# plotCols <- "lane,group,diabetes,sex,age,RIN,TM_class,RINcat"
 plotCols <- c(strsplit(plotCols, split = ",", fixed = TRUE)[[1]])
 
 # check input files in logs/.out file
@@ -81,12 +82,13 @@ io
 # io <- list(
 #   annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata",
 #   metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv",
-#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_rmdp/data/platelet_full-cohort_counts.txt",
-#   readDistFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_12092021/results/tables/read_coverage_edit.txt",
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.txt",
+#   readDistFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/tables/read_coverage.txt",
 #   contrast = "group",
-#   plotCols = c("lane", "group", "sex", "age", "RINcat", "diabetes", "TM_class"),
-#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/readQC_test",
-#   corType = "Spearman",
+#   # plotCols = c("lane", "group", "sex", "age", "RINcat", "diabetes", "TM_class"),
+#   plotCols = plotCols,
+#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/readQC",
+#   corType = "both",
 #   sampleID = "rnaSampleID"
 # )
 # io
@@ -479,7 +481,6 @@ rDist.dt$sampleID <- factor(rDist.dt$sampleID, levels = levels(sumCounts.df$Samp
 # relevel by exon
 rDist.melted <- reshape2::melt(rDist.dt)
 rDist.melted$variable <- relevel(rDist.melted$variable, ref = "Intergenic")
-rDist.melted$sampleID <- factor(rDist.melted$sampleID, levels = rDist.melted$sampleID)
 
 # barplot of gene fractions by sample
 mappings.plot <- ggplot(
