@@ -141,9 +141,9 @@ rule all:
         "data/geneLengths.tsv",
         expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
         expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
-        expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
-        expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
-        expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
+        # expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
+        # expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
+        # expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
         "results/tables/compiled_readGC.tsv",
 
 
