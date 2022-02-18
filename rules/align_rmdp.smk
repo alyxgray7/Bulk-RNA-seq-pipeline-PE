@@ -168,6 +168,17 @@ rule picard:
       REMOVE_DUPLICATES=true")
 
 
+rule index_rmdp:
+    input:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam"
+    output:
+        "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai"
+    conda:
+        "../envs/samtools_env.yaml"
+    shell:
+        """samtools index {input} {output}"""
+
+
 rule sort:
     input:
       "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam"
@@ -180,17 +191,6 @@ rule sort:
       "../envs/omic_qc_wf.yaml"
     shell:
       """samtools sort -O bam -n {input} -o {output}"""
-
-
-rule index_rmdp:
-    input:
-        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam"
-    output:
-        "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
-    conda:
-        "../envs/samtools_env.yaml"
-    shell:
-        """samtools index {input} {output}"""
 
 
 rule genecount:
@@ -285,7 +285,7 @@ rule readQC:
 rule cpm_tracks:
     input:
         bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
-        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai"
     output:
         wig = "samples/bigwig/{sample}_cpm.bw"
     conda:
@@ -297,7 +297,7 @@ rule cpm_tracks:
 rule fwd_tracks:
     input:
         bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
-        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai"
     output:
        wig = "samples/bigwig/{sample}_fwd.bw"
     conda:
@@ -309,7 +309,7 @@ rule fwd_tracks:
 rule rev_tracks:
     input:
         bam = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam",
-        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}_sort.rmd.bam.bai"
+        idx = "samples/genecounts_rmdp/{sample}_bam/{sample}.rmd.bam.bai"
     output:
         wig = "samples/bigwig/{sample}_rev.bw"
     conda:
