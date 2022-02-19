@@ -58,12 +58,12 @@ io
 
 # debug on exa
 # io <- list(
-#   countsFile = "data/platelet_full-cohort_genecounts.filt.txt",
-#   outDir = "results/diffexp",
-#   metaFile = "data/md_merged_noI9.tsv",
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.filt.txt",
+#   outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp",
+#   metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv",
 #   sampleID = "rnaSampleID",
-#   Type = "Group",
-#   contrast = contrast,
+#   Type = "group",
+#   contrast = c("1_Case", "2_InSitu"),
 #   threads = 
 # )
 # io
