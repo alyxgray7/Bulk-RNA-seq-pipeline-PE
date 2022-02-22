@@ -80,8 +80,8 @@ rule deseq2_group:
         --plotCols={params.plotCols} \
         --LRT='{params.LRT}' \
         --pca_labels='{params.pca_labels}' \
-        --colors={params.colors} \
-        --discrete={params.discrete}
+        --colors='{params.colors}' \
+        --discrete='{params.discrete}'
         """
 
 rule deseq2_QC:

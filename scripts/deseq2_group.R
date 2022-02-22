@@ -79,21 +79,21 @@ io
 # cat(sprintf(c('Working directory',getwd(), '\n')))
 # cat(sprintf('Setting parameters', '\n'))
 
-# debug on exa
-io <- list(
-  countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.filt.txt"
-  , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/group"
-  , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
-  , sampleID = "rnaSampleID"
-  , Type = "group"
-  , group = LRT
-  , plot_cols = plotCols
-  , labels = pca_labels
-  , subset_cols = plotCols
-  , colors = NA
-  , discrete = NA
-)
-io
+# # debug on exa
+# io <- list(
+#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.filt.txt"
+#   , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/group"
+#   , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
+#   , sampleID = "rnaSampleID"
+#   , Type = "group"
+#   , group = LRT
+#   , plot_cols = plotCols
+#   , labels = pca_labels
+#   , subset_cols = plotCols
+#   , colors = "NA"
+#   , discrete = "NA"
+# )
+# io
 
 # create outdir if needed
 if(!(file.exists( io$outDir ))) {
