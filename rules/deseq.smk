@@ -51,7 +51,7 @@ rule deseq2_pairwise:
 
 rule deseq2_group:
     input:
-        counts = "data/{project_id}_genecounts.filt.txt".format(project_id = project_id)
+        countsFile = "data/{project_id}_genecounts.filt.txt".format(project_id = project_id)
     output:
         pca="results/diffexp/group/LRT_pca.pdf",
         sd_mean_plot="results/diffexp/group/LRT_sd_mean_plot.pdf",
@@ -60,8 +60,9 @@ rule deseq2_group:
         rds="results/diffexp/group/LRT_all.rds",
         rld_out = "results/diffexp/group/LRT_rlog_dds.rds"
     params:
-        pca_labels=config["pca"]["labels"],
-        samples=config["omic_meta_data"],
+        pca_labels = config["pca"]["labels"],
+        plotCols = format_plot_columns,
+        samples = config["omic_meta_data"],
         sample_id = config["sample_id"],
         linear_model = config["linear_model"],
         LRT = config["diffexp"]["LRT"],
@@ -69,8 +70,19 @@ rule deseq2_group:
         discrete = config['colors']['discrete']
     conda:
         "../envs/deseq2.yaml"
-    script:
-        "../scripts/deseq2_group.R"
+    shell:
+        """Rscript scripts/deseq2_group.R \
+        --countsFile={input.counts} \
+        --outDir=results/diffexp/group \
+        --metaFile={params.samples} \
+        --sampleID={params.sample_id} \
+        --linear_model={params.linear_model} \
+        --plotCols={params.plotCols} \
+        --LRT={params.LRT} \
+        --pca_labels={params.pca_labels} \
+        --colors={params.colors} \
+        --discrete={params.discrete}
+        """
 
 rule deseq2_QC:
     input:

@@ -26,6 +26,10 @@ help <- function() {
   \n")
   cat("--pca_labels       : [ required ] Sample identifiers to label PCA plots by. As specified by config['pca']['labels']
   \n")
+  cat("--colors           : [ required ] Preferred colors for ggplot. As specified by config['colors']['rcolorbrewer']
+  \n")
+  cat("--discrete         : [ required ] Preferred colors for discrete variables. As specified by config['colors']['discrete']
+  \n")
   cat("\n")
   q()
 }
@@ -42,16 +46,18 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   plotCols <- sub('--plotCols=', '', args[grep('--plotCols=', args)])
   LRT <- sub("--LRT=", '', args[grep('--LRT=', args)])
   pca_labels <- sub("--pca_labels=", '', args[grep("--pca_labels=", args)])
+  colors <- sub("--colors=", '', args[grep("--colors=", args)])
+  discrete <- sub("--discrete=", '', args[grep("--discrete=", args)])
 }
 
-# make arguments R-readable
+# # for debugging on exa
 # plotCols <- "lane,group,sex,age,TM_class,RINcat,diabetes"
-plotCols <- c(strsplit(plotCols, split = ",", fixed = TRUE)[[1]])
-
 # LRT <- "1_Case 2_InSitu 3_Control 4_ScreenNegative"
-LRT <- c(strsplit(LRT, split = " ", fixed = TRUE)[[1]])
-
 # pca_labels <- "group sex RINcat diabetes"
+
+# make arguments R-readable
+plotCols <- c(strsplit(plotCols, split = ",", fixed = TRUE)[[1]])
+LRT <- c(strsplit(LRT, split = " ", fixed = TRUE)[[1]])
 pca_labels <- c(strsplit(pca_labels, split = " ", fixed = TRUE)[[1]])
 
 # save std in/out
@@ -64,26 +70,30 @@ io <- list(
   group = LRT,
   plot_cols = plotCols,
   labels = pca_labels,
-  subset_cols = plotCols
+  subset_cols = plotCols,
+  colors = colors,
+  discrete = discrete
 )
 io
 
 # cat(sprintf(c('Working directory',getwd(), '\n')))
 # cat(sprintf('Setting parameters', '\n'))
 
-# # debug on exa
-# io <- list(
-#   countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.filt.txt"
-#   , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/group"
-#   , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
-#   , sampleID = "rnaSampleID"
-#   , Type = "group"
-#   , group = LRT
-#   , plot_cols = plotCols
-#   , labels = pca_labels
-#   , subset_cols = plotCols
-# )
-# io
+# debug on exa
+io <- list(
+  countsFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/platelet_full-cohort_rmdp_genecounts.filt.txt"
+  , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/group"
+  , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
+  , sampleID = "rnaSampleID"
+  , Type = "group"
+  , group = LRT
+  , plot_cols = plotCols
+  , labels = pca_labels
+  , subset_cols = plotCols
+  , colors = NA
+  , discrete = NA
+)
+io
 
 # create outdir if needed
 if(!(file.exists( io$outDir ))) {
@@ -117,13 +127,6 @@ cat(sprintf(c('RDS Output: ', rds_out, '\n')))
 # rld_out <- snakemake@output[['rld_out']]
 rld_out <- paste0(io$outDir, "/", "LRT_rlog_dds.rds")
 cat(sprintf(c('RLD Output: ', rld_out, '\n')))
-
-
-# color palette
-# colors <- snakemake@params[['colors']]
-colors <- "NA"
-# discrete <- snakemake@params[['discrete']]
-discrete <- "NA"
 
 # libraries
 library("DESeq2")
@@ -167,12 +170,12 @@ head(md)
 stopifnot(rownames(md) == colnames(cts))
 
 # define colours based on number of Conditions
-if(colors[[1]] != 'NA' & discrete[[1]] == 'NA') {
-    if (brewer.pal.info[colors[[1]],]$maxcolors >= length(unique(md[[io$Type]]))) {
-        pal <- brewer.pal(length(unique(md[[io$Type]])), name = colors[[1]])
+if(io$colors[[1]] != 'NA' & io$discrete[[1]] == 'NA') {
+    if (brewer.pal.info[io$colors[[1]],]$maxcolors >= length(unique(md[[io$Type]]))) {
+        pal <- brewer.pal(length(unique(md[[io$Type]])), name = io$colors[[1]])
     } 
-} else if(discrete[[1]] != 'NA' & length(discrete) == length(unique(md[[io$Type]]))){
-        pal <- unlist(discrete)
+} else if(io$discrete[[1]] != 'NA' & length(io$discrete) == length(unique(md[[io$Type]]))){
+        pal <- unlist(io$discrete)
 } else {
         pal <- gg_color_hue(length(unique(md[[io$Type]])))
 }
