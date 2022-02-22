@@ -45,7 +45,7 @@ if (assembly == "hg38.90") {
 }
 if (assembly == "hg38.94") {
   organismStr <- "hsapiens"
-  ### to get to hg38 mappings ensembl 90! 
+  ### to get to hg38 mappings ensembl 94! 
   geneID2GO <- get(load("./anno/biomaRt/hg38.Ens_94.biomaRt.GO.external.geneID2GO.RData"))
   xx <- get(load("./anno/biomaRt/GO.db.Term.list.rda"))
 }

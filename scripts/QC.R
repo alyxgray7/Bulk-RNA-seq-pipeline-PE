@@ -12,27 +12,55 @@ library("hexbin")
 
 # output files
 MDS_out <- snakemake@output[['mds_plot']]
+print(MDS_out)
+
 MDS_table <- snakemake@output[['mds_table']]
+print(MDS_table)
+
 heatmap_out <- snakemake@output[['heatmap_plot']]
+print(heatmap_out)
+
 sd_out <- snakemake@output[['sd_plot']]
+print(sd_out)
+
 normCounts_out <- snakemake@output[['rlogCounts_plot']]
+print(normCounts_out)
+
 normCounts_fac <- snakemake@output[['rlogCounts_fac_plot']]
+print(normCounts_fac)
+
 rawCounts_out <- snakemake@output[['counts_plot']]
+print(rawCounts_out)
+
 rawCounts_fac <- snakemake@output[['counts_fac_plot']]
+print(rawCounts_fac)
 
 # parameters
 sampleID <- snakemake@params[['sample_id']]
+print(sampleID)
+
 Type = snakemake@params[['linear_model']]
+print(Type)
+
 plot_cols <- snakemake@config[['meta_columns_to_plot']]
+print(plot_cols)
+
 subset_cols = names(plot_cols)
+print(subset_cols)
 
 # color palette
 colors <- snakemake@params[['colors']]
+print(colors)
+
 discrete <- snakemake@params[['discrete']]
+print(discrete)
 
 # DESeq2 objects
 rld <- snakemake@input[['rld']]
+print(rld)
+
 dds <- snakemake@input[['rds']]
+print(dds)
 
 rld <- readRDS(rld)
 dds <- readRDS(dds)
@@ -44,8 +72,12 @@ gg_color_hue <- function(n) {
 }
 
 rawCounts <- counts(dds, normalized=FALSE)
+dim(rawCounts)
+head(rawCounts)
+
 md <- as.data.frame(colData(rld))
 md$SampleID <- rownames(md)
+head(md)
 
 if(colors[[1]] !='NA' & discrete[[1]] =='NA'){
     if (brewer.pal.info[colors[[1]],]$maxcolors >= length(unique(md[[Type]]))) {
@@ -66,6 +98,8 @@ df1 <- melt(rawCounts) %>%
 iv <- match(df1$SampleID, md$SampleID)
 df1$Condition <- paste(md[iv,][[Type]])
 df1$SampleID <- factor(df1$SampleID, levels=unique(md$SampleID))
+head(df1)
+dim(df1)
 
 # aesthetic for plots
 dodge <- position_dodge(width = 0.6)
@@ -114,6 +148,8 @@ df2 <- melt(assay(rld)) %>%
 iv <- match(df2$SampleID, md$SampleID)
 df2$Condition <- paste(md[iv,][[Type]])
 df2$SampleID <- factor(df2$SampleID, levels=unique(md$SampleID))
+head(df2)
+dim(df2)
 
 p1 <- ggplot(data=df2, mapping=aes(x=SampleID, y=normCounts, fill=Condition)) +
   geom_violin(width=0.7) +
@@ -160,7 +196,10 @@ if (length(subset_cols)==1) {
 } else {
   annot <- md[,subset_cols]
 }
+head(annot)
+dim(annot)
 
+#### ERROR HERE
 hm <- pheatmap(assay(rld), show_rownames=F, clustering_distance_rows = "correlation", 
          clustering_distance_cols = "correlation", clustering_method = "average", 
          annotation_col = annot, scale = "row", 
