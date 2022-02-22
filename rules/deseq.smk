@@ -216,3 +216,28 @@ rule run_glimma_mds:
     script:
         "../scripts/run_glimma_mds.R"
 
+
+rule runEnrichR:
+    input:
+        deg="results/diffexp/pairwise/{contrast}.diffexp.tsv"
+    output:
+        "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.upFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp']),
+        "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.downFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp'])
+    params:
+        metaFile = config['omic_meta_data'],
+        annoFile = config['filter_anno'],
+        sampleID = config['sample_id'],
+        padj = config['adjp'],
+        FC = config['FC']
+    conda:
+        "../envs/runEnrichR.yaml"
+    shell:
+        """Rscript scripts/runEnrichR.R \
+        --degFile={input.deg} \
+        --metaFile={params.metaFile} \
+        --annoFile={params.annoFile} \
+        --outDir=results/diffexp/pairwise/enrichR \
+        --sampleID={params.sampleID} \
+        --padj={params.padj} \
+        --FC={params.FC}
+        """

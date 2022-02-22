@@ -66,7 +66,7 @@ printTree:
   1
 # fold change cutoff (not log2 transformed) for GO analysis and volcano pot
 FC:
-  2
+  1.5
 # FDR adjusted p-value cutoff for GO analysis and volcano plot
 adjp:
   0.05

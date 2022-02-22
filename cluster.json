@@ -349,5 +349,13 @@
         "o" : "logs/compile_gc/%j.out",
         "c" : 1,
         "mem" : 5000
+    },
+    "runEnrichR" :
+    {
+        "J" : "runEnrichR",
+        "e" : "logs/runEnrichR/%j.err",
+        "o" : "logs/runEnrichR/%j.out",
+        "c" : 1,
+        "mem" : 10000
     }
 }

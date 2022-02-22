@@ -150,8 +150,8 @@ for (myList in names(geneList)) {
     for (db in names(enriched)) {
 
         # save results
-        write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
+        write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
         plotEnrich(enriched[[db]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
-        ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, ".pdf"), device = "pdf")
+        ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".pdf"), device = "pdf")
     }
 }
