@@ -72,14 +72,14 @@ rule deseq2_group:
         "../envs/deseq2.yaml"
     shell:
         """Rscript scripts/deseq2_group.R \
-        --countsFile={input.counts} \
+        --countsFile={input.countsFile} \
         --outDir=results/diffexp/group \
         --metaFile={params.samples} \
         --sampleID={params.sample_id} \
         --linear_model={params.linear_model} \
         --plotCols={params.plotCols} \
-        --LRT={params.LRT} \
-        --pca_labels={params.pca_labels} \
+        --LRT='{params.LRT}' \
+        --pca_labels='{params.pca_labels}' \
         --colors={params.colors} \
         --discrete={params.discrete}
         """
