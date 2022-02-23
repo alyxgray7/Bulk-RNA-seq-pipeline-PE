@@ -38,12 +38,12 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   outDir <- sub('--outDir=', '', args[grep('--outDir=', args)])
   sampleID <- sub('--sampleID=', '', args[grep('--sampleID=', args)])
   Type <- sub('--Type=', '', args[grep('--Type=', args)])
-  plot_cols <- sub('--plot_cols=', '', args[grep('--plotc_cols=', args)])
+  plot_cols <- sub('--plot_cols=', '', args[grep('--plot_cols=', args)])
   colors <- sub("--colors=", '', args[grep("--colors=", args)])
   discrete <- sub("--discrete=", '', args[grep("--discrete=", args)])
 }
 
-# plot_cols <- "group diabetes sex age TM_class RINcat"
+# plot_cols <- "group,diabetes,sex,age,TM_class,RINcat"
 plot_cols <- c(strsplit(plot_cols, split = ",", fixed = TRUE)[[1]])
 
 io <- list(

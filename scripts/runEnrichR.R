@@ -45,7 +45,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   degFile <- sub('--degFile=', '', args[grep('--degFile=', args)])
   metaFile <- sub('--metaFile=', '', args[grep('--metaFile=', args)])
   annoFile <- sub('--annoFile=', '', args[grep('--annoFile=', args)])
-  outDir <- sub('--outdir=', '', args[grep('--outdir=', args)])
+  outDir <- sub('--outDir=', '', args[grep('--outDir=', args)])
   sampleID <- sub('--sampleID=', '', args[grep('--sampleID=', args)])
   padj <- sub('--padj=', '', args[grep('--padj=', args)])
   FC <- sub('--FC=', '', args[grep('--FC=', args)])
@@ -63,15 +63,15 @@ io <- list(
 )
 
 # for debugging on exa
-io <- list(
-    degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/1_Case-vs-4_ScreenNegative.diffexp.tsv"
-    , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
-    , annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata"
-    , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/enrichR_test"
-    , sampleID = "rnaSampleID"
-    , padj = 0.05
-    , FC = 1.5
-)
+# io <- list(
+#     degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/1_Case-vs-4_ScreenNegative.diffexp.tsv"
+#     , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
+#     , annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata"
+#     , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/enrichR_test"
+#     , sampleID = "rnaSampleID"
+#     , padj = 0.05
+#     , FC = 1.5
+# )
 
 # get contrast from filename
 contrast <- tail(strsplit(io$degFile, split = "/", fixed = TRUE)[[1]], 1)
