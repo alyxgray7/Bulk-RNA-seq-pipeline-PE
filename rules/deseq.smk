@@ -100,12 +100,22 @@ rule deseq2_QC:
     params:
         sample_id = config["sample_id"],
         linear_model = config["linear_model"],
+        plot_cols = format_plot_columns,
         colors = config['colors']['rcolorbrewer'],
         discrete = config['colors']['discrete']
     conda:
         "../envs/deseq2_QC.yaml"
-    script:
-        "../scripts/QC.R"
+    shell:
+        """Rscript scripts/QC.R \
+        --rld={input.rld} \
+        --rds={input.rds} \
+        --outDir=results/diffexp/group \
+        --sampleID={params.sample_id} \
+        --Type={params.linear_model} \
+        --plot_cols={params.plot_cols} \
+        --colors='{params.colors}' \
+        --discrete='{params.discrete}'
+        """
 
 rule deseq2_qplot:
     input:
