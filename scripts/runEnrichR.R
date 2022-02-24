@@ -63,15 +63,15 @@ io <- list(
 )
 
 # for debugging on exa
-# io <- list(
-#     degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/1_Case-vs-4_ScreenNegative.diffexp.tsv"
-#     , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
-#     , annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata"
-#     , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/enrichR_test"
-#     , sampleID = "rnaSampleID"
-#     , padj = 0.05
-#     , FC = 1.5
-# )
+io <- list(
+    degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/1_Case-vs-3_Control.diffexp.tsv"
+    , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
+    , annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata"
+    , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/enrichR_test"
+    , sampleID = "rnaSampleID"
+    , padj = 0.05
+    , FC = 1.5
+)
 
 # get contrast from filename
 contrast <- tail(strsplit(io$degFile, split = "/", fixed = TRUE)[[1]], 1)
@@ -129,29 +129,75 @@ geneList <- list(
     up = unique(up[["external_gene_name"]])
     , down = unique(down[["external_gene_name"]])
 )
+str(geneList)
 
 
 ### EnrichR
 ###########
-setEnrichrSite("Enrichr")
-
 # grab databases
-dbs2get <- c("KEGG_2021_Human"
-             , "GO_Biological_Process_2021"
-             , "GO_Cellular_Component_2021"
-             , "GO_Molecular_Function_2021")
+dbs2get <- c(
+  "KEGG_2021_Human"
+  , "GO_Biological_Process_2021"
+  , "GO_Cellular_Component_2021"
+  , "GO_Molecular_Function_2021"
+)
 
-# loop through up and down genes
-for (myList in names(geneList)) {
+# no DEGs in list
+if (length(geneList[["up"]]) == 0 & length(geneList[["down"]]) == 0) {
+  print("No genes meet this FC and FDR cutoff")
+
+# only down DEGs in list
+} else if (length(geneList[["up"]]) == 0 & length(geneList[["down"]]) > 0) {
+  print("Run EnrichR for only down genes.")
+  setEnrichrSite("Enrichr")
+  enriched <- enrichr(geneList[["down"]], dbs2get)
+
+  # loop through each database search
+  for (db in names(enriched)) {
+
+    # save results
+    write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".downFC.", io$FC, ".adjp.", io$padj, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
+
+    plotEnrich(enriched[[db]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
+    ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".downFC.", io$FC, ".adjp.", io$padj, ".pdf"), device = "pdf")
+  }
+
+# only up DEGs in list
+} else if (length(geneList[["up"]]) > 0 & length(geneList[["down"]]) == 0) {
+  print("Run EnrichR for only up genes.")
+  setEnrichrSite("Enrichr")
+  enriched <- enrichr(geneList[["up"]], dbs2get)
+
+  # loop through each database search
+  for (db in names(enriched)) {
+
+    # save results
+    write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".upFC.", io$FC, ".adjp.", io$padj, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
+
+    plotEnrich(enriched[[db]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
+    ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".upFC.", io$FC, ".adjp.", io$padj, ".pdf"), device = "pdf")
+  }
+
+# both up and down DEGs in list
+} else {
+  print("Run both up and down genes through EnrichR")
+  setEnrichrSite("Enrichr")
+
+  # loop through up and down genes
+  for (myList in names(geneList)) {
     print(paste0("Running EnrichR for ", myList, " genes"))
     enriched <- enrichr(geneList[[myList]], dbs2get)
 
     # loop through each database search
     for (db in names(enriched)) {
 
-        # save results
-        write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
-        plotEnrich(enriched[[db]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
-        ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".pdf"), device = "pdf")
+      # save results
+      write.table(enriched[[db]], paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".tsv"), col.names = TRUE, row.names = FALSE, sep = "\t", quote = FALSE)
+
+      plotEnrich(enriched[[db]], showTerms = 20, numChar = 40, y = "Count", orderBy = "P.value")
+      ggsave(paste0(io$outDir, "/", io$contrast, "-", db, ".", myList, "FC.", io$FC, ".adjp.", io$padj, ".pdf"), device = "pdf")
     }
+  }
 }
+
+print("Finished!")

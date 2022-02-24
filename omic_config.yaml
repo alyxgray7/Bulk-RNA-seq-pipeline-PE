@@ -116,6 +116,9 @@ diffexp:
     1_Case-vs-2_InSitu:
       - 1_Case
       - 2_InSitu
+    3_Control-vs-4_ScreenNegative:
+      - 3_Control
+      - 4_ScreenNegative
   # This option is specified if you would like to run DESeq2 on a subset of your samples (> pairwise comparison)
   LRT:
     - 1_Case
