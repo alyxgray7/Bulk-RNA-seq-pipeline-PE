@@ -9,7 +9,11 @@ cat(sprintf(c('RDS object: ',rds,'\n')))
 
 
 out_path = file.path(getwd(),'results','diffexp')
-dir.create(out_path)
+if(!(file.exists( out_path ))) {
+  print(paste("mkdir:", out_path))
+  dir.create(out_path, FALSE, TRUE)  
+}
+# dir.create(out_path)
 
 rds = readRDS(rds)
 groups.df = as.data.frame(colData(rds))

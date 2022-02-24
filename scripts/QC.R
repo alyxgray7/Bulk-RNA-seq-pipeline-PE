@@ -43,7 +43,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   discrete <- sub("--discrete=", '', args[grep("--discrete=", args)])
 }
 
-# plot_cols <- "group,diabetes,sex,age,TM_class,RINcat"
+# plot_cols <- "group,diabetes,sex,age,TM_class,RINcat,risk"
 plot_cols <- c(strsplit(plot_cols, split = ",", fixed = TRUE)[[1]])
 
 io <- list(
@@ -57,20 +57,21 @@ io <- list(
   , colors = colors
   , discrete = discrete
 )
-
-# debugging on exa
-io <- list(
-  rld = "results/diffexp/group/LRT_rlog_dds.rds"
-  , rds = "results/diffexp/group/LRT_all.rds"
-  , outDir = "results/diffexp/group_test"
-  , sampleID = "rnaSampleID"
-  , Type = "group"
-  , plot_cols = c(plot_cols)
-  , subset_cols = c(plot_cols)
-  , colors = "NA"
-  , discrete = "NA"
-)
 io
+
+# # debugging on exa
+# io <- list(
+#   rld = "results/diffexp/group/LRT_rlog_dds.rds"
+#   , rds = "results/diffexp/group/LRT_all.rds"
+#   , outDir = "results/diffexp/group_test"
+#   , sampleID = "rnaSampleID"
+#   , Type = "risk"
+#   , plot_cols = c(plot_cols)
+#   , subset_cols = c(plot_cols)
+#   , colors = "NA"
+#   , discrete = "NA"
+# )
+# io
 
 # libraries
 library("DESeq2")
@@ -159,7 +160,7 @@ if(io$colors[[1]] != 'NA' & io$discrete[[1]] == 'NA'){
     if (brewer.pal.info[io$colors[[1]],]$maxcolors >= length(unique(md[[io$Type]]))) {
         pal <- brewer.pal(length(unique(md[[io$Type]])), name=io$colors[[1]])
     } 
-} else if(io$discrete[[1]] != 'NA' & length(io$discrete)==length(unique(md[[io$Type]]))){
+} else if (io$discrete[[1]] != 'NA' & length(io$discrete)==length(unique(md[[io$Type]]))){
         pal <- unlist(io$discrete)
 } else {
         pal <- gg_color_hue(length(unique(md[[io$Type]])))
