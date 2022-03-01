@@ -229,10 +229,11 @@ rule run_glimma_mds:
 
 rule runEnrichR:
     input:
-        deg="results/diffexp/pairwise/{contrast}.diffexp.tsv"
+        deg="results/diffexp/pairwise/{contrast}.qvalue_diffexp.tsv"
     output:
-        "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.upFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp']),
-        "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.downFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp'])
+        # "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.upFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp']),
+        # "results/diffexp/pairwise/enrichR/{{contrast}}-KEGG_2021_Human.downFC.{FC}.adjp.{adjp}.pdf".format(FC = config["FC"], adjp = config['adjp'])
+        touch("results/diffexp/pairwise/enrichR/{contrast}.done")
     params:
         metaFile = config['omic_meta_data'],
         annoFile = config['filter_anno'],

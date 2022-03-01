@@ -64,18 +64,18 @@ io <- list(
 
 # for debugging on exa
 # io <- list(
-#     degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/1_Case-vs-3_Control.diffexp.tsv"
+#     degFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/low-vs-healthy.qvalue_diffexp.tsv"
 #     , metaFile = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/data/pltRNAseq_metadata_02162022.tsv"
 #     , annoFile = "/home/groups/CEDAR/anno/biomaRt/hg38.Ens_94.biomaRt.geneAnno.Rdata"
 #     , outDir = "/home/groups/CEDAR/grayaly/projects/platelet/plt-rnaseq/full-cohort/Bulk-RNA-seq-pipeline-PE_02162022/results/diffexp/pairwise/enrichR_test"
 #     , sampleID = "rnaSampleID"
 #     , padj = 0.05
-#     , FC = 1.5
+#     , FC = 1
 # )
 
 # get contrast from filename
 contrast <- tail(strsplit(io$degFile, split = "/", fixed = TRUE)[[1]], 1)
-io$contrast <- gsub(".diffexp.tsv", "", contrast)
+io$contrast <- gsub(".qvalue_diffexp.tsv", "", contrast)
 io
 
 # create outdir as needed
@@ -121,9 +121,11 @@ if (length(grep("ENSG", rownames(deg))) == 0) {
 head(deg)
 
 # get list of up and down DEGs
-up <- which(deg$padj < io$padj & deg$log2FoldChange >= log2(io$FC))
+# up <- which(deg$padj < io$padj & deg$log2FoldChange >= log2(io$FC))
+up <- which(deg$lfdr < io$padj & deg$log2FoldChange >= log2(io$FC))
 up <- deg[up,]
-down <- which(deg$padj < io$padj & deg$log2FoldChange <= -log2(io$FC))
+# down <- which(deg$padj < io$padj & deg$log2FoldChange <= -log2(io$FC))
+down <- which(deg$lfdr < io$padj & deg$log2FoldChange <= -log2(io$FC))
 down <- deg[down,]
 geneList <- list(
     up = unique(up[["external_gene_name"]])
