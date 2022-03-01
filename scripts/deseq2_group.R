@@ -419,7 +419,7 @@ if (length(group) > 0) {
   }
 
   # clustered heatmap
-  pdf(sub("$", "_subsetted_heatmap.pdf", paste0(io$outDir)), 5, 5)
+  pdf(sub("$", "/subsetted_heatmap.pdf", paste0(io$outDir)), 5, 5)
   pheatmap(assay(rld)[topGenes,], cluster_rows=T, scale="row", fontsize=6,fontsize_row=6,fontsize_col=6, show_rownames=T, cluster_cols=T, annotation_col=annot, labels_col=as.character(rownames(df)), main = paste("Heatmap of top 50 DE genes across selected samples"))
   dev.off()
 }

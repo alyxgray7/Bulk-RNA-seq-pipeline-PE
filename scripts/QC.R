@@ -60,6 +60,8 @@ io <- list(
 io
 
 # # debugging on exa
+# plot_cols <- "group,diabetes,sex,age,TM_class,RINcat,risk"
+# plot_cols <- c(strsplit(plot_cols, split = ",", fixed = TRUE)[[1]])
 # io <- list(
 #   rld = "results/diffexp/group/LRT_rlog_dds.rds"
 #   , rds = "results/diffexp/group/LRT_all.rds"
@@ -304,7 +306,8 @@ save_pheatmap_pdf(hm, heatmap_out)
 p <- plotMDS(assay(rld), top = 1000)
 # df <- data.frame(x=p$x, y=p$y, name=names(p$x))
 # df <- data.frame(x = p$x, y = p$y, name=attr(p[[5]], "dimnames")[[1]])
-df <- data.frame(x = p$x, y = p$y, name = dimnames(p[[5]])[[1]])
+# df <- data.frame(x = p$x, y = p$y, name = dimnames(p[[5]])[[1]])
+df <- data.frame(x = p$x, y = p$y, name = rownames(md))
 iv <- match(df$name, md$SampleID)
 df$Condition <- paste(md[iv,][[io$Type]])
 

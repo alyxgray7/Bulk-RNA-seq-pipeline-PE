@@ -47,7 +47,7 @@ assembly:
 # Metadata needed for differential expression analysis
 omic_meta_data:
 # tab delimited file
-  data/pltRNAseq_metadataSub_02242022.tsv
+  data/pltRNAseq_metadata_02282022.tsv
 # desired expression threshold for estimating sequencing saturation (in FPKM)
 expression_threshold:
   1
@@ -66,7 +66,7 @@ printTree:
   1
 # fold change cutoff (not log2 transformed) for GO analysis and volcano pot
 FC:
-  2
+  1
 # FDR adjusted p-value cutoff for GO analysis and volcano plot
 adjp:
   0.05
@@ -90,7 +90,6 @@ meta_columns_to_plot:
   sex: sex
   age: age
   TM_class: TM_class
-  RINcat: RINcat
   risk: risk
 pca:
   labels:
@@ -98,7 +97,6 @@ pca:
     - group
     - diabetes
     - sex
-    - RINcat
     - risk
 # Contrasts which you would like to run differential expression on.
 # For example if you want to look at wild type (wt) vs. mutant (mut), you would specify mut-vs-wt
@@ -109,10 +107,17 @@ diffexp:
     high-vs-low:
       - high
       - low
+    high-vs-healthy:
+      - high
+      - healthy
+    low-vs-healthy:
+      - low
+      - healthy
   # This option is specified if you would like to run DESeq2 on a subset of your samples (> pairwise comparison)
   LRT:
     - high
     - low
+    - healthy
 # Correlation test type to use for plotting sample-sample correlations.
 # Options are Pearson, Spearman, or both.
 correlation_test:

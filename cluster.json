@@ -200,7 +200,7 @@
         "e" : "logs/geneBody_coverage/{wildcards.sample}_%j.err",
         "o" : "logs/geneBody_coverage/{wildcards.sample}_%j.out",
         "c" : 1,
-        "mem":5000
+        "mem": 5000
     },
     "deseq2_init" :
     {
@@ -276,7 +276,7 @@
         "e" : "logs/run_glimma/run_glimma_%j.err",
         "o" : "logs/run_glimma/run_glimma_%j.out",
         "c" : 1,
-        "mem" : 1000
+        "mem" : 5000
     },
     "run_glimma_mds" :
     {
@@ -284,7 +284,7 @@
         "e" : "logs/run_glimma_mds/run_glimma_mds_%j.err",
         "o" : "logs/run_glimma_mds/run_glimma_mds_%j.out",
         "c" : 1,
-        "mem" : 1000
+        "mem" : 5000
     },
     "convertFQ2FA" :
     {
