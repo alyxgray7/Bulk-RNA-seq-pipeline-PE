@@ -70,6 +70,9 @@ FC:
 # FDR adjusted p-value cutoff for GO analysis and volcano plot
 adjp:
   0.05
+# column name in metadata file for making a covariate model in DESeq2
+covariate:
+  sex
 seq_layout:
   PE
 # The column name of the characteristic you would like to do DE on

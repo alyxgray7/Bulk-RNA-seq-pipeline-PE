@@ -210,11 +210,27 @@
         "c" : 8,
         "mem" : 80000
     },
+    "deseq2_init_cov" :
+    {
+        "J" : "deseq2_init_cov",
+        "e" : "logs/deseq2_init_cov/deseq2_init_cov_%j.err",
+        "o" : "logs/deseq2_init_cov/deseq2_init_cov_%j.out",
+        "c" : 8,
+        "mem" : 80000
+    },
     "deseq2_pairwise" :
     {
         "J" : "deseq2_pairwise",
         "e" : "logs/deseq2_pairwise/deseq2_pairwise_%j.err",
         "o" : "logs/deseq2_pairwise/deseq2_pairwise_%j.out",
+        "c" : 8,
+        "mem":80000
+    },
+    "deseq2_pairwise_cov" :
+    {
+        "J" : "deseq2_pairwise_cov",
+        "e" : "logs/deseq2_pairwise_cov/deseq2_pairwise_cov_%j.err",
+        "o" : "logs/deseq2_pairwise_cov/deseq2_pairwise_cov_%j.out",
         "c" : 8,
         "mem":80000
     },
@@ -225,11 +241,25 @@
         "o" : "logs/deseq2_group/deseq2_group_%j.out",
         "mem" : 30000
     },
+    "deseq2_group_cov" :
+    {
+        "J" : "deseq2_group_cov",
+        "e" : "logs/deseq2_group_cov/deseq2_group_cov_%j.err",
+        "o" : "logs/deseq2_group_cov/deseq2_group_cov_%j.out",
+        "mem" : 30000
+    },
     "deseq2_QC" :
     {
         "J" : "deseq2_QC",
         "e" : "logs/deseq2_QC/deseq2_QC_%j.err",
         "o" : "logs/deseq2_QC/deseq2_QC_%j.out",
+        "mem" : 30000
+    },
+    "deseq2_QC_cov" :
+    {
+        "J" : "deseq2_QC_cov",
+        "e" : "logs/deseq2_QC_cov/deseq2_QC_cov_%j.err",
+        "o" : "logs/deseq2_QC_cov/deseq2_QC_cov_%j.out",
         "mem" : 30000
     },
     "deseq2_qplot" :
@@ -239,11 +269,25 @@
         "o" : "logs/deseq2_qplot/deseq2_qplot_%j.out",
         "mem" : 30000
     },
+    "deseq2_qplot_cov" :
+    {
+        "J" : "deseq2_qplot_cov",
+        "e" : "logs/deseq2_qplot_cov/deseq2_qplot_cov_%j.err",
+        "o" : "logs/deseq2_qplot_cov/deseq2_qplot_cov_%j.out",
+        "mem" : 30000
+    },
     "deseq2_density" :
     {
         "J" : "deseq2_density",
         "e" : "logs/deseq2_density/deseq2_density_%j.err",
         "o" : "logs/deseq2_density/deseq2_density_%j.out",
+        "mem" : 30000
+    },
+    "deseq2_density_cov" :
+    {
+        "J" : "deseq2_density_cov",
+        "e" : "logs/deseq2_density_cov/deseq2_density_cov_%j.err",
+        "o" : "logs/deseq2_density_cov/deseq2_density_cov_%j.out",
         "mem" : 30000
     },
     "GO" :
@@ -278,6 +322,14 @@
         "c" : 1,
         "mem" : 5000
     },
+    "run_glimma_cov" :
+    {
+        "J" : "run_glimma_cov",
+        "e" : "logs/run_glimma_cov/run_glimma_cov_%j.err",
+        "o" : "logs/run_glimma_cov/run_glimma_cov_%j.out",
+        "c" : 1,
+        "mem" : 5000
+    },
     "run_glimma_mds" :
     {
         "J" : "run_glimma_mds",
@@ -286,21 +338,29 @@
         "c" : 1,
         "mem" : 5000
     },
+    "run_glimma_mds_cov" :
+    {
+        "J" : "run_glimma_mds_cov",
+        "e" : "logs/run_glimma_mds_cov/run_glimma_mds_cov_%j.err",
+        "o" : "logs/run_glimma_mds_cov/run_glimma_mds_cov_%j.out",
+        "c" : 1,
+        "mem" : 5000
+    },
     "convertFQ2FA" :
     {
-	"J" : "convertFQ2FA",
-	"e" : "logs/convertFQ2FA/{wildcards.sample}_%j.err",
-	"o" : "logs/convertFQ2FA/{wildcards.sample}_%j.out",
-	"c" : 1,
-	"mem" : 5000
+        "J" : "convertFQ2FA",
+        "e" : "logs/convertFQ2FA/{wildcards.sample}_%j.err",
+        "o" : "logs/convertFQ2FA/{wildcards.sample}_%j.out",
+        "c" : 1,
+        "mem" : 5000
     },
     "countUniqUnmappedSeqs" :
     {
-	"J" : "countUniqUnmappedSeqs",
-	"e" : "logs/countUniqUnmappedSeqs/{wildcards.sample}_%j.err",
-	"o" : "logs/countUniqUnmappedSeqs/{wildcards.sample}_%j.out",
-	"c" : 1,
-	"mem" : 50000
+        "J" : "countUniqUnmappedSeqs",
+        "e" : "logs/countUniqUnmappedSeqs/{wildcards.sample}_%j.err",
+        "o" : "logs/countUniqUnmappedSeqs/{wildcards.sample}_%j.out",
+        "c" : 1,
+        "mem" : 50000
     },
     "cpm_tracks" :
     {
@@ -355,6 +415,14 @@
         "J" : "runEnrichR",
         "e" : "logs/runEnrichR/%j.err",
         "o" : "logs/runEnrichR/%j.out",
+        "c" : 1,
+        "mem" : 10000
+    },
+    "runEnrichR_cov" :
+    {
+        "J" : "runEnrichR_cov",
+        "e" : "logs/runEnrichR_cov/%j.err",
+        "o" : "logs/runEnrichR_cov/%j.out",
         "c" : 1,
         "mem" : 10000
     }

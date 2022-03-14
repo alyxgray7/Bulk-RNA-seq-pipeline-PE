@@ -66,10 +66,13 @@ printTree:
   1
 # fold change cutoff (not log2 transformed) for GO analysis and volcano pot
 FC:
-  1.5
+  1
 # FDR adjusted p-value cutoff for GO analysis and volcano plot
 adjp:
   0.05
+# column in metadata file specifying a covariate for the DESeq2 model
+covariate:
+  sex
 seq_layout:
   PE
 # The column name of the characteristic you would like to do DE on
@@ -104,27 +107,43 @@ pca:
 diffexp:
   # contrasts to generate group files and perform comparisons
   contrasts:
-    # 1_Case-vs-5_Healthy:
-    #   - 1_Case
-    #   - 5_Healthy
-    # 1_Case-vs-4_ScreenNegative:
-    #   - 1_Case
-    #   - 4_ScreenNegative
-    # 1_Case-vs-3_Control:
-    #   - 1_Case
-    #   - 3_Control
-    # 1_Case-vs-2_InSitu:
-    #   - 1_Case
-    #   - 2_InSitu
+    1_Case-vs-5_Healthy:
+      - 1_Case
+      - 5_Healthy
+    1_Case-vs-4_ScreenNegative:
+      - 1_Case
+      - 4_ScreenNegative
+    1_Case-vs-3_Control:
+      - 1_Case
+      - 3_Control
+    1_Case-vs-2_InSitu:
+      - 1_Case
+      - 2_InSitu
+    2_InSitu-vs-3_Control:
+      - 2_InSitu
+      - 3_Control
+    2_InSitu-vs-4_ScreenNegative:
+      - 2_InSitu
+      - 4_ScreenNegative
+    2_InSitu-vs-5_Healthy:
+      - 2_InSitu
+      - 5_Healthy
     3_Control-vs-4_ScreenNegative:
       - 3_Control
       - 4_ScreenNegative
+    3_Control-vs-5_Healthy:
+      - 3_Control
+      - 5_Healthy
+    4_ScreenNegative-vs-5_Healthy:
+      - 4_ScreenNegative
+      - 5_Healthy
   # This option is specified if you would like to run DESeq2 on a subset of your samples (> pairwise comparison)
   LRT:
-    # - 1_Case
-    # - 2_InSitu
-    # - 3_Control
-    # - 4_ScreenNegative
+    - 1_Case
+    - 2_InSitu
+    - 3_Control
+    - 4_ScreenNegative
+    - 5_Healthy
 # Correlation test type to use for plotting sample-sample correlations.
 # Options are Pearson, Spearman, or both.
 correlation_test:

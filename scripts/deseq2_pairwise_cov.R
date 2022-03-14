@@ -47,7 +47,7 @@ dds <- readRDS(rds)
 cat(sprintf('Load rlog DESeqTransform object'))
 rld <- readRDS(rld)
 
-Dir <- "results/diffexp/pairwise/"
+Dir <- "results/diffexp/covariate/pairwise/"
 
 plot_cols <- snakemake@config[['meta_columns_to_plot']]
 subset_cols = names(plot_cols)
@@ -98,6 +98,7 @@ res <- lfcShrink(dds, contrast=contrast, res=res)
 
 # extract normalized counts to calculate values for MA plot
 norm_counts <- counts(dds, normalized=TRUE)
+write.table(norm_counts, paste0(Dir, "/normalized_counts.", contrast[2], "vs", contrast[3], ".tsv"), col.names = TRUE, row.names = TRUE, sep = "\t", quote = FALSE)
 
 ## select up regulated genes
 forPlot <- as.data.frame(res)

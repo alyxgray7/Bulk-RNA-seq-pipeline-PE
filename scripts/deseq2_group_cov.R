@@ -30,6 +30,7 @@ help <- function() {
   \n")
   cat("--discrete         : [ required ] Preferred colors for discrete variables. As specified by config['colors']['discrete']
   \n")
+  cat("--covariate        : [ required ] Column in metadata file that specifies the covariate to include in DESeq2 model.")
   cat("\n")
   q()
 }
@@ -48,6 +49,7 @@ if(!is.na(charmatch("--help", args)) || !is.na(charmatch("-h", args))){
   pca_labels <- sub("--pca_labels=", '', args[grep("--pca_labels=", args)])
   colors <- sub("--colors=", '', args[grep("--colors=", args)])
   discrete <- sub("--discrete=", '', args[grep("--discrete=", args)])
+  covariate <- sub('--covariate=', '', args[grep("--covariate=", args)])
 }
 
 # # for debugging on exa
@@ -72,7 +74,8 @@ io <- list(
   labels = pca_labels,
   subset_cols = plotCols,
   colors = colors,
-  discrete = discrete
+  discrete = discrete,
+  covariate = covariate
 )
 io
 
@@ -92,6 +95,7 @@ io
 #   , subset_cols = plotCols
 #   , colors = "NA"
 #   , discrete = "NA"
+#   , covariate = "sex"
 # )
 # io
 
@@ -193,10 +197,13 @@ if(io$colors[[1]] != 'NA' & io$discrete[[1]] == 'NA') {
 ### Run LRT on all
 ##################
 # create dds object from counts data and correct columns
-print(as.formula(paste('~', io$Type)))
+covariate_model <- as.formula(paste0('~', io$covariate, "+", io$Type))
+# print(as.formula(paste('~', io$Type)))
+print(covariate_model)
 dds <- DESeqDataSetFromMatrix(countData = cts,
                               colData = md,
-                              design = as.formula(paste('~', io$Type)))
+                            #   design = as.formula(paste('~', io$Type))
+                              design = covariate_model)
 
 # remove uninformative columns
 dds <- dds[ rowSums(counts(dds)) >= 1, ]
@@ -204,7 +211,9 @@ dim(dds)
 
 # run likelihood ratio test
 # looks at differential expression across ALL types, and not just pairs of types (contrast)
-dds.lrt <- DESeq(dds, test = "LRT", reduced=~1)
+reduce_cov <- as.formula(paste('~', io$covariate))
+# dds.lrt <- DESeq(dds, test = "LRT", reduced=~1)
+dds.lrt <- DESeq(dds, test = "LRT", reduced = reduce_cov)
 res.lrt <- results(dds.lrt, cooksCutoff = Inf, independentFiltering = FALSE)
 head(res.lrt)
 
@@ -334,15 +343,19 @@ if (length(group) > 0) {
   dim(md)
 
   # create deseq2 object
+  covariate_model <- as.formula(paste0("~", io$covariate, "+", io$Type))
   dds <- DESeqDataSetFromMatrix(countData = cts,
                               colData = md,
-                              design = as.formula(paste('~', io$Type)))
+                              design = covariate_model)
+                            #   design = as.formula(paste('~', io$Type)))
   
   # remove uninformative rows
   dds <- dds[ rowSums(counts(dds)) >= 1, ]
   
   # run LRT
-  dds.lrt <- DESeq(dds, test = "LRT", reduced=~1)
+  cov_reduced <- as.formula(paste0("~", io$covariate))
+  dds.lrt <- DESeq(dds, test = "LRT", reduced = cov_reduced)
+#   dds.lrt <- DESeq(dds, test = "LRT", reduced=~1)
   res.lrt <- results(dds.lrt, cooksCutoff = Inf, independentFiltering=FALSE)
   
   # save LRT on subsetted samples

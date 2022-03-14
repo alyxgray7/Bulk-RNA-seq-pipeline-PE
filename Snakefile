@@ -14,8 +14,8 @@ import json
 
 timestamp = ('{:%Y-%m-%d_%H:%M:%S}'.format(datetime.datetime.now()))
 
-# configfile:"omic_config.yaml"
-configfile:"omic_config_byRisk.yaml"
+configfile:"omic_config.yaml"
+# configfile:"omic_config_byRisk.yaml"
 project_id = config["project_id"]
 
 ### RunALL
@@ -110,31 +110,42 @@ rule all:
         # expand("rseqc/geneBody_coverage/{sample}/{sample}.geneBodyCoverage.curves.pdf", sample = SAMPLES),
         # expand("results/readQC/{plot}.png", plot = readQC_plotNames),
         expand("results/diffexp/pairwise/{contrast}_all.rds", contrast = config["diffexp"]["contrasts"]),
+        expand("results/diffexp/covariate/pairwise/{contrast}_cov_all.rds", contrast = config["diffexp"]["contrasts"]),
         expand("results/diffexp/pairwise/{contrast}_rlog_dds.rds", contrast = config["diffexp"]["contrasts"]),
+        expand("results/diffexp/covariate/pairwise/{contrast}_cov_rlog_dds.rds", contrast = config["diffexp"]["contrasts"]),
         expand("results/diffexp/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
+        expand("results/diffexp/covariate/pairwise/{contrast}.pca_plot.pdf", contrast = config["diffexp"]["contrasts"]),
         "results/diffexp/group/LRT_pca.pdf",
+        "results/diffexp/covariate/group/LRT_pca.pdf",
         "results/diffexp/group/MDS_table.txt",
+        "results/diffexp/covariate/group/MDS_table.txt",
         "results/diffexp/group/LRT_density_plot.pdf",
+        "results/diffexp/covariate/group/LRT_density_plot.pdf",
         expand(["results/diffexp/pairwise/{contrast}.qplot.pdf","results/diffexp/pairwise/{contrast}.qhist.pdf","results/diffexp/pairwise/{contrast}.qvalue_diffexp.tsv"], contrast=config["diffexp"]["contrasts"]),
-        expand(["results/diffexp/pairwise/GOterms/{contrast}.diffexp.downFC.{FC}.adjp.{adjp}_BP_GO.txt", "results/diffexp/pairwise/GOterms/{contrast}.diffexp.upFC.{FC}.adjp.{adjp}_BP_GO.txt"], contrast = config["diffexp"]["contrasts"], FC=config['FC'], adjp=config['adjp']),
-        expand("results/diffexp/pairwise/{contrast}.diffexp.{adjp}.VolcanoPlot.pdf", contrast = config["diffexp"]["contrasts"], adjp = config['adjp']),
-        expand("results/diffexp/pairwise/permutationTest/Histogram.{contrast}.Permutation.Test.pdf", contrast = config["diffexp"]["contrasts"]),
+        expand(["results/diffexp/covariate/pairwise/{contrast}.qplot.pdf", "results/diffexp/covariate/pairwise/{contrast}.qhist.pdf", "results/diffexp/covariate/pairwise/{contrast}.qvalue_diffexp.tsv"], contrast = config["diffexp"]["contrasts"]),
+        # expand(["results/diffexp/pairwise/GOterms/{contrast}.diffexp.downFC.{FC}.adjp.{adjp}_BP_GO.txt", "results/diffexp/pairwise/GOterms/{contrast}.diffexp.upFC.{FC}.adjp.{adjp}_BP_GO.txt"], contrast = config["diffexp"]["contrasts"], FC=config['FC'], adjp=config['adjp']),
+        # expand("results/diffexp/pairwise/{contrast}.diffexp.{adjp}.VolcanoPlot.pdf", contrast = config["diffexp"]["contrasts"], adjp = config['adjp']),
+        # expand("results/diffexp/pairwise/permutationTest/Histogram.{contrast}.Permutation.Test.pdf", contrast = config["diffexp"]["contrasts"]),
         expand(["results/diffexp/glimma-plots/{contrast}.ma_plot.html", "results/diffexp/glimma-plots/{contrast}.volcano_plot.html"],contrast = config["diffexp"]["contrasts"]),
+        expand(["results/diffexp/covariate/glimma-plots/{contrast}.ma_plot.html", "results/diffexp/covariate/glimma-plots/{contrast}.volcano_plot.html"], contrast = config["diffexp"]["contrasts"]),
         # "results/diffexp/glimma-plots/{project_id}.mds_plot.html".format(project_id=project_id),
-        # expand(["results/diffexp/pairwise/enrichR/{contrast}-KEGG_2021_Human.upFC.{FC}.adjp.{adjp}.pdf", "results/diffexp/pairwise/enrichR/{contrast}-KEGG_2021_Human.downFC.{FC}.adjp.{adjp}.pdf"], contrast=config["diffexp"]["contrasts"], FC = config['FC'], adjp = config['adjp']),
+        "results/diffexp/covariate/glimma-plots/{project_id}.mds_plot.html".format(project_id = project_id),
+        # # expand(["results/diffexp/pairwise/enrichR/{contrast}-KEGG_2021_Human.upFC.{FC}.adjp.{adjp}.pdf", "results/diffexp/pairwise/enrichR/{contrast}-KEGG_2021_Human.downFC.{FC}.adjp.{adjp}.pdf"], contrast=config["diffexp"]["contrasts"], FC = config['FC'], adjp = config['adjp']),
         expand("results/diffexp/pairwise/enrichR/{contrast}.done", contrast=config["diffexp"]["contrasts"]),
-        # expand("samples/star/{sample}_bam/{sample}_unmapped.fa", sample = SAMPLES),
-        # expand("data/unmappedSeqs/{sample}_overRepseqCount.txt", sample = SAMPLES),
-        "data/geneLengths.tsv",
-        # expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
-        # expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
-        # expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
-        # expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
-        # expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
-        "results/tables/compiled_readGC.tsv",
+        expand("results/diffexp/covariate/pairwise/enrichR/{contrast}.done", contrast = config["diffexp"]["contrasts"]),
+        # # expand("samples/star/{sample}_bam/{sample}_unmapped.fa", sample = SAMPLES),
+        # # expand("data/unmappedSeqs/{sample}_overRepseqCount.txt", sample = SAMPLES),
+        # "data/geneLengths.tsv",
+        # # expand("results/estSaturation/{plot}.png", plot = estSat_plotNames),
+        # # expand("results/estSaturation/{table}.tsv", table = estSat_tableNames),
+        # # expand("samples/bigwig/{sample}_cpm.bw", sample = SAMPLES),
+        # # expand("samples/bigwig/{sample}_fwd.bw", sample = SAMPLES),
+        # # expand("samples/bigwig/{sample}_rev.bw", sample = SAMPLES),
+        # "results/tables/compiled_readGC.tsv",
 
 
 include: "rules/align_rmdp.smk"
 include: "rules/omic_qc.smk"
 include: "rules/deseq.smk"
+include: "rules/deseq_cov.smk"
 # include: "rules/unmapped.smk"
